@@ -1,0 +1,6 @@
+<view class="item flex">
+  <label>{{title}}</label>
+  <view class="inp" bindtap="_getEvent" data-id="{{type}}">{{typeInn}}</view>
+  <text class="iconfont icon-arrowdownbold"></text>
+  <!-- <image src="/pages/images/arrow.gif"></image> -->
+</view>

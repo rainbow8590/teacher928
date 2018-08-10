@@ -1,0 +1,302 @@
+/*@import "../../utils/public.wxss";*/
+/*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: #fff;
+}*/
+page {
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.tipShow {
+  display: block;
+}
+
+.tipHide {
+  display: none;
+}
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+
+.table{
+  width: 100%;
+  font-size: 30rpx;
+  overflow-y: scroll;
+}
+
+.table .title{
+  line-height: 30rpx;
+  margin: 30rpx 0;
+  font-size: 30rpx;
+  padding-left: 10px;
+  margin-left: 20px;
+  border-left: 2px solid #1fba21;
+}
+.score{
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  border: 1px solid #dbdbdb;
+  border-bottom: none;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 60rpx;
+}
+.score-title{
+  border-bottom: 1px solid #dbdbdb;
+}
+.score-title text{
+  width: 33%;
+  border-right: 1px solid #dbdbdb;
+}
+.score-title text.nobd{
+  border-right: none;
+}
+.tip{
+  padding-bottom: 20rpx;
+  padding-left: 54rpx;
+  padding-right: 54rpx;
+  color: #ff9595;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+.textarea{
+  width: 650rpx;
+  margin: 0 auto;
+  padding: 10rpx;
+  color: #666;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 90px;
+  font-size: 24rpx;
+  line-height: 16px;
+  box-sizing: border-box;
+  word-wrap:break-word;
+  /*word-break:break-all;*/
+  white-space:wrap;
+}
+
+.submit{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  /*border-top: 1px solid #dbdbdb;*/
+}
+.submit .submit-con{
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 50px;
+  align-items: center;
+}
+.submit .submit-con button{
+  width: 33.33%;
+  height: 100%;
+  line-height: 50px;
+  background: #1fba21;
+  color: #fff;
+  font-size: 26rpx;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 0;
+}
+
+.submit .submit-con .cen{
+  border-left: 2px solid #06a115;
+  border-right: 2px solid #06a115;
+}
+
+
+.yes{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+}
+.yes .yes-wrap{
+  width: 570rpx;
+  height: 500rpx;
+  border-radius: 10rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -285rpx;
+  margin-top: -250rpx;
+  color: #32343d;
+}
+
+.yes .yes-wrap1{
+  height: 320rpx;
+  margin-top: -160rpx;
+  overflow: hidden;
+}
+
+.yes .yes-wrap .content{
+  line-height: 230rpx;
+  text-align: center;
+  font-size: 26rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.yes .yes-wrap .inner {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-height: 160rpx;
+  line-height: 40rpx;
+  font-size: 26rpx;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.yes .yes-wrap .btn {
+  width: 100%;
+  font-size: 26rpx;
+}
+
+.yes .yes-wrap .btn button{
+  border: none;
+  background: #fff;
+  width: 50%;
+  text-align: center;
+  line-height: 80rpx;
+}
+.yes .yes-wrap .btn button.sure{
+  color:#1fba21; 
+}
+.yes .yes-wrap .btn button.off{
+  color:#ff4545; 
+}
+.yes .yes-wrap1 .btn-sure button{
+  width: 100%;
+}
+button {
+  position:static;
+  font-size:26rpx;
+  overflow:hidden;
+  /*margin-left: 0;*/
+}
+button[disabled] {
+  color:#666 !important;
+  background: #ccc!important;
+}
+
+
+button::after {
+  content:none;
+}
+.yes1 {
+  height: 450rpx;
+  bottom: 0;
+  top: auto;
+}
+.yes1 .btns{
+  width: 570rpx;
+  height: 450rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -285rpx;
+  margin-top: -170rpx;
+  color: #32343d;
+}
+.yes1 .btns button{
+  width: 480rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin: 0 auto;
+  margin-bottom: 60rpx;
+}
+
+
+
+.area{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+}
+.area .area-wrap{
+  width: 650rpx;
+  height: 700rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  box-sizing: border-box;
+  margin-left: -325rpx;
+  margin-top: -350rpx;
+  color: #32343d;
+}
+.area .tip{
+  padding-left: 0;
+  padding-right: 0;
+}
+.area .title{
+  padding-bottom: 10px;
+  font-size: 34rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.area .close{
+  font-size: 40rpx;
+  padding-left: 0;
+  padding-right: 0;
+}
+.area button{
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background: #1fba21;
+  color: #fff;
+}
+.area .count{
+  font-size: 24rpx;
+  padding-bottom: 20rpx ;
+}
+.area .count text{
+  color: red;
+}
+textarea{
+  width: 588rpx;
+  height: 300rpx;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border: 1px solid #dbdbdb;
+  font-size: 26rpx;
+  /*height: 100%;*/
+/*  position: absolute;*/
+/*  left: 10rpx;
+  top: 10rpx;*/
+  line-height: 16px;
+  padding:10rpx;
+}

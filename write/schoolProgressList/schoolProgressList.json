@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "进度录入",
+  "disableScroll":true,
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "select":"/components/Select/select",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

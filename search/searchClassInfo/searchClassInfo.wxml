@@ -1,0 +1,124 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap" >
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semesterInn}}" bind:getEvent="getSemester"></select>
+    </view> 
+    <!-- 查询结果 -->
+    <view class='noTable' wx:if="{{!classInfo.length}}" style="height:{{heigh+theadH}}px;line-height:{{heigh+theadH-60}}px ">本季度没有班级</view>
+    <!-- 查询结果 -->
+    <view class='table' wx:if="{{classInfo.length}}" bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' style="height:{{heigh+theadH}}px">
+      <!--表格标题 -->
+      <view class='thead flex' style="height:40px;line-height:40px;">
+        <view class="thead-left" style="width:{{sNameW}}px;border-bottom:1px solid #1fba21;border-top:1px solid #1fba21;">
+          <view>班级</view>
+        </view>
+        <view class="thead-right" >  
+          <view class="rightWrap" style="width:{{contentW}}px;left:{{scrollL}}px;">
+          <view class="scrollItem flex" style="height:40px;border-bottom:1px solid #1fba21;border-top:1px solid #1fba21;">
+            <view class="sNum">人数</view>
+            <view class="sNum">退班</view>
+            <view class="sTime">上课日期</view>
+            <view class="sAddress" style="line-height: 40px; ">上课教室</view>
+            <view class="sNum1">每讲详情</view>
+            <view class="sNum1">后续升班</view>
+            </view>
+            
+          </view>
+        </view>
+      </view>
+       
+      <!--表格内容 -->
+      <view class='thead tbody' style="height:{{heigh}}px;">
+        <view class="twrap flex">
+          <view class="thead-left" style="width:{{sNameW}}px" >
+            <view style="height:{{contentH}}px;" >
+              <view class="leftItem flex" wx:for="{{classInfo}}" wx:key="index" style="border-bottom:{{index == classInfo.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};margin-bottom:{{index == classInfo.length-1 ? '10px':'0'}}">
+
+                <view style="width:100%; text-align:center;">
+                  <view>{{item.sClassCode}} {{item.times}} </view>
+                  <view class="cName">{{item.sClassName}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="thead-right" >  
+            <view class="rightWrap" style="width:{{contentW}}px;height:{{contentH}}px;left:{{scrollL}}px;">
+              <view class="scrollItem flex" wx:for="{{classInfo}}" wx:key="index" style="border-bottom:{{index == classInfo.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};margin-bottom:{{index == classInfo.length-1 ? '10px':'0'}}">
+                <view class="sNum">
+                  <view bindtap="{{item.nCurrentCount == 0?'':'goAttendant'}}" style="line-height:60px;" data-ids="{{index}}">  
+                    <view class="num1" style="text-decoration: {{item.nCurrentCount== 0?'none':'underline'}};color:{{item.nCurrentCount== 0?'#333':'blue'}}">已报:{{item.nCurrentCount}}</view>
+                    <view class="num2">预留:{{item.nPreReg}}</view>
+                  </view>
+                </view>
+                <view class="sNum">
+                <view bindtap="{{item.nTBCountAfter == 0?'':'goQuit'}}" data-num="{{item.nTBCountAfter}}" style="line-height:60px;" data-ids="{{index}}">
+                  <view class="num1" style="text-decoration: {{item.nTBCountAfter== 0?'none':'underline'}};color:{{item.nTBCountAfter== 0?'#333':'blue'}}">课后:{{item.nTBCountAfter}}</view>
+                  <view class="num2">课前:{{item.nTBCountBefore}}</view>
+                </view>
+                </view>
+                <view class="sTime" style="line-height:{{item.sTime.length<13?40:20}}px">{{item.sTime}}</view>
+                <view class="sAddress" data-ids="{{index}}">
+                  <view wx:if="{{!item.sRoomName}}">{{item.sAddress}}</view>
+                  <view>{{item.sRoomName}}</view>
+                </view>
+                <view class="sNum1 sNum2" bindtap="goDetail" data-ids="{{index}}">点击查看</view>
+                <view class="sNum1 sNum2" data-ids="{{index}}" catchtap="showShengbanDetail">点击查看</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+    </view>
+
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+<!-- 升班弹窗 -->
+  <view class="upFloat" wx:if="{{showUp && isAjaxOver1}}" data-id="float" bindtap="closeShengbanFloat">
+    <view class="floatWrap">
+      <view class="noShengban" wx:if="{{showNoN}}">无</view>
+      <view class="fItem" wx:for="{{shengbanArr}}" wx:key="index">
+        <view class="fItemTop flex" style="line-height:{{item.sPrintTeachers.length>5 ||item.sClassName.length>12?40:54}}rpx;">
+          <view class="sCode">{{item.sClassCode}}</view>
+          <view class="sName">{{item.sClassName}}</view>
+          <view class="sTeacher">{{item.sPrintTeachers}}</view>
+        </view>
+        <view class="fItemBottom flex" >
+          <view class="sTime" style="line-height:{{item.sPrintTime.length>22 ||item.sAreaName.length>12 ?36:54}}rpx;">{{item.sPrintTime}}</view>
+          <view class="sSchool" style="line-height:{{item.sAreaName.length>11 ? 36:54}}rpx;">{{item.sAreaName}} </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+  <!-- 导航 -->
+<!--   <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+  
+
+</view>

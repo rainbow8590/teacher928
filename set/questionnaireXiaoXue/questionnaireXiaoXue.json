@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "调查问卷",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup"
+  }
+}

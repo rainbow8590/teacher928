@@ -1,0 +1,87 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+  <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="yearType" typeInn="{{yearTypeInn}}" bind:getEvent="getYearType"></select>
+      <select type="stage" typeInn="{{stageInn}}" bind:getEvent="getStage"></select>
+    </view> 
+    <view class="tab" style="height:{{heigh}}px">
+      <view wx:if="{{!classesInfo.length}}" style="text-align:center;font-size: 60rpx;line-height: 300rpx;color:#888;">未查询到数据</view>
+      <block wx:for="{{classesInfo}}">
+        <view class="payItem">
+          <view class="payTop">
+            <view class="title">
+              <view>{{item.sClassCode}} {{item.sClassQiShu}}{{item.sTime}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="tabs">
+              <view class="tabItem flex">
+                <view class="row">班级人数</view>
+                <view class="row">升班人数</view>
+                <view class="row">升班率</view>
+              </view>
+              <view class="tabItem tabItem1 flex">
+                <view class="row">{{item.nCurrentCount}}</view>
+                <view class="row">{{item.nSbNum}}</view>
+                <view class="row nobd">{{item.lbl}}</view>
+              </view>
+            </view>
+            <view class="noSb" wx:if="{{!item.showSB}}">
+              <view class="flex" style="flex-wrap: wrap;"> 
+                <block wx:for="{{item.sbNames}}" wx:for-item="sbname" wx:for-index="ind">
+                  <view class="sbName">
+                    <view bindtap="showDetail" data-bubble="bubble" data-id="{{index}}" data-ind="{{ind}}" class="{{sbname.sNewStudent.length?'green':''}}">{{sbname.sStudentName}}</view>
+                    <view class="detail {{sbname.currentItem == ind ?'tipShow':'tipHide'}} " >{{sbname.sQiTaXueKe}}<image src="/../pages/images/arrow-down1.png"></image></view>
+                  </view>
+                </block>
+              </view>
+              <view class="tip">备注：绿色代表新生，（未）表示还未退押金</view>
+            </view>
+          </view>
+          <view class="show" wx:if="{{item.showSB}}" bindtap="showSb" data-id="{{index}}">展开未升班学员名单<text class="iconfont icon-arrowdown"></text></view> 
+          <view class="show" wx:if="{{!item.showSB}}" bindtap="hideSb"  data-id="{{index}}">隐藏<text class="iconfont icon-arrowup"></text></view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+<!-- 年月浮窗 -->
+  <view class="float" wx:if="{{show && isAjaxOver}}"  data-id="float" bindtap="closeFloat">
+    <view class="floatWrap flex">
+      <view class="year">
+        <view style="padding-top:0 ;"><image src="/../pages/images/nianyue.png"></image></view>
+        <block wx:for="{{yearArr}}" wx:key="index">
+          <view style="color:{{cur_year == item?'#1FBB1C':'#888'}}" bindtap="changeBgColor1" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </view>
+      <view class="month flex">
+        <block wx:for="{{monthArr}}" wx:key="index">
+          <view style="margin-top:0 ; background:{{cur_month-1 == index?'#1FBB1C':'#fff'}};color:{{cur_month-1 == index?'#fff':'#888'}}" bindtap="changeBgColor" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show1}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+</view>

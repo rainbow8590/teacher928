@@ -1,0 +1,9 @@
+<view class="float" wx:if="{{ show && isAjaxOver }}" data-id="float" bindtap="_cancelEvent">
+  <view class="floatWrap">
+    <view class="arrows arrowT"><text class="iconfont icon-arrowup"></text></view>
+    <view class="floatC">
+      <view class="floatC-item" wx:for="{{arr}}" wx:key="index" data-index="{{index}}" data-id="{{item.id}}" data-ind="{{item.ind}}" data-grade="{{item.grade}}" catchtap="_confirmEvent">{{item.value}}</view>
+    </view>
+    <view class="arrows arrowB"><text class="iconfont icon-arrowdown"></text></view>
+  </view>
+</view>

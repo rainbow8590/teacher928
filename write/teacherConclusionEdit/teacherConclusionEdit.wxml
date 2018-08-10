@@ -1,0 +1,50 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+      <text class="tip" wx:if="{{noRemark>0}}">{{noRemark}}人未录入</text>
+    </view>
+    <form >
+      <view class="thead flex">
+        <view class="sNumber">序号</view>
+        <view class="sName">姓名</view>
+        <view class="sSchool">状态</view>
+      </view>
+      <view class="tbody" style="height:{{resultH}}px">
+        <view class="tbody-row flex" wx:for="{{studentsList}}" wx:key="index">
+<!--           <input type="hidden" class="hidInp" name="datas[{{index}}][sClassCode]" value="{{item.sClassCode}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][nLessonNo]" value="{{item.nLessonNum}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][sCardCode]" value="{{item.sCardCode}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][sStudentCode]" value="{{item.sStudentCode}}"/>
+          <input type="hidden" class="hidInp" name="datas[{{index}}][ScoreType]" value="{{item.ScoreType}}" /> -->
+          <view class="sNumber">{{index+1}}</view>
+          <view class="sName">{{item.sStudentName}}</view>
+          <view class="sSchool" bindtap="goSubmit" data-index="{{index}}" style="color:{{item.Remark==null?'#666':'#1fba21'}}">{{item.Remark==null? '未录入':'已录入'}}</view>
+        </view>
+      </view>
+    </form>
+  </view> 
+
+  
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+<tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

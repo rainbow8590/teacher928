@@ -1,0 +1,67 @@
+@import "../../wxParse/wxParse.wxss";
+@import "../../utils/public.wxss";
+
+.wxParse-p{
+  padding: 5px 0;
+}
+
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+.wrap .teacherInfo{
+  width: 100%;
+  height: 55px;
+  padding: 0 30rpx 0 48rpx;
+
+  justify-content: space-between;
+  align-items: center;
+  font-size: 34rpx;
+  color:#666;
+  box-sizing: border-box;
+}
+.wrap .teacherInfo text{
+  font-size: 46rpx;
+  color: #1FB923;
+}
+.wrap .teacherInfo image{
+  width: 49rpx;
+  height: 28rpx;
+  padding: 20rpx 0 20rpx 20rpx;
+}
+.wrap .notice{
+  width: 100%;
+  padding:30px 20px;
+  box-sizing: border-box;
+  font-size: 24rpx;
+
+}
+
+.wrap .notice .niticeTitle{
+  width: 100%;
+  padding:0 30px;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}

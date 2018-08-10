@@ -1,0 +1,29 @@
+  <view class="zoom" wx:if="{{zoomShow}}"></view>
+  <view class="mainMenu drawer_attr_box" wx:if="{{showModalStatus}}" catchtap="_closeMenuEvent" data-id="closeNav">
+    <view class="menu {{isopen=='open'?'animate2':''}} {{isopen=='close'?'animate1':''}}" data-id="menu">
+        <view class="userinfo flex">
+            <view class="Avatar">
+                <!-- <image src="/pages/images/noface.png" mode='widthFix'></image> -->
+                <text class="iconfont icon-headportrait"></text>
+            </view>
+            <view class="name">{{teacherName}}</view>
+        </view>
+        <view>
+            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/write/entranceDoor/entranceDoor'>录入进门考</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/scorePic/scorePic'>生成成绩单</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/taskCard/taskCard'>生成任务卡</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/cardIndex/cardIndex'>转发群打卡</navigator></view>
+            <view class="con" wx:if="{{identity==100 || identity==101 || identity==104}}"><navigator open-type="reLaunch" url='/task/daikeAuditing/daikeAuditing'>代课审核</navigator></view>
+            <view class="con" wx:if="{{identity==100 || identity==102 || identity==105}}"><navigator open-type="reLaunch" url='/write/prepareLesson/prepareLesson'>备课评分</navigator></view>
+        </view>
+        <!-- <view wx:if="{{identity==100}}">
+            <view class="con" wx:if="{{identity==100}}">
+                <navigator open-type="reLaunch" url='/task/daikeAuditing/daikeAuditing'>代课审核</navigator>
+            </view>
+            <view class="con" wx:if="{{identity==100}}">
+                <navigator open-type="reLaunch" url='/task/daikeAuditing/daikeAuditing'>备课评分</navigator>
+            </view>
+        </view> -->
+        <view class="quit tac"><button class="btn" bindtap="unlogin" hover-class="hoverLogin">退出登录</button></view>
+    </view>
+  </view>

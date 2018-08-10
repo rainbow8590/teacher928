@@ -1,0 +1,10 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "京东卡活动",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

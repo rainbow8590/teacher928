@@ -1,0 +1,142 @@
+@import "../../utils/public.wxss";
+page {
+  height: 100%;
+}
+.container {
+  padding: 0;
+  color: #32343d;
+}
+
+.flex {
+  display: flex;
+}
+
+.hoverLogin {
+  background: #009502 !important;
+}
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+.wrap {
+  display: block;
+  width: 100%;
+}
+.wrap .dates{
+  height: 120px;
+  padding-top: 28rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.wrap .dates .date{
+  margin-left: 42rpx;
+  width: 100rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 27rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.wrap .dates .date .dot{
+  background: #f84141;
+  width:12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  position: absolute;
+  right: 4rpx;
+  top: 6rpx;
+}
+.wrap .dates .date.now{
+  background: #daf3da;
+  border-radius: 10rpx;
+}
+.wrap .dates .download{
+  background: #1fba21;
+  font-size: 26rpx;
+  color: #fff;
+  width: 125rpx;
+  height: 48rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 48rpx;
+  margin-left: 570rpx;
+}
+.items{
+  padding: 22rpx 28rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  text-align: center;
+  background: #fff;
+  overflow-y: scroll; 
+}
+.items .noStudent{
+  font-size: 60rpx;
+  line-height: 200rpx;
+  color: #999;
+}
+.items .item{
+  justify-content: space-between;
+  line-height: 46rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.items .item .phone{
+  color: #f3914c;
+}
+.items .item .name-phone{
+  width: 200rpx;
+  justify-content:center;
+  flex-direction: column;
+}
+.items .item .class-info{
+  flex: 1;
+  justify-content:center;
+  flex-direction: column;
+}
+.items .item .ticket-info{
+  width: 180rpx;
+}
+.items .item .ticket-info .btn{
+  width: 160rpx;
+  height: 46rpx;
+  line-height: 42rpx;
+  border-radius: 43rpx;
+  border: 1px solid #50b2cd;
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-bottom: 15rpx;
+  color: #50b2cd;
+  font-size: 26rpx;
+  padding: 0;
+
+}
+.items .item .ticket-info .btn1{
+  background: #50b2cd;
+  color: #fff;
+}
+.items .item .ticket-info .btn3{
+  background: #f3914c;
+  border-color: #f3914c;
+}
+.items .item .ticket-info .activeClass{
+  background: #068baf;
+}
+.items .item .ticket-info .btn2{
+  margin-bottom: 0;
+}
+.items .item .ticket-num {
+  color: #ff6161;
+}
+
+

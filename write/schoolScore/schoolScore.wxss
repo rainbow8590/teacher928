@@ -1,0 +1,207 @@
+@import "../../utils/public.wxss";
+
+page {
+  height: 100%;
+}
+
+.container {
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+
+.hoverLogin {
+  background: #009502 !important;
+}
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.wrap .choise {
+  height: 42px;
+  padding: 16rpx;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #1fba21;
+  background: #fff;
+}
+
+/*.wrap .choise .choiseItem {
+  position: relative;
+  padding-left: 20rpx;
+  padding-right: 50rpx;
+  margin-right: 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: #eee;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.wrap .choise .choiseItem image {
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  margin-top: -8rpx;
+  width: 25rpx;
+  height: 18rpx;
+}*/
+
+.wrap form {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.wrap form .thead {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #1fba21;
+  font-size: 26rpx;
+  color: #666;
+  margin: 0 20rpx;
+}
+
+.wrap form .thead .sName {
+  width: 170rpx;
+  padding-left: 14rpx;
+  padding-right: 34rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.wrap form .thead .sSchool {
+  flex: 1;
+  padding: 0 20rpx;
+  text-align: center;
+}
+
+.wrap form .thead .sExperimental {
+  width: 210rpx;
+  text-align: center;
+}
+
+.wrap form .tbody {
+  padding: 0 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.wrap form .tbody .tbody-row {
+  height: 1.4rem;
+  line-height: 1.4rem;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.wrap form .tbody .tbody-row .hidInp {
+  width: 0;
+  height: 0;
+}
+
+.wrap form .tbody .tbody-row .sName {
+  width: 170rpx;
+  padding-left: 14rpx;
+  padding-right: 34rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.wrap form .tbody .tbody-row .sSchool {
+  flex: 1;
+  text-align: center;
+  height: 1.4rem;
+  border-radius: .7rem;
+  background: #F2F2F2;
+  white-space: nowrap;
+  padding: 0 20rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wrap form .tbody .tbody-row .sSchool view {
+  width: 100%;
+  height: 100%;
+}
+
+.wrap form .tbody .tbody-row .sSchool text {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.wrap form .tbody .tbody-row .sExperimental {
+  position: relative;
+  width: 210rpx;
+  margin-left: 10px;
+  text-align: center;
+  height: 1.4rem;
+  border-radius: 20rpx;
+  background: #F2F2F2;
+  white-space: nowrap;
+  padding: 0 20rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wrap form .tbody .tbody-row .sExperimental view {
+  width: 100%;
+  height: 100%;
+}
+
+/*期中期末*/
+.wrap .scoreF .thead .sNumber {
+  width: 100rpx;
+  text-align: center;
+}
+
+.wrap .scoreF .thead .sSchool {
+  flex: 1;
+  text-align: center;
+}
+
+.wrap .scoreF .thead .sExperimental {
+  margin: 0 42rpx;
+  width: 130rpx;
+  text-align: center;
+}
+
+.wrap .scoreF .tbody .tbody-row .sNumber {
+  width: 100rpx;
+  text-align: center;
+}
+
+.wrap .scoreF .tbody .tbody-row .sExperimental {
+  text-align: center;
+}
+
+.btn {
+  padding-top: 15px;
+  background: #fafafa;
+}
+
+.btn .loginBtn {
+  width: 80%;
+  height: 45px;
+  background: #1fba21;
+  color: #fff;
+  margin:0 auto;
+  font-size:36rpx;
+}
+

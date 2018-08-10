@@ -1,0 +1,7 @@
+<!-- 打电话或复制 -->
+  <view class="yes yes1" wx:if="{{show3}}"  data-id="float" bindtap="closeFloat">
+      <view class="btns">
+        <button bindtap="callPhone">拨打电话</button>
+        <button bindtap="copy">复制到剪贴板</button>
+      </view>
+  </view>

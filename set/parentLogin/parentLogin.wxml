@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 密码登陆 -->
+  <view class="wrap" wx:if="{{show}}">
+    <form bindsubmit="login">
+      <view class="item">
+        <label class="userIcon"><text class="iconfont icon-user"></text></label>
+        <input type="text" name="username" value="{{studentPhone}}" placeholder="注册手机号" bindinput="phoneChange" />
+      </view>
+      <view class="item item1">
+        <label class="userIcon"><text class="iconfont icon-pass"></text></label>
+        <input type="text" password name="password" value="{{studentPassword}}" placeholder="学员密码" bindinput="passwordChange" />
+      </view>
+      <view class="logins"><text hover-class="navigator-hover" bindtap="goMessage">短信验证码登录</text></view>
+      <view class="btn">
+        <button formType="submit" class="loginBtn">登录</button>
+      </view>
+    </form>
+    <view class="forget"> 
+    </view> 
+  </view>
+  <!-- 短信验证码登陆 -->
+  <view class="wrap" wx:if="{{!show}}">
+    <form bindsubmit="login1">
+      <view class="item">
+        <input type="text" name="username" value="{{studentPhone}}" placeholder="注册手机号" bindinput="phoneChange" />
+      </view>
+      <view class="item item1 flex">
+        <input type="text" name="password"  value="{{shortMessage}}" placeholder="短信验证码" bindinput="shortMessageChange" />
+        <button bindtap="getCode" >{{text}}</button>
+      </view>
+      <view class="logins"><text hover-class="navigator-hover" bindtap="goPass">密码登录</text></view>
+      <view class="btn">
+        <button formType="submit" class="loginBtn">登陆</button>
+      </view>
+    </form>
+
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "求代课",
+  "usingComponents":{
+    "tab":"/components/Tab/tab"
+  }
+}

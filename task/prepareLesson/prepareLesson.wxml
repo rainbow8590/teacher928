@@ -1,0 +1,54 @@
+<view class="container" style="height:{{contentH}}px">
+  
+  <view class="select">
+    <picker bindchange="bindPickerChangeArea" value="{{areaindex}}" range="{{area}}">
+      <view class="picker">{{area[areaindex]}}<text class="iconfont icon-arrowdown"></text></view>
+      
+    </picker>
+    <picker bindchange="bindPickerChangeSchool" value="{{schoolindex}}" range="{{schools[areaindex]}}" range-key="AreaName" class="picker1">
+      <view class="picker">{{schools[areaindex][schoolindex].AreaName}}<text class="iconfont icon-arrowdown"></text></view>
+
+    </picker>
+  </view>
+  <view class="tip">每周最多可预约4节课，已预约 {{weekNum}} 节课</view>
+  <view class="content" style="height:{{contentH-80-50}}px">
+    <scroll-view class="tabBodyItem" style="height:{{contentH-80-50}}px;" scroll-y  scroll-top="{{scrollTop}}" bindscroll="getScrollTop" lower-threshold="50" bindscrolltolower="scrolltolower">
+      <radio-group bindchange="checkChange">
+        <label class="lesson flex" wx:for="{{areaClass}}">
+          <radio value="{{index}}" checked="{{item.check}}" />
+          <view class="lessons">
+            <view class="lessonName flex">
+              <image src="../../pages/images/class.png"></image>
+              <text>{{item.ClassName}}</text>
+            </view>
+            <view class="lessonInfo">
+              <view class="address flex">
+                <view>{{item.SemesterName}}</view>
+                <view>{{item.AreaName}}</view>
+              </view>
+              <view class="lessonTime flex">
+                <text class="iconfont icon-rili-strock"></text>
+                <text>{{item.dtDate}}</text> 
+                <text class="iconfont icon-clock-strock"></text>
+                <text>{{item.sTime}}</text>
+              </view>
+            </view>
+          </view>
+        </label>
+      </radio-group>
+      <view wx:if="{{showEnd}}" class="endpage">已经最后一页了</view>
+    </scroll-view>
+  </view>
+   <view class="dialog-mask" wx:if="{{showDialog}}">
+    <view class="dialog">
+      <view class="dialog-title"></view>
+      <view class="dialog-text">确认预约该课程</view>
+      <view class="dialog-btns">
+        <button bindtap="giveup">取消</button>
+        <button bindtap="preLessons">预约</button>
+      </view>
+    </view>
+  </view>
+  <button class="upload" type="primary" disabled="{{!checkLessons}}" bindtap="showModal">预约</button>
+  
+</view>

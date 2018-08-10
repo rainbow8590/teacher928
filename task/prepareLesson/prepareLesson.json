@@ -1,0 +1,11 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "预约听课",
+  "usingComponents":{
+    "menu":"/components/Menu/menu",
+    "tab":"/components/Tab/tab",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu",
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "select":"/components/Select/select"
+  }
+}

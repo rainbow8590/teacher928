@@ -1,0 +1,80 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap" bindtap="hidePhone">
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+    </view> 
+    <!-- 查询结果 -->
+    <view class='table' bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' style="height:{{heigh+theadH}}px">
+      <!--表格标题 -->
+      <view class='thead flex' style="height:40px;line-height: 40px;">
+        <view class="thead-left" style="width:{{sNameW}}px;border-bottom:1px solid #1fba21;border-top:1px solid #1fba21;">
+          <view>姓名</view>
+        </view>
+        <view class="thead-right" >  
+          <view class="rightWrap" style="width:{{contentW}}px;left:{{scrollL}}px;">
+            <view class="scrollItem flex" style="height:40px;border-bottom:1px solid #1fba21;border-top:1px solid #1fba21;">
+              <view class="sNum3">退班原因</view>
+              <view class="sNum2">入班日期/方式</view>
+              <view class="sNum2" >退班日期</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--表格内容 -->
+      <view class='thead tbody' style="height:{{heigh}}px;">
+        <view class="twrap flex" style="top:{{}}px; ">
+          <view class="thead-left" style="width:{{sNameW}}px" >
+            <view style="height:{{contentH}}px;">
+                <view class="leftItem" wx:for="{{quitArr}}" wx:key="index" bindtap="getPhone" data-phone="{{item.sPhone}}" data-bubble="bubble" data-idx="{{index}}" style="background:{{index%2==0? '#f1f1f1':'#fff'}}; border-bottom:{{index == quitArr.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};margin-bottom:{{index == quitArr.length-1 ? '10px':'0'}}">
+                  <view style="line-height: 20px;">{{item.sStudentName}}</view>
+                  <view style="line-height: 20px;">{{item.sPhone}}</view>
+                </view>
+            </view>
+          </view>
+          <view class="thead-right" >  
+            <view class="rightWrap" style="width:{{contentW}}px;height:{{contentH}}px;left:{{scrollL}}px;">
+              <view class="scrollItem flex" wx:for="{{quitArr}}" wx:key="index" style="background:{{index%2==0? '#f1f1f1':'#fff'}};border-bottom:{{index == quitArr.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};margin-bottom:{{index == quitArr.length-1 ? '10px':'0'}}">
+                <view class="sNum3" style="padding-top:{{item.sOutMemo.length>20? 10:20}}px; line-height: 20px;" bindtap="{{item.sOutMemo.length > 20 ? 'showDetail':''}}" data-idx="{{index}}">{{item.sOutMemoData}}<text wx:if="{{item.sOutMemo.length > 20}}">[查看详情]</text></view>
+                <view class="sNum2">{{item.sInTime}}/{{item.type}}</view>
+                <view class="sNum2">{{item.sOutTime}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 退班详情 弹窗 -->
+  <view class="float float1" wx:if="{{showDetail}}" data-id="float" bindtap="closeDetail">
+    <view class="floatWrap">
+      <text class="iconfont icon-horn"></text>
+      <!-- <image src="/../pages/images/laba.png"></image> -->
+      <view>{{sOutMemo}}</view>
+    </view>
+  </view>
+
+ <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+
+  <include src="../../utils/xml/phone.wxml"/>
+  <!-- 导航 -->
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+</view>

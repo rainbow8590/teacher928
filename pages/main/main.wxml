@@ -1,0 +1,195 @@
+<view class="main">
+      <!-- <text class="iconfont icon-rili-strock"></text>
+      <text class="iconfont icon-clock-strock"></text>
+      <text class="iconfont icon-clock-strock1"></text>
+      <text class="iconfont icon-warm-strock"></text>
+      <text class="iconfont icon-delete-fill"></text> -->
+      <view class="items" style="height:{{resultH}}px">
+        <view class="itemsWrap" style="height:{{resultH}}px;">
+          <view class="wrap" wx:if="{{showArr[0]}}">
+              <view class="itemWrap flex" style="padding-top:{{smallTop}}">
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="公立校信息" 
+                my-class="my-class"
+                classname="{{schoolSrc}}"
+                bind:goPage="goSchool">
+                </navigate-item>
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="高思进门考" 
+                classname="{{scoreSrc}}"
+                bind:goPage="goScore">
+                </navigate-item>
+                <navigate-item 
+                showdot="true" 
+                num="{{noSchoolProgress}}" 
+                txt="公立校进度" 
+                classname="{{progerssSrc}}"
+                bind:goPage="goSchoolProgress">
+                </navigate-item>
+                <navigate-item 
+                showdot="true" 
+                num="{{noSchoolProgress}}" 
+                txt="高思出门考" 
+                classname="{{scoreSrc}}"
+                bind:goPage="goOutScore">
+                </navigate-item>
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="课堂点名" 
+                classname="{{callSrc}}"
+                wx:if="{{showCall}}"
+                bind:goPage="goCall">
+                </navigate-item>  
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="备课评分" 
+                wx:if="{{identity!=101 && identity!=104 && identity>=100}}"
+                classname="{{perparelessonSrc}}"
+                bind:goPage="goPrepareLessons" >
+                </navigate-item> 
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="课后作业评分" 
+                classname="{{perparelessonSrc}}"
+                wx:if="{{isShowAfterClassTask}}"
+                bind:goPage="goAfterClassTask" >
+                </navigate-item>
+                <navigate-item 
+                showdot="false" 
+                num="0" 
+                txt="老师寄语" 
+                classname="{{perparelessonSrc}}"
+                wx:if="{{isShowTeacherConclusion}}"
+                bind:goPage="goTeacherConclusion" >
+                </navigate-item>
+             </view> 
+          </view>
+          <view class="wrap" wx:if="{{showArr[1]}}">
+            <view class="itemWrap flex" style="padding-top:{{smallTop}}">
+              <navigate-item 
+              txt="我的班级" 
+              classname="{{classSrc}}"
+              bind:goPage="goMyClass">
+              </navigate-item>
+              <navigate-item 
+              txt="我的学员" 
+              classname="{{studentsSrc}}"
+              bind:goPage="goStudentInfos">
+              </navigate-item>
+           
+              <navigate-item 
+              txt="校历课表" 
+              classname="{{scheduleSrc}}"
+              bind:goPage="goSchedule">
+              </navigate-item>
+              <navigate-item 
+              txt="通知公告" 
+              classname="{{noticeSrc}}"
+              bind:goPage="goNotice">
+              </navigate-item>
+           
+              <navigate-item 
+              txt="课酬绩效" 
+              classname="{{taskSrc}}"
+              bind:goPage="goPay">
+              </navigate-item>
+              <navigate-item 
+              txt="代课记录" 
+              classname="{{daikeSrc}}"
+              bind:goPage="goReplaceRecord">
+              </navigate-item>
+            </view>
+          </view>
+          <view class="wrap" wx:if="{{showArr[2]}}">
+            <view class="itemWrap flex" style="padding-top:{{smallTop}}">
+              <navigate-item 
+              showdot="true" 
+              num="{{noAuditing}}" 
+              txt="退班审核" 
+              classname="{{auditingSrc}}"
+              bind:goPage="goAuditing">
+              </navigate-item>
+              <navigate-item 
+              txt="代课审核" 
+              classname="{{taskingIconSrc}}"
+              wx:if="{{identity!= 102 && identity!=105 && identity >= 100}}"
+              bind:goPage="goDaikeShenhe" >
+              </navigate-item>
+              <navigate-item 
+              wx:if="{{isShowTrainModule}}"
+              txt="实习任务" 
+              classname="{{auditingSrc}}"
+              bind:goPage="goPracticeTask">
+              </navigate-item>
+            </view>
+          </view>
+          <view class="wrap" wx:if="{{showArr[3]}}">
+            <view class="itemWrap flex"  style="padding-top:{{smallTop}}">
+              <navigate-item 
+              txt="成绩单" 
+              classname="{{scorePicSrc}}"
+              bind:goPage="scorePic">
+              </navigate-item>
+              <navigate-item 
+              txt="求代课" 
+              classname="{{replaceSrc}}"
+              bind:goPage="replace">
+              </navigate-item>
+            
+              <navigate-item 
+              txt="任务卡" 
+              classname="{{taskSrc}}"
+              bind:goPage="task">
+              </navigate-item>
+              <navigate-item 
+              txt="催打卡" 
+              classname="{{clockSrc}}"
+              bind:goPage="clock">
+              </navigate-item>
+              <navigate-item 
+              showdot="true" 
+              num="{{sum}}" 
+              txt="京东卡" 
+              classname="{{ticketSrc}}"
+              bind:goPage="ticket">
+              </navigate-item>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="tab">
+          <view id="0" class="tabtitle flex" bindtap="tabClick" >
+            <view class="icons">
+              <text class="iconfont {{activeIndex == 0 ?'icon-writeactive':'icon-write'}}"></text>
+            </view>
+            <view  class="{{activeIndex == 0 ?'titleActive':''}}">录入</view>
+          </view>
+          <view id="1" class="tabtitle flex" bindtap="tabClick" >
+            <view class="icons">
+            <text class="iconfont {{activeIndex == 1 ?'icon-searchactive':'icon-search'}}"></text>
+            </view>
+            <view class="{{activeIndex == 1 ?'titleActive':''}}">查询</view>
+          </view>
+          <view id="2" class="tabtitle flex" bindtap="tabClick" >
+            <view class="dot" wx:if="{{index == 2 && noAuditing > 0}}"></view>
+            <view class="icons">
+            <text class="iconfont {{activeIndex == 2 ?'icon-taskingactive':'icon-tasking'}}"></text>
+            </view>
+            <view class="{{activeIndex == 2 ?'titleActive':''}}">任务</view>
+          </view>
+          <view id="3" class="tabtitle flex" bindtap="tabClick" >
+            <view class="icons">
+            <text class="iconfont {{activeIndex == 3 ?'icon-settingactive':'icon-setting'}}"></text>
+            </view>
+            <view class="{{activeIndex == 3 ?'titleActive':''}}">工具</view>
+          </view>
+      </view>
+</view>

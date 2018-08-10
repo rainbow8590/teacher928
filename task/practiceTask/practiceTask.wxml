@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="teacherName">{{teacherName}}老师</view>
+  <view class="tip">请在规定时间内完成以下实习任务，逾期未完成将无法通过教师培训。</view>
+  <view class="task flex" bindtap="goPractiveJob">
+    <view class="endtime">请于{{baseInfo.TaskEndTime}}前完成</view>
+    <view class="title flex">
+      <image src="../../pages/images/task.png"></image>
+      <view class="content">
+        <view class="task-title">实习期作业</view>
+        <view class="task-des">强化专业功底</view>
+      </view>
+      <text class="iconfont icon-arrowback"></text>
+    </view>
+    <view class="task-status">
+      <text class="status" wx:if="{{!baseInfo.bTaskFinish}}"><text class="iconfont icon-warm-strock"></text>未完成</text>
+      <text class="status1" wx:if="{{baseInfo.bTaskFinish}}">已完成</text>
+    </view>
+  </view>
+
+   <view class="task flex" bindtap="goLessonTask">
+    <view class="endtime">请于{{baseInfo.ListenTime}}前完成</view>
+    <view class="title flex">
+      <image src="../../pages/images/task.png"></image>
+      <view class="content">
+        <view class="task-title">听课任务</view>
+        <view class="task-des">实地感知真实课堂氛围，提升讲课技巧</view>
+      </view>
+      <text class="iconfont icon-arrowback"></text>
+    </view>
+    <view class="task-status">
+      <text class="status" wx:if="{{!baseInfo.bListenFinish}}"><text class="iconfont icon-warm-strock"></text>未完成</text>
+      <text class="status1" wx:if="{{baseInfo.bListenFinish}}">已完成</text>
+    </view>
+  </view>
+  
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  <!-- <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab> -->
+</view>

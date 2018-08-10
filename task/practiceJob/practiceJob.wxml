@@ -1,0 +1,29 @@
+<view class="container" style="height:{{contentH}}px">
+  <!-- <teacher-menu teacherName="{{teacherName}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu> -->
+  <view class="title">任务说明</view>
+  <view class="tip">请在{{baseInfo.TaskEndTime}}日前，完成教培老师布置的刷题任务。完成后将每套题第一页拍照上传。</view>
+  <view class="title title1">上传作业图片</view>
+  <view class="tip tip1" wx:if="{{baseInfo.TaskAudit == null}}">请上传每套题第一页照片，最多上传10张图</view>
+  <view class="tip tip1" wx:if="{{baseInfo.TaskAudit == false}}">作业已提交，正在审核中</view>
+  <view class="tip tip1" wx:if="{{baseInfo.TaskAudit == true}}">作业审核通过，评级：<text>{{baseInfo.TaskLevel}}</text></view>
+  <view class="content flex">
+    <view class="pic" wx:for="{{pics}}" wx:key="index">
+      <image src="{{item}}" bindtap="previewImage" data-index="{{index}}"></image>
+      <text class="iconfont icon-delete-fill delete" data-index="{{index}}" bindtap="delete" wx:if="{{baseInfo.TaskAudit == null}}"></text>
+    </view>
+    
+    <text class="add" bindtap="choosePic" wx:if="{{baseInfo.TaskAudit == null}}">+</text>
+  </view>
+  <button class="upload" type="primary"  bindtap="showModal"  wx:if="{{baseInfo.TaskAudit == null}}">上传作业图片</button>
+
+  <view class="dialog-mask" wx:if="{{showDialog}}">
+    <view class="dialog">
+      <view class="dialog-title"></view>
+      <view class="dialog-text">确认上传图片？</view>
+      <view class="dialog-btns">
+        <button bindtap="giveup">取消</button>
+        <button bindtap="uploadPIcs">上传</button>
+      </view>
+    </view>
+  </view>
+</view>

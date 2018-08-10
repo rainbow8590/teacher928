@@ -1,0 +1,314 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <swiper-change title-one="基础课酬" title-two="绩效奖金">
+      <view slot="leftSwiper" class="tabBodyItem" style="height:{{heigh-34-55}}px;">
+        <!-- 下拉选项 -->
+        <view class="choise flex">
+          <select type="year" typeInn="{{schoolYear1}}年" bind:getEvent="getYear"></select>
+          <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+        </view>
+        <!-- 日期选项 -->
+        <view class="checkDate">
+          <view class="checkDateWrap">
+            <view class="date" bindtap="showFloat">{{change_year}}年{{change_month}}月</view>
+            <view class="leftArrowWrap" data-handle="prev" bindtap="handleCalendar">
+              <view class="leftArrow"></view>
+            </view>
+            <view class="rightArrowWrap" data-handle="next" bindtap="handleCalendar">
+              <view class="rightArrow"></view>
+            </view>
+            <view class="bottomArrow"></view>
+          </view>
+          <view class="today" bindtap="showInfo" id="1">说明</view>
+        </view>
+        <!-- 课酬 -->
+        <view class="payInfos">
+          <view class="payInfos-row flex">
+            <view>请假&未签到</view>
+            <view>迟到</view>
+            <view class="nobd">未点名</view>
+          </view>
+          <view class="payInfos-row payInfos-row2 flex">
+            <view id="1" class="{{basePayInfos[0].nAbsence == 0 || basePayInfos[0].nAbsence=='--' ?'':'active'}}" bindtap="{{basePayInfos[0].nAbsence == 0|| basePayInfos[0].nAbsence=='--'? '':'showCallDetail1'}}">{{basePayInfos[0].nAbsence}}次</view>
+            <view id="2" class="{{(basePayInfos[0].nKeQianLate == 0 && basePayInfos[0].nKeHouLate == 0)||(basePayInfos[0].nKeQianLate == '--' && basePayInfos[0].nKeHouLate =='--') ?'':'active'}}" bindtap="{{(basePayInfos[0].nKeQianLate == 0 && basePayInfos[0].nKeHouLate == 0 )? '':'showCallDetail2'}}">课前{{basePayInfos[0].nKeQianLate}}次+课后{{basePayInfos[0].nKeHouLate}}次</view>
+            <view id="3" class="{{basePayInfos[0].nNoStudentSignIn == 0 || basePayInfos[0].nNoStudentSignIn=='--'?'':'active'}} nobd" bindtap="{{basePayInfos[0].nNoStudentSignIn == 0||basePayInfos[0].nNoStudentSignIn=='--'?'':'showCallDetail3'}}">{{basePayInfos[0].nNoStudentSignIn}}次</view>
+          </view>
+          <view class="payInfos-row  flex">
+            <view><text wx:if="{{nSemester == 1 || nSemester == 2}}">秋</text><text wx:if="{{nSemester == 3 || nSemester == 4}}">春</text>季总人数</view>
+            <view><text wx:if="{{nSemester == 1 || nSemester == 2}}">秋</text><text wx:if="{{nSemester == 3 || nSemester == 4}}">春</text>季平均人数(修正)</view>
+            <view class="nobd red">小时课酬标准</view>
+          </view>
+          <view class="payInfos-row payInfos-row2 flex">
+            <view>{{basePayInfos[0].dTotalCount}}人</view>
+            <view>{{basePayInfos[0].dAvgCount}}人</view>
+            <view class="nobd red">{{basePayInfos[0].dSalary}}元</view>
+          </view>
+          <view class="payInfos-row flex">
+            <view>本月已上课时</view>
+            <view>本月有效课时</view>
+            <view class="nobd red" style="font-size: 30rpx;font-weight: bold;">课酬总计</view>
+          </view>
+          <view class="payInfos-row payInfos-row1 payInfos-row2 flex">
+            <view>{{basePayInfos[0].dHour}}h/{{basePayInfos[0].monthHours}}h</view>
+            <view id="4" class="{{basePayInfos[0].dHour == 0 || basePayI6nfos[0].dHour== '--' ?'':'active'}}" bindtap="{{basePayInfos[0].dHour == 0?'':'showCallDetail4'}}">{{basePayInfos[0].dTotalHour}}h</view>
+            <view class="nobd red" style="font-size: 30rpx;font-weight: bold;">{{basePayInfos[0].dTotalSalary}}元</view>
+          </view>
+        </view>
+        <!-- 模拟器 -->
+        <view class="simulator">
+          <view class="title red">课酬模拟器</view>
+          <view>按照当前课酬标准，本学期应可拿到课时费{{basePayInfos[0].dXueQiTotalSalary}}元，<view class="red">但假如我：</view></view>
+          <view class="simulator-con flex"><text>带班数量是:</text><input value="" bindinput="getCount" type="number" /><text>平均人数是:</text><input value="" bindinput="getNum" type="number" /><view class="btn" bindtap="getKechou" id="keChouBtn">计算</view></view>
+          <view class="simulator-con1 red"><text>那么课酬标准将是</text><text class="wid">{{hPay}}</text><text>元，学期总课时费会达到</text><text class="wid">{{tPay}}</text><text>元！</text></view>
+        </view>
+      </view>
+      <view slot="rightSwiper" class="tabBodyItem bonus" style="height:{{heigh-34-55}}px;">
+        <!-- 下拉选项 -->
+        <view class="choise flex">
+          <select type="yearType" typeInn="{{yearTypeInn}}" bind:getEvent="getYearType"></select>
+          <select type="stage" typeInn="{{stageInn}}" bind:getEvent="getStage"></select>
+        </view>
+        <view wx:if="{{!bonusDetailArr.length}}" class="noClass">本期没有课程</view>
+        <!-- 课酬 -->
+        <block wx:for="{{bonusDetailArr}}">
+          <view class="payInfos" wx:if="{{!stageShow}}">
+            <!-- 标题 -->
+            <view class="title">{{item.sNewArea}}{{item.s1Yuan}}续报绩效<text bindtap="showInfo" id="2" wx:if="{{index == 0}}">说明</text></view>
+            <view class="payInfos-row flex">
+              <view>升班基数（修正）</view>
+              <view>升班人数（修正）</view>
+              <view class="nobd">升班率（修正）</view>
+            </view>
+            <view class="payInfos-row payInfos-row2 flex">
+              <view>{{item.dTotalCount}}人</view>
+              <view>{{item.dTotalSBCount}}人</view>
+              <view class="nobd">{{item.dTotalSBL}}%</view>
+            </view>
+            <view class="payInfos-row payInfos-row4 flex">
+              <view>档位奖金标准</view>
+              <view class="red nobd" style="font-size: 30rpx;font-weight: bold;">总奖金</view>
+            </view>
+            <view class="payInfos-row payInfos-row4 payInfos-row2 flex">
+              <view>{{item.sBonus}}元</view>
+              <view class="red nobd" style="font-size: 30rpx; font-weight: bold;">{{item.sTotalBonus}}元</view>
+            </view>
+            <view class="payInfos-row flex">
+              <view>下一档升班率目标</view>
+              <view>还需升班人数</view>
+              <view class="red nobd">下一档位奖金标准</view>
+            </view>
+            <view class="payInfos-row payInfos-row2 flex">
+              <view>{{item.dNextMinSBL}}%</view>
+              <view>{{item.dNextLevelNeedSbCount}}人</view>
+              <view class="red nobd">{{item.dNextBonus}}元</view>
+            </view>
+          </view>
+        </block>
+        <!-- 查看详情 -->
+        <view class="goDetail" wx:if="{{bonusDetailArr.length}}" bindtap="goDetail">点击查看各班级升班详情>></view>
+        <!-- 模拟器 -->
+        <view class="simulator" wx:if="{{stage== null}}">
+          <view class="title red">绩效模拟器</view>
+          <view>按照当前升班情况，本学期应可拿到绩效奖金{{total}}元，<view class="red">但假如我：</view></view>
+          <view class="simulator-con flex"><text>学生总数是:</text><input value="" bindinput="getCount" type="number" /><text>升班率是:</text><input value="" bindinput="getNum" type="number" /><text>%</text><view class="btn" bindtap="getJiXiao" id="bounsBtn">计算</view></view>
+          <view class="simulator-con1 red"><text>学期绩效奖金会达到</text><text class="wid">{{tPay1}}</text><text>元！</text></view>
+        </view>
+      </view>
+
+    </swiper-change>
+  </view>
+  <!-- 点名弹窗1 -->
+  <view class="callDetail" wx:if="{{showCall1 && isAjaxOver}}" data-id="float" bindtap="closeCallDetail">
+    <view class="floatWrap">
+      <block wx:for="{{callDetailArrQingjia}}" wx:if="{{callDetailArrQingjia.length}}">
+        <view class="callDetail-item">
+          <view class="row flex">
+            <view class="row-left">
+              <view>{{item.sClassCode}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="row-right">
+              <view>第{{item.nLessonNo}}讲</view>
+              <view>{{item.sTeacherChanged}}</view>
+            </view>
+          </view>
+          <view class="row row1 flex">
+            <view class="row-left">
+              <view>{{item.sAreaName}}</view>
+              <view>{{item.StartDate}}</view>
+            </view>
+            <view class="row-right">
+              <view>该班级累计{{item.sTeacherChanged}}{{item.nLeiJiQingJia}}次</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:for="{{callDetailArrQueqin}}" wx:if="{{callDetailArrQueqin.length}}">
+        <view class="callDetail-item">
+          <view class="row flex">
+            <view class="row-left">
+              <view>{{item.sClassCode}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="row-right">
+              <view>第{{item.nLessonNo}}讲</view>
+              <view>{{item.sTeacherChanged}}</view>
+            </view>
+          </view>
+          <view class="row row1 flex">
+            <view class="row-left">
+              <view>{{item.sAreaName}}</view>
+              <view>{{item.StartDate}}</view>
+            </view>
+            <view class="row-right">
+              <view>该班级累计{{item.sTeacherChanged}}{{item.nLeiJiQueQin}}次</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:for="{{callDetailArrDaike}}" wx:if="{{callDetailArrDaike.length}}">
+        <view class="callDetail-item">
+          <view class="row flex">
+            <view class="row-left">
+              <view>{{item.sClassCode}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="row-right">
+              <view>第{{item.nLessonNo}}讲 <text wx:if="{{item.sTeacherChanged=='代课'}}">(</text>{{item.sTeacherChanged}}<text wx:if="{{item.sTeacherChanged=='代课'}}">)</text></view>
+              <view>未签到</view>
+            </view>
+          </view>
+          <view class="row row1 flex">
+            <view class="row-left">
+              <view>{{item.sAreaName}}</view>
+              <view>{{item.StartDate}}</view>
+            </view>
+            <view class="row-right">
+              <view>该班级累计未签到{{item.nLeiJiQueQin}}次</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 点名弹窗2 -->
+  <view class="callDetail" wx:if="{{showCall2 && isAjaxOver}}" data-id="float" bindtap="closeCallDetail">
+    <view class="floatWrap">
+      <block wx:for="{{callDetailArr}}">
+        <view class="callDetail-item">
+          <view class="row flex">
+            <view class="row-left">
+              <view>{{item.sClassCode}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="row-right">
+              <view>第{{item.nLessonNo}}讲<text wx:if="{{item.sTeacherChanged.length}}">({{item.sTeacherChanged}})</text></view>
+              <view>{{item.sTeacherStatus}}</view>
+            </view>
+          </view>
+          <view class="row row1 flex">
+            <view class="row-left">
+              <view>{{item.sAreaName}}</view>
+              <view>{{item.StartDate}}</view>
+            </view>
+            <view class="row-right">
+              <view>该班级累计迟到{{item.nLeiJiLate}}次</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 点名弹窗3 -->
+  <view class="callDetail" wx:if="{{showCall3 && isAjaxOver}}" data-id="float" bindtap="closeCallDetail">
+    <view class="floatWrap">
+      <block wx:for="{{callDetailArr}}">
+        <view class="callDetail-item">
+          <view class="row flex">
+            <view class="row-left">
+              <view>{{item.sClassCode}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="row-right">
+              <view>第{{item.nLessonNo}}讲未点名累计第{{item.nKouKuanIndex}}次</view>
+            </view>
+          </view>
+          <view class="row row1 flex">
+            <view class="row-left">
+              <view>{{item.sAreaName}}</view>
+              <view>{{item.StartDate}}</view>
+            </view>
+            <view class="row-right">
+              <view>扣款</view>
+              <view>{{item.dKouKuan}}元</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 有效课时4 -->
+  <view class="callDetail callDetail4" wx:if="{{showCall4}}" data-id="float" bindtap="closeCallDetail">
+    <view class="floatWrap">
+      <view class="callDetail-item">{{basePayInfos[0].sTotalHour}}</view>
+    </view>
+  </view>
+  <!-- 说明弹窗-->
+  <view class="callDetail" wx:if="{{show5}}" data-id="float" bindtap="closeCallDetail">
+    <view class="floatWrap">
+      <view class="callDetail-item" wx:if="{{info}}">
+        <view>1、集训队、辅线及有课酬保护的班型，因单独发放课酬，故此处未加入计算。</view>
+        <view>2、请假、迟到、未点名均为系统实时数据，如有不实，可按流程及时申诉。</view>
+        <view>3、寒暑假“小时课酬”的定档只看前一个秋春学期人数，故此处亦显示秋春学期的总人数和平均人数。</view>
+        <view>4、春秋学期总人数和平均人数要到月末才会确定，故当月数据均为实时计算，到下一个月再看才是最终确定的。</view>
+      </view>
+      <view class="callDetail-item" wx:if="{{!info}}">
+        <view>1、非实时数据，每四小时定时更新。</view>
+        <view>2、升班基数在各班级三分之二课次后锁定，之后再有报班退班的学员，基数不变。</view>
+        <view>3、带毕业班的老师，升班率会随毕业班的整体升班率动态修正。</view>
+        <view>4、升班人数是根据升班基数和升班率计算出的数值，可能与真实升班人数存在偏差。</view>
+        <view>5、寒暑假各期绩效为只计算该期课程时的模拟值，正式合计的奖金并不等于各期相加。</view>
+ 
+      </view>
+    </view>
+  </view>
+  <!-- 年月浮窗 -->
+  <view class="float" wx:if="{{show}}"  data-id="float" bindtap="closeFloat">
+    <view class="floatWrap flex">
+      <view class="year">
+        <view style="padding-top:0 ;"><image src="/../pages/images/nianyue.png"></image></view>
+        <block wx:for="{{yearArr1}}" wx:key="index">
+          <view style="color:{{cur_year == item?'#1FBB1C':'#888'}}" bindtap="changeBgColor1" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </view>
+      <view class="month flex">
+        <block wx:for="{{monthArr}}" wx:key="index">
+          <view style="margin-top:0 ; background:{{cur_month-1 == index?'#1FBB1C':'#fff'}};color:{{cur_month-1 == index?'#fff':'#888'}}" bindtap="changeBgColor" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+ 
+  <select-popup id="selectPopup" 
+  show="{{show1}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <!-- 导航 -->
+  <!-- <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+ 
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

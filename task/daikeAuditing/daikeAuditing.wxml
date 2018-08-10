@@ -1,0 +1,78 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+      <select type="auditing" typeInn="{{pullInn}}" bind:getEvent="getAuditing"></select>
+    </input-menu>
+
+    <view class="tab" style="height:{{heigh}}px" >
+      <view class="tabBody" style="height:{{heigh-34-55}}px">
+        <view class="tabBodyWrap" style="height:{{heigh-34-55}}px;">
+              <scroll-view class="tabBodyItem" style="height:{{heigh-55}}px;" scroll-y  scroll-top="{{scrollTop}}" bindscroll="getScrollTop" lower-threshold="50" bindscrolltolower="scrolltolower">
+                <view class="noNotes" wx:if="{{isAjaxOver&& !notesArr.length}}">暂无请求</view>
+                <form bindsubmit="saveLeave" report-submit="true">
+                  <block wx:for="{{notesArr}}" wx:key="index">
+                    <view class="progressItem"  bindtap="goDetail" data-id="{{index}}">
+                      <view class="progressonIcon" wx:if="{{item.nStatus == -1}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon qingqiu" wx:if="{{item.nStatus == 0}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon shenhe" wx:if="{{item.nStatus == 1}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon daike" wx:if="{{item.nStatus == 2}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon" wx:if="{{item.nStatus == 3}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon chaoshi" wx:if="{{item.nStatus == 4}}">{{item.sStatus}}</view>
+                      <view class="title">
+                        <view>{{item.sClassCode}}{{item.sClassName}}</view>
+                        <view>{{item.sTeacherName}}老师 第{{item.nLessonNo}}讲请求代课 距上课还有<text>{{item.time}}</text></view>
+                     </view>
+                     <view class="content">
+                       <view class="contentItem flex"><text class="left">本讲主题:</text><text>{{item.sTopic}}</text></view>
+                       <view class="contentItem flex"><text class="left">上课时间:</text><text>{{item.dtDate}}</text></view>
+                       <view class="contentItem flex"><text class="left">上课教室:</text><text>{{item.sAreaName}}</text></view>
+                     </view>
+                     <view class="btn">
+                       <text wx:if="{{item.nLeaveType == 1}}">事假</text>
+                       <text wx:if="{{item.nLeaveType == 3 && ( item.nPicAduit == 0 || item.nPicAduit == null )}}" catchtap="lookLeaveImg" data-id="{{index}}">病假 <text class="look">[查看病假条]</text></text>
+                       <text wx:if="{{item.nLeaveType == 3 && item.nPicAduit == 1}}">病假已通过</text>
+                     </view>
+
+                    </view>
+                    <!-- 查看病假条 -->
+                    <view class="leave" wx:if="{{item.showImg}}" >
+                      <view class="leave-wrap" data-id="float" bindtap="closeFloat1" data-ids="{{index}}">
+                          <view class="no-leave" wx:if="{{!imgSrc}}">尚未上传</view>
+                          <image catchtap="previewImg" mode="scaleToFill" src="{{imgSrc}}" wx:if="{{imgSrc}}"></image>
+                          <view class="btn flex">
+                            <!-- <button data-status="1" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">同意病假</button> -->
+                            <!-- <button data-status="0" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">不同意</button> -->
+                            <button data-status="1" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">同意病假</button>
+                            <button data-status="0" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">不同意</button>
+                          </view>
+                      </view>
+                    </view>
+                  </block>
+                </form>
+              </scroll-view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <menu id="menu"
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

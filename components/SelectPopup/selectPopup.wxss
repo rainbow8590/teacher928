@@ -1,0 +1,84 @@
+@import "../../utils/font.wxss";
+.iconfont{
+  font-size: 26rpx;
+  color: #919191;
+}
+/*弹窗*/
+.float {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+  /*opacity: 0;*/
+}
+
+.float .floatWrap {
+  width: 80%;
+  height: 560rpx;
+  padding: 0 12rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -280rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.float .floatWrap .arrows {
+  position: relative;
+  height: 67rpx;
+  text-align:center;
+
+}
+
+
+.float .floatWrap .floatC {
+  height: 426rpx;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.float .floatWrap .floatC .floatC-item {
+  height: 97rpx;
+  line-height: 97rpx;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 28rpx;
+  color: #333;
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+  overflow: hidden;
+}
+.floatWrap .floatC .floatC-item label{
+  display: block;
+  width: 100%;
+}
+.floatWrap .floatC .floatC-item label{
+  display: block;
+  width: 100%;
+}
+
+/* .showFloat{
+  animation: showFloat 1s;
+  -webkit-animation: showFloat 1s;
+  animation-delay:0s;
+  animation-fill-mode: forwards;
+}
+.hideFloat{
+  animation: hideFloat 1s;
+  -webkit-animation: hideFloat 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes showFloat{
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes hideFloat{
+  from {opacity: 1;}
+  to {opacity: 0; display: none;}
+} */

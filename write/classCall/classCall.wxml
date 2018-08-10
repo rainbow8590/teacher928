@@ -1,0 +1,67 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap" wx:if="{{isAjaxOver}}">
+    <teacher-menu teacherName="" classInfo="{{classCode}} {{className}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="tips flex">
+      <view class="classes">{{classTime}} 第{{classLessonNo}}讲</view>
+      <view class="tip" bindtap="showTip">使用说明</view>
+    </view>
+    <view class="tab">
+      <view class="tabTitle flex">
+        <view class="sNum">序号</view>
+        <view class="sName">姓名</view>
+        <view class="sDuty flex">
+          <text>出勤状态</text>
+          <label class="checkbox" bindtap="checkAll">
+            <checkbox value="全员全勤" checked="{{checkall}}" disabled="{{rank == 1 }}" />全员全勤
+          </label>
+        </view>
+      </view>
+      <view class="tabBody" style="height:{{height}}px;">
+        <form bindsubmit="saveCall">
+          <view class="tabBodyItem flex" wx:for="{{callArr}}" >
+            <input type="hidden" class="hidInp" name="datas[{{index}}][sClassCode]" value="{{item.sClassCode}}" />
+            <input type="hidden" class="hidInp" name="datas[{{index}}][sCardCode]" value="{{item.sCardCode}}" />
+            <input type="hidden" class="hidInp" name="datas[{{index}}][sStudentCode]" value="{{item.sStudentCode}}" />
+            <input type="hidden" class="hidInp" name="datas[{{index}}][lessonId]" value="{{item.lessonId}}" />
+            <input type="hidden" class="hidInp" name="datas[{{index}}][nLessonNo]" value="{{item.nLessonNo}}" />
+            <input type="hidden" class="hidInp" name="datas[{{index}}][ScoreType]" value="{{item.ScoreType}}" />
+            <view class="sNum">{{index+1}}</view>
+            <view class="sName">{{item.sStudentName}}{{item.tiaoRu}}<text wx:if="{{item.Score == 3}}">(请假)</text></view>
+            <view class="sDuty">
+              <radio-group class="radio-group" bindchange="radioChange" data-ids="{{index}}" name="datas[{{index}}][Score]">
+                <label class="radio"><radio value="1"  checked="{{ item.checks[0] }}" disabled="{{item.Score==3 || item.nType==1 || ntype==4}}" />正常</label>
+                <label class="radio"><radio value="-1" checked="{{ item.checks[1] }}" disabled="{{item.Score==3 || item.nType==1 || ntype==4}}" />迟到</label>
+                <label class="radio"><radio value="{{item.Score==3?3:0}}" checked="{{ item.checks[2] }}" disabled="{{item.Score==3 || item.nType==1 || ntype==4}}" />缺勤</label>
+              </radio-group>
+            </view>
+          </view>
+          <view class="btns flex">
+            <button formType="submit" id="0">保存</button>
+            <button formType="submit" id="1">提交(不可修改)</button>
+          </view>
+        </form>
+      </view>
+    </view>
+  </view>
+
+  <!-- 弹窗 -->
+  <view class="float" wx:if="{{show}}" data-id="float" bindtap="closeFloat">
+    <view class="content">
+      <view class="title">使用说明</view>
+      提交时间为开始上课到下课后10分钟之间。建议分两次完成点名：第一次在刚上课时，标注所有正常出勤的学生并保存<text>（但不要点提交！）</text>第二次在首节课间前完成，标注迟到及缺勤的学员后点击“提交”。
+    </view>
+  </view>
+
+  <menu id="menu"
+  isopen="{{isopen}}" 
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+ 
+</view>

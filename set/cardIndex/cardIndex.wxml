@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<view class="container">
+
+  <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+  </input-menu>
+
+  <!-- 结果显示 -->
+  <view class="searchResult" style="height:{{resultH}}px">
+    <view class="resultItem flex" wx:for="{{classes}}" bindtap="goTaskProgress" data-id="classes" data-num="{{index}}" wx:key="id">
+      <view class="dot"></view>
+      <view class="txt">{{item.value}}</view>
+    </view>
+  </view>
+ 
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+  <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+</view>

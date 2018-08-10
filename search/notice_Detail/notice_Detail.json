@@ -1,0 +1,9 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "规章制度",
+  "usingComponents":{
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

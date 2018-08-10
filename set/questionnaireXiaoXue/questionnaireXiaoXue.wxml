@@ -1,0 +1,95 @@
+<view class="container" style="overflow: {{show1||show2?'hidden':'visible'}}">
+    <!-- 学生基本信息 -->
+    <view class="base">{{info.sStudentName}} 同学 {{info.sGradeName}} {{info.sParents1Phone}}</view>
+    <!-- 问卷内容 -->
+    <form bindsubmit="postResult">
+      <view class="questions">
+        <view class="ques">
+          <input type="text" class="hidInp" name="sReceiveSchool" value="{{quesValue1}}" />
+          <view class="ques-title">是否已有幼升小接收学校</view>
+          <radio-group class="radio-group" bindchange="Change1">
+            <label class="radio"><radio value="是" disabled="{{submitDisabled}}" checked="{{student.sReceiveSchool && student.sReceiveSchool == '是'?'true':false}}" />是</label>
+            <label class="radio"><radio value="否" disabled="{{submitDisabled}}" checked="{{student.sReceiveSchool && student.sReceiveSchool == '否'?'true':false}}" />否</label>
+          </radio-group>
+          <!-- 显示学校选择 --> 
+          <view class="school" wx:if="{{quesValue1 == '是' || student.sReceiveSchool=='是'}}">
+            <input type="text" class="hidInp" name="sReceiveSchoolName" value="{{schoolName}}" />
+            <view class="schoolSelect" bindtap="{{schoolName=='选择接收学校'?'showFloatSchoolList':''}}" >{{schoolName}}</view>
+          </view>
+        </view>
+        <view class="ques">
+          <view class="ques-title">是否上过学前班</view>
+          <input type="text" class="hidInp" name="sPreschool" value="{{quesValue2}}" />
+          <radio-group class="radio-group" bindchange="Change2">
+            <label class="radio"><radio value="是" disabled="{{submitDisabled}}" checked="{{student.sPreschool == '是'?'true':false}}" />是</label>
+            <label class="radio"><radio value="否" disabled="{{submitDisabled}}" checked="{{student.sPreschool == '否'?'true':false}}" />否</label>
+          </radio-group>
+        </view>
+        <view class="ques">
+          <input type="text" class="hidInp" name="sExtraClass" value="{{quesValue3}}" />
+          <view class="ques-title">是否上过其他培训机构的幼升小课程</view>
+          <radio-group class="radio-group" bindchange="Change3">
+            <label class="radio"><radio value="是" disabled="{{submitDisabled}}" checked="{{student.sExtraClass == '是'?'true':false}}"  />是</label>
+            <label class="radio"><radio value="否" disabled="{{submitDisabled}}" checked="{{student.sExtraClass == '否'?'true':false}}"  />否</label>
+          </radio-group>
+        </view>
+        <view class="ques" wx:if="{{quesValue3 == '是' || (student.sExtraClass && student.sExtraClass == '是')}}">
+          <input type="text" class="hidInp" name="sExtraClassName" value="{{quesValue4}}" />
+          <view class="ques-title">请选择培训机构</view>
+          <checkbox-group bindchange="Change4">
+            <block wx:for="{{question4}}">
+              <label class="checkbox"><checkbox disabled="{{submitDisabled}}" value="{{item.value}}" checked="{{item.checked}}" />{{item.value}}</label>
+            </block>
+          </checkbox-group>
+        </view>
+        <view class="ques">
+          <input type="text" class="hidInp" name="sExtraClassGoal" value="{{quesValue5}}" />
+          <view class="ques-title">学习课外{{sXueKe}}的主要目的是(多选)</view>
+          <checkbox-group bindchange="Change5">
+            <block wx:for="{{question5}}">
+              <label class="checkbox"><checkbox disabled="{{submitDisabled}}" value="{{item.value}}" checked="{{item.checked}}" />{{item.value}}</label>
+            </block>
+          </checkbox-group>
+        </view>
+        <view class="ques">
+          <input type="text" class="hidInp" name="sExtraClassStudentWish" value="{{quesValue6}}" />
+          <view class="ques-title">在课外学习中，孩子更希望(多选)</view>
+          <checkbox-group bindchange="Change6">
+            <block wx:for="{{question6}}">
+              <label class="checkbox"><checkbox disabled="{{submitDisabled}}" value="{{item.value}}" checked="{{item.checked}}" />{{item.value}}</label>
+            </block>
+          </checkbox-group>
+        </view>
+        <view class="ques">
+          <input type="text" class="hidInp" name="sExtraClassParentsWish" value="{{quesValue7}}" />
+          <view class="ques-title">在课外学习中，家长更关注(多选)</view>
+          <checkbox-group bindchange="Change7">
+            <block wx:for="{{question7}}">
+              <label class="checkbox"><checkbox disabled="{{submitDisabled}}" value="{{item.value}}" checked="{{item.checked}}" />{{item.value}}</label>
+            </block>
+          </checkbox-group>
+        </view>
+      </view>
+      <button formType="submit" disabled="{{disabled}}" wx:if="{{!submitDisabled}}">{{submitText}}</button>
+    </form>
+  <!-- 学校弹窗 -->
+  <view class="float" wx:if="{{show1 && isAjaxOver1}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap floatWrap1">
+      <view class="arrows arrowT"><text class="iconfont icon-arrowup"></text></view>
+      <view class="floatC-item floatC-item1"><input type="text" value="{{inpValue}}" placeholder="请输入学校关键字进行搜索" bindinput="selectName" /></view>
+      <view class="floatC">
+        <view class="floatC-item" data-id="0" bindtap="showOther">其他</view>
+        <view class="floatC-item" wx:for="{{setSchoolList}}" data-district="{{item.schoolDistrict}}" data-schoolname="{{item.schoolName}}" data-id="{{item.schoolId}}" bindtap="getIndex1">{{item.schoolName}}</view>
+      </view>
+      <view class="arrows arrowB"><text class="iconfont icon-arrowdown"></text></view>
+    </view>
+  </view>
+  <!-- 其他弹窗 -->
+  <view class="float" wx:if="{{show2}}" data-id="float" bindtap="closeFloat1">
+    <view class="floatWrap floatWrap2">
+      <view class="floatC-item floatC-item1"><input type="text"  bindinput="writeVlaue" placeholder="请输入学校名称" /></view>
+      <button bindtap="otherSchool">确定</button>
+    </view>
+  </view>
+
+</view> 

@@ -1,0 +1,40 @@
+.tab{
+  width: 100%;
+}
+.tab .tabTitle .titleItem{
+  width: 50%;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1FB923;
+  position: relative;
+  display: inline-block;
+  color: #979797;
+  overflow-y: scroll;
+}
+.tab .tabTitle .titleActive{
+  color: #32343d;
+  background: #f1f1f1;
+}
+.tab .tabTitle .titleItem .arrow{
+  border: 4px solid #1FB923;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -4px;
+}
+.tabBody{
+  width: 200%;
+  position: relative;
+}
+.tabBodyWrap{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

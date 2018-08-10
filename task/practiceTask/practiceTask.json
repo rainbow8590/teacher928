@@ -1,0 +1,9 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "实习任务",
+  "usingComponents":{
+    "menu":"/components/Menu/menu",
+    "tab":"/components/Tab/tab",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

@@ -1,0 +1,60 @@
+
+<view class="container">
+  <view class="loading" wx:if="{{isOver}}">
+    <image src="../images/loading.gif"></image>
+  </view>
+  <view class="wrap" wx:if="{{isOver1}}">
+    <form bindsubmit="login" report-submit="true">
+      <view class="item-btns">
+        <radio-group bindchange="getKind">
+          <label class="radio">
+            教师<radio value="2" checked="true"/>
+          </label>
+          <label class="radio">
+            助教<radio value="1" />
+          </label>
+          <label class="radio">
+            教管<radio value="100" />
+          </label>
+        </radio-group>
+      </view>
+      <view class="formWrap" wx:if="{{email}}">
+        <view class="item">
+          <label class="userIcon">
+          <!-- <image mode="" src="{{userSrc}}"></image> -->
+          <text class="iconfont icon-user"></text>
+          </label>
+          <input type="text" name="username" bindinput="moblieChange" value="{{moblie}}" placeholder="企业邮箱" /><text class="mail">@gaosiedu.com</text>
+        </view>
+        <view class="item item1">
+          <label class="userIcon"><text class="iconfont icon-pass"></text></label>
+          <input type="text" password="{{showPass}}" focus="{{isFocus}}" name="password" bindinput="passwordChange" value="{{password}}" placeholder="企业邮箱密码" />
+          <view class="eye" bindtap="ifShowPassword">
+            <text class="eyeicon iconfont {{isShoweye?'icon-closeeye':'icon-openeye'}}"></text>
+          </view>
+        </view>
+      </view>
+      <view class="formWrap" wx:if="{{!email}}" >
+        <view class="item">
+          <label class="userIcon"><text class="iconfont icon-user"></text></label>
+          <input type="number" name="username" bindinput="moblieChange" value="{{moblie}}" placeholder="教师系统账号\手机号" />
+        </view>
+        <view class="item item1">
+          <label class="userIcon"><text class="iconfont icon-pass"></text></label>
+          <input type="text" password="{{showPass}}" focus="{{isFocus}}" name="password" bindinput="passwordChange" value="{{password}}" placeholder="教师系统密码" />
+          <view class="eye" bindtap="ifShowPassword">
+          <!-- <image src="{{eyeSrc}}"></image> -->
+            <text class="eyeicon iconfont {{isShoweye?'icon-closeeye':'icon-openeye'}}"></text>
+          </view>
+        </view>
+      </view>
+      <view class="btn">
+        <button formType="submit" class="loginBtn" hover-class="hoverLogin">登录</button>
+      </view>
+    </form>
+
+    <view class="forget"> 
+      <navigator url="/pages/resetPassword/resetPassword" hover-class="navigator-hover">忘记教师系统密码</navigator>
+    </view> 
+  </view>
+</view>

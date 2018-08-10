@@ -1,0 +1,251 @@
+@import "../../utils/public.wxss";
+
+page {
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.tipShow {
+  display: block;
+}
+
+.tipHide {
+  display: none;
+}
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+.wrap .choise {
+  padding: 16rpx;
+  height: 42px;
+  line-height: 42px;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  /*border-bottom: 1px solid #1fba21;*/
+  background: #fff;
+}
+
+/*.wrap .choise .choiseItem {
+  position: relative;
+  padding-left: 20rpx;
+  padding-right: 50rpx;
+  margin-right: 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: #eee;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.wrap .choise .choiseItem image {
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  margin-top: -8rpx;
+  width: 25rpx;
+  height: 18rpx;
+}*/
+
+.wrap .table {
+  overflow: hidden;
+  background: #fff;
+  font-size: 13px;
+}
+
+.wrap .table .thead {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  /*border-bottom: 1px solid #1fba21;*/
+  text-align: center;
+  z-index: 1000;
+}
+
+.wrap .table .tbody {
+  position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  border-bottom-color: transparent;
+  z-index: 999;
+}
+
+.wrap .table .thead .thead-left {
+  position: relative;
+  background: #fff;
+  z-index: 99;
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  box-sizing: border-box;
+
+}
+
+
+.wrap .table .tbody .thead-left .leftItem {
+  border-bottom: 1px solid #f1f1f1;
+  line-height: 20px;
+  padding: 10px 0;
+  height: 60px;
+  white-space: nowrap;
+  overflow-y: hidden;
+  background: #fff;
+  box-sizing: border-box;
+  line-height:40px;
+}
+
+.wrap .table .scrollItem {
+  border-bottom: 1px solid #f1f1f1;
+  border-right: 1px solid #1fba21;
+  margin-right: 6px;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+
+.wrap .table .thead .thead-right {
+  position: relative;
+  background: #fff;
+  z-index: 88;
+}
+
+.wrap .table  .rightWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+
+}
+
+
+.wrap .table .thead .twrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.wrap .table .sNum {
+  width: 60px;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.wrap .table .sNum0 {
+  width: 100px;
+  overflow: hidden;
+  padding: 10px 10px;
+  line-height: 20px;
+}
+
+
+.wrap .table .sNum1 {
+  width: 150px;
+  overflow: hidden;
+  padding: 10px 10px;
+  line-height: 20px;
+}
+
+.wrap .table .sNum2 {
+  width: 160px;
+  padding: 10px 10px;
+  line-height: 20px;
+}
+
+.wrap .table .sNum3 {
+  width: 120px;
+  padding: 10px 10px;
+  line-height: 20px;
+}
+
+.wrap .table .sNum4 {
+  width: 190px;
+  padding: 10px 10px;
+  line-height: 20px;
+}
+
+.wrap .table .sAddress {
+  width: 100px;
+  padding: 10px 10px;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+/*学校折行的样式*/
+.wrap .table .sAddress view {
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  padding-top: 10px;
+  white-space: normal;
+}
+
+/*缺勤弹窗*/
+.quits {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+}
+
+.quits .quitWrap {
+  position: absolute;
+  left: 50%;
+  top: 200px;
+  margin-left: -30%;
+  width: 60%;
+  background: #fff;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+  overflow-y: hidden;
+}
+
+.quits .quitWrap .quitTitle {
+  width: 100%;
+  height: 30px;
+}
+
+.quits .quitWrap .quitTitle view {
+  width: 50%;
+  height: 30px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.quits .quitWrap .quitItem view {
+  width: 50%;
+  height: 30px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.float1 .floatWrap {
+  height: auto;
+  min-height: 200rpx;
+  top: 140px;
+  margin-top: 0;
+  padding: 30px 20px;
+  font-size: 14px;
+  line-height: 30px;
+}

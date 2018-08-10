@@ -1,0 +1,17 @@
+
+  <view class="tabBar flex">
+      <view class="tabItem" wx:for="{{tabbarArr}}" wx:key="index">
+        <form bindsubmit="changeColor" report-submit="true" class="form">
+            <view class="tabItem tabItem1">
+            <view class="dot" wx:if="{{index == 2 && noAuditing > 0}}"></view>
+            <view class="icons">
+              <text class="iconfont {{item.classname}}"></text>
+            </view>
+            <view style="color:{{item.changeTextColor}}">{{item.txt}}</view>
+            <button formType="submit" data-index="{{index}}"></button> 
+            </view>
+          </form>
+      </view>
+  </view>
+
+

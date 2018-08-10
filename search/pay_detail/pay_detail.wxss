@@ -1,0 +1,216 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+.iconfont{
+  padding-left: 10rpx;
+  padding-top:4rpx;
+}
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+scroll-view {
+  height:38px;
+}
+
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.wrap .choise {
+  padding: 16rpx;
+  height: 42px;
+  line-height: 42px;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  /*border-bottom: 1px solid #1fba21;*/
+  background: #fff;
+  justify-content: flex-end;
+}
+
+/* .wrap .choise .choiseItem {
+  position: relative;
+  padding-left: 20rpx;
+  padding-right: 50rpx;
+  margin-right: 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: #eee;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.wrap .choise .choiseItem image {
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  margin-top: -8rpx;
+  width: 25rpx;
+  height: 18rpx;
+} */
+/*班级详情样式*/
+.wrap .tab{
+  width: 100%;
+  overflow: scroll;
+}
+.wrap .tab  .payItem{
+  width: 100%;
+  text-align: center;
+  background: #fff;
+  
+}
+.wrap .tab  .payItem .title{
+  padding-top: 50rpx;
+  padding-bottom: 30rpx;
+  font-size: 30rpx;
+  color: #3b3b3b;
+}
+.wrap .payTop{
+  border-bottom: 1px solid #eee;
+}
+.wrap .tabs{
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.wrap .tab  .tabItem{
+  width: 100%;
+  padding: 16rpx 0;
+  background: #e7f5e4;
+  color: #6a6a6a;
+}
+.wrap .tab  .tabItem1{
+  background: #fff;
+  color: #3b3b3b;
+}
+.wrap .tab  .tabItem .row{
+  width: 33.33%;
+  line-height: 28rpx;
+  font-size: 28rpx;
+}
+.wrap .payTop .noSb .sbName{
+  width: 25%;
+  text-align: center;
+  line-height: 70rpx;
+  color: #3b3b3b;
+  font-size: 28rpx;
+  position: relative;
+}
+.wrap .payTop .noSb{
+  padding: 0 20rpx;
+}
+.wrap .payTop .noSb .detail{
+  width: 80%;
+  white-space: wrap;
+  position: absolute;
+  left: 50%;
+  bottom: 60rpx;
+  margin-left: -40%;
+  background: #fff;
+  border: 1px solid #aaa;
+  font-size: 20rpx;
+  border-radius: 10rpx;
+  line-height: 28rpx;
+  padding: 6rpx;
+  box-sizing: border-box;
+}
+
+.wrap .payTop .noSb .detail image{
+  width: 25rpx;
+  height: 13rpx;
+  position: absolute;
+  left: 50%;
+  bottom: -12rpx;
+  margin-left: -13rpx;
+}
+.wrap .payTop .noSb .tip{
+  color: #f3914c;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  text-align: left;
+}
+.wrap .payTop .noSb .green{
+  color: #1d971d;
+}
+.wrap .tab  .tabItem1 .row{
+  border-right: 1px solid #ccc;
+}
+.wrap .tab  .tabItem1 .nobd{
+  border-right: none;
+}
+.wrap .tab  .show{
+  background: #fafafa;
+  color: #888;
+  font-size: 26rpx;
+  padding: 30rpx 0;
+}
+.wrap .tab  .show image{
+  width: 25rpx;
+  height: 13rpx;
+  padding-left: 20rpx;
+}
+.wrap .tab  .tipShow{
+  display: block;
+}
+
+.wrap .tab  .tipHide{
+  display: none;
+}
+
+.float .floatWrap{
+  width: 572rpx;
+  height: 338rpx;
+  padding: 26rpx 30rpx 0 20rpx;
+  box-sizing: border-box;
+  margin-left: -280rpx;
+}
+.float1 .floatWrap{
+  height: 600rpx;
+}
+.float .floatWrap .year view{
+  padding: 20rpx 60rpx;
+  font-size: 28rpx;
+  color: #888;
+}
+.float .floatWrap .year image{
+  width: 59rpx;
+  height: 45rpx;
+}
+
+.float .floatWrap .month{
+  width: 342rpx;
+  flex-wrap: wrap;
+  color: #888;
+}
+.float .floatWrap .month view{
+  width: 55rpx;
+  height: 55rpx;
+  border-radius: 26rpx;
+  margin: 20rpx 28rpx;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 55rpx;
+}
+
+
+
+
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}

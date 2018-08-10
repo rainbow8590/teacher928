@@ -1,0 +1,78 @@
+<view class="container">
+  <view class="wrap">
+    <view class="search">
+      <view class="top flex">
+        <text class="grade">{{teacher.TeacherName}}</text>
+        <view class="info">
+          <view>{{kejie}}备课</view>
+          <view class="year">{{year}}年-{{semester}}</view>
+        </view>
+        <!-- <text class="iconfont icon-menus" bindtap="powerDrawer" data-statu="{{isopen}}"></text> -->
+      </view>
+    </view>
+    <view class="list">
+      <block wx:for="{{teacher.GradeXuke}}" wx:key="index">
+        <view>
+          <view class="list-title">{{item.GradeName}}{{item.XueKeName}}</view>
+          <view class="list-content">
+            <view class="item flex"  data-id="{{index}}" catchtap="{{item.LessonTeacher == 2?'lookScore':''}}" data-target="教学表现">
+              <view class="name">教学表现</view>
+              <view class="btns flex" wx:if="{{item.LessonTeacher == 0 }}">
+                <button bindtap="showArea" data-id="beiKe" data-index="{{index}}">未参加备课</button>
+                <button bindtap="goScore" data-id="{{index}}" data-target="教学表现">评分</button>
+              </view>
+              <view class="btns flex" wx:if="{{item.LessonTeacher == 1 }}">
+                <text>未参加备课</text>
+                <text class="reason" bindtap="lookReason" data-id="beiKe" data-index="{{index}}">查看原因</text>
+              </view>
+              <view class="score" wx:if="{{item.LessonTeacher == 2 }}">
+                <text>{{item.LessonTeacherScore}}分</text>
+                <text class="iconfont icon-arrowback"></text>
+              </view>
+            </view>
+            <view class="item item1 flex"  data-id="{{index}}"  catchtap="{{item.LessonPlan == 2?'lookScore':''}}" data-target="教案">
+              <view class="name">教案</view>
+              <view class="btns flex" wx:if="{{item.LessonPlan == 0 }}">
+                <button bindtap="showArea" data-id="jiaoAn" data-index="{{index}}">未提交教案</button>
+                <button bindtap="goScore" data-id="{{index}}" data-target="教案">评分</button>
+              </view>
+              <view class="btns flex" wx:if="{{item.LessonPlan == 1 }}">
+                <text>未提交教案</text>
+                <text class="reason" bindtap="lookReason" data-id="jiaoAn"  data-index="{{index}}">查看原因</text>
+              </view>
+              <view class="score" wx:if="{{item.LessonPlan == 2}}">
+                <text>{{item.LessonPlanScore}}分</text>
+                <text class="iconfont icon-arrowback"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  
+  <view class="float" wx:if="{{showFloatArea}}" data-id="float">
+    <view class="floatwrap">
+      <textarea name="" id="" placeholder="{{reasonStr}}" bindinput="getTextareaValue" maxlength="-1"></textarea>
+      <button class="btn1" bindtap="submits" data-target="{{reasonTarget}}">提交</button>
+      <button class="btn2" bindtap="giveup">放弃</button>
+    </view>
+  </view>
+  <view class="float" wx:if="{{showFloatText}}" bindtap="close" data-id="float">
+    <view class="floatwrap floatwrap1">
+      <view>{{reasonTitle}}</view>
+      <view>{{answer}}</view>
+    </view>
+  </view>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

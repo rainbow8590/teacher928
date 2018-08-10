@@ -1,0 +1,96 @@
+<view class="container"> 
+  <!-- 评分 -->
+  <view class="wrap" wx:if="{{target=='btn' && isAjaxOver}}">
+    <view class="search flex">
+      <view class="top">
+        <view class="top-ng">{{teacher.TeacherName}}</view>
+        <view>{{teacher.GradeXuke[selectId].GradeName}} - {{teacher.GradeXuke[selectId].XueKeName}}</view>
+      </view>
+      <view class="bottom">
+        <view class="top-ng bottom-ng">{{kejie}}备课</view>
+        <view>{{year}}年-{{semester}}</view>
+      </view>
+    </view>
+    <!-- <form bindsubmit=""> -->
+      <block wx:for="{{titles}}" wx:for-item="titleAll" wx:key="index">
+        <view class="scoretitle" wx:if="{{titleAll.KindSecond != null}}">{{titleAll.KindSecond}} <text wx:if="{{titleAll.KindSecond!='综合评价'}}">（{{titleAll.KindSecondScore}}分）</text></view>
+        <view class="score {{titleAll.KindSecond=='综合评价'?'score1':''}}" >
+          <block wx:for="{{titleAll.PrepareLessonScoreItem}}" wx:for-index="ind" wx:key="ind">
+            <view class="item" wx:if="{{item.Kind==1}}">
+              <view class="itemtitle">{{item.id}}.{{item.Name}}<text>（{{item.TotalScore}}分）</text></view>
+              <view class="itemselect itemselect2 {{ind == titleAll.PrepareLessonScoreItem.length-1?'itemselect1':''}}">
+                <radio-group class="radio-group" bindchange="radioChange" data-valueid="{{item.id}}" data-selfid="{{ind}}" data-id="6666666666666"  data-parentid="{{index}}" name="{{item.Code}}">
+                  <label class="radio">
+                    <radio value="A {{item.OptionA}}" />A<text>（{{item.OptionA}}分）</text>
+                  </label>
+                  <label class="radio">
+                    <radio value="B {{item.OptionB}}" />B<text>（{{item.OptionB}}分）</text>
+                  </label>
+                  <label class="radio" wx:if="{{item.OptionC}}">
+                    <radio value="C {{item.OptionC}}" />C<text>（{{item.OptionC}}分）</text>
+                  </label>
+                </radio-group>
+              </view>
+            </view>
+            <view class="area" wx:if="{{item.Kind==2}}"><textarea name="area" cursor-spacing="100" show-confirm-bar="false" maxlength="-1" placeholder="请填写综合评价" bindinput="getarea" data-parentid="{{index}}" data-selfid="{{ind}}" data-valueid="{{item.id}}"></textarea></view>
+          </block>
+        </view>
+      </block>
+
+      <view class="submit flex">
+        <view>得分: <text>{{ sumScore }}</text>分</view>
+        <button disabled="{{isIn}}" bindtap="save">提交</button>
+      </view>
+    <!-- </form> -->
+  </view> 
+  <!-- 查看评分 -->
+  <view class="wrap" wx:if="{{target=='item' && isAjaxOver}}">
+    <view class="search flex">
+      <view class="top">
+        <view class="top-ng">{{teacher.TeacherName}}</view>
+         <view>{{teacher.GradeXuke[selectId].GradeName}} - {{teacher.GradeXuke[selectId].XueKeName}}</view>
+      </view>
+      <view class="bottom">
+        <view  class="top-ng bottom-ng">{{kejie}}备课</view>
+         <view>{{year}}年-{{semester}}</view>
+      </view>
+      <view class="endscore">{{endScore}}分</view>
+    </view>
+     <block wx:for="{{titles}}" wx:for-item="titleAll" wx:key="index">
+        <view class="scoretitle" wx:if="{{titleAll.KindSecond != null}}">{{titleAll.KindSecond}} <text wx:if="{{titleAll.KindSecond!='综合评价'}}">（{{titleAll.KindSecondScore}}分）</text></view>
+        <view class="score {{titleAll.KindSecond=='综合评价'?'score1':''}}" >
+          <block wx:for="{{titleAll.PrepareLessonScoreItem}}" wx:for-index="ind" wx:key="ind">
+            <view class="item" wx:if="{{item.Kind==1}}">
+              <view class="itemtitle">{{item.id}}.{{item.Name}}<text>（{{item.TotalScore}}分）</text></view>
+              <view class="itemselect {{ind == titleAll.PrepareLessonScoreItem.length-1?'itemselect1':''}}">
+                {{item.Answer}}<text>（{{item.selectOptionScore}}分）</text> 
+              </view>
+            </view>
+            <view class="area" wx:if="{{item.Kind==2}}"><view class="answer">{{item.Answer}}</view></view>
+          </block>
+        </view>
+      </block>
+
+
+
+  </view> 
+
+
+ <!--  <view class="float" wx:if="{{showTip}}">
+    <div class="floatwrap">
+      <view class="content">确认提交评分, 提交后不可修改!</view>
+      <view><button class="btn2" bindtap="giveup">取消</button><button >提交</button></view>
+    </div>
+  </view> -->
+  
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab> -->
+</view>

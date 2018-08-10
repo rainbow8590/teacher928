@@ -1,0 +1,71 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <view   wx:if="{{!show1}}">
+      <view class="classInfo flex">
+        <view>
+        <!-- <image class="arrow" src="/../pages/images/search-arrow.png"></image> -->
+        <text class="iconfont icon-arrowfillleft" ></text>打卡剩余时间：{{hours}}小时{{mins}}分{{secs}}秒</view>
+        <text class="iconfont icon-menus" bindtap="powerDrawer" data-statu="{{isopen}}"></text>
+       <!--  <image id="menu"  src="/../pages/images/menu.gif" ></image> -->
+      </view>
+      <view class="choise flex">
+        <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+        <select type="kejie" typeInn="{{kejieInn}}" bind:getEvent="getKejie"></select>
+      </view>
+      <view class="tasksTable" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+        <!-- 表头 -->
+        <view class="ttHead flex" style="height:{{taskH}}px;">
+          <view class="ttHead-fix">
+            <view class="sName">姓名</view>
+          </view>
+          <view class="ttHead-scroll flex" style="width:{{contentW}}px;left:{{scrollL}}px;" id="widthScroll">
+            <text class="task task1" wx:for="{{taskArr}}" wx:key="id" id="widthScroll{{index}}">{{item}}</text>
+            <view class="time" >用时</view>
+          </view>
+        </view>
+        <!-- 表体 -->
+        <view class="ttHead ttBody flex" style="height:{{heigh}}px;">
+          <view class="ttHead-fix" style="height:{{heigh}}px;top:{{scrollT}}px;">
+            <view wx:for="{{resultArr}}"  wx:key="id" class="sName">{{item.sStudentName}}</view>
+          </view>
+          <view class="ttHead-scroll" style="width:{{contentW}}px;height:{{heigh}}px;left:{{scrollL}}px;top:{{scrollT}}px;">
+            <view class="scroll-item  flex" wx:for="{{resultArr}}" wx:item="item" wx:key="id" >
+              <view class="task" wx:for="{{item.newTask}}" wx:for-item="item1" wx:key="id">
+                <!-- <text class="iconfont icon-true"></text> -->
+                <text wx:if="{{item1=='是'}}" class="iconfont icon-true"></text>
+                <!-- <image wx:if="{{item1=='是'}}" src="/../pages/images/true.png"></image> -->
+              </view>
+              <view class="time">{{item.sUserTime}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+     <!-- <image class="showImg" src="{{src}}" wx:if="{{show1}}"></image> -->
+    <view class="btn">
+      <button  bindtap="forward" wx:if="{{showBtn}}" class="loginBtn" disabled="{{linkBth}}" hover-class="hoverLogin">显示转发链接</button>
+      <!-- <button open-type="share" wx:if="{{!showBtn||showBtn1}}" bindtap="forward" class="loginBtn" hover-class="hoverLogin">转发</button> -->
+    </view>
+  </view>
+
+ <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+ <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+ 
+</view>

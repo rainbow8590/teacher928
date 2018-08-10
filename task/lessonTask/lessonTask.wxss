@@ -1,0 +1,200 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+@import "../../utils/css/task.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+
+.flex{
+  display: flex;
+}
+
+
+.tip{
+  font-size: 30rpx;
+  line-height: 48rpx;
+  color: #939393;
+  padding:  0 34rpx 56rpx;
+}
+.tip1{
+  padding-bottom: 42rpx;
+}
+
+.title{
+  width: 80%;
+  font-size: 40rpx;
+  margin: 42rpx 30rpx 22rpx 34rpx;
+  font-weight: bold;
+}
+
+.title1{
+  font-size: 30rpx;
+  margin-top: 0;
+  color: #2da867;
+}
+.lessons{
+  position: relative;
+}
+.finish-solid{
+  position: absolute;
+  right: 32rpx;
+  bottom: 32rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #fff;
+  border: 4rpx solid #fcd86b;
+  box-sizing: border-box
+}
+.finish-dash{
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  margin-right: -52rpx;
+  margin-top: -52rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #fff;
+  border: 4rpx dashed #fcd768;
+}
+.finish-dash text{
+  font-size: 30rpx;
+  position: absolute;
+  left: 5rpx;
+  top: 30rpx;
+  transform: rotate(30deg);
+  color: #fcd768;
+}
+
+
+
+
+
+/* .upload{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 0;
+  background-color: #2da867;
+}
+
+.content{
+  width: 100%;
+}
+.lessons{
+  width: 95%;
+  font-size: 24rpx;
+  color: #888;
+  padding: 0 30rpx 20rpx;
+  flex-wrap: wrap;
+  box-sizing:border-box;
+  margin: 0 auto;
+  box-shadow:  0 0 20px rgba(105,105,107,.2);
+  margin-bottom: 20rpx;
+  background: #fff;
+}
+.lesson{
+  width: 100%;
+  align-items: center;
+  padding: 30rpx;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.lessonName{
+  padding-top: 30rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+.lessonName image{
+  width: 68rpx;
+  height: 80rpx;
+}
+.lessonName text{
+}
+.lessonInfo{
+  font-size: 24rpx;
+}
+
+.address view{
+  color: #a3a3a3;
+  border: 1px solid #a3a3a3;
+  padding: 0 16rpx;
+  border-radius: 10rpx;
+  margin-right: 32rpx;
+  margin-bottom: 30rpx;
+}
+.lessonTime{
+  align-items: center;
+  color: #a3a3a3;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 32rpx;
+  display: inline-block;
+  margin-bottom: 16rpx;
+}
+.lessonTime text{
+  padding-right: 16rpx;
+}
+.lessonTime .iconfont{
+  font-size: 26rpx;
+}
+.icon-clock-strock{
+  padding-left: 20rpx;
+}
+.status{
+  width: 100%;
+  font-size: 30rpx;
+  color: #00a86a;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+.status button{
+  height: 50rpx;
+  line-height: 40rpx;
+  border: 2px solid #00a86a;
+  margin-right: 0;
+  padding: 0 10rpx;
+  background: #fff;
+  box-sizing: border-box;
+  color:#00a86a; 
+} */
+
+
+
+
+
+/*
+.lesson image{
+  width: 70px;
+  height: 50px;
+  margin-right: 30rpx;
+}
+.lesson checkbox{
+  margin-right: 30rpx;
+}
+
+
+.classInfo .className{
+  font-size: 30rpx;
+  padding-bottom: 10rpx;
+}
+.classInfo .classDes{
+  color: #888;
+  font-size: 22rpx;
+  padding-bottom: 8rpx;
+}
+
+*/

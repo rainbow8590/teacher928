@@ -1,0 +1,8 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "代课审核",
+  "usingComponents":{
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu"
+  }
+}

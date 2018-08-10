@@ -1,0 +1,93 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <view class="tab" style="height:{{heigh}}px">
+      
+        <view class="tabBodyItem" style="height:{{heigh}}px;">
+          <view class="progressItem">
+            <view class="title">
+              <view>{{notesArr.sClassCode}} {{notesArr.sClassName}}</view>
+              <view>{{notesArr.sTeacherName}}老师 第{{notesArr.nLessonNo}}讲请求代课 距上课还有<text>{{notesArr.time}}</text></view>
+           </view>
+           <view class="content">
+             <view class="contentItem flex"><text class="left">本讲主题:</text><text>{{notesArr.sTopic}}</text></view>
+             <view class="contentItem flex"><text class="left">上课时间:</text><text>{{notesArr.dtDate}}</text></view>
+             <view class="contentItem flex"><text class="left">上课教室:</text><text>{{notesArr.sAreaName}}</text></view>
+           </view>
+           <form bindsubmit="lookLeaveImg" report-submit="true">  
+             <view class="btn">
+                <text wx:if="{{notesArr.nLeaveType == 1}}">事假</text>
+                <button wx:if="{{notesArr.nLeaveType == 3&& ( notesArr.nPicAduit == 0 || notesArr.nPicAduit == null )}}" formType="submit">病假 <text class="look">[查看病假条]</text></button>
+                <text wx:if="{{notesArr.nLeaveType == 3 && notesArr.nPicAduit == 1}}">病假已通过</text>
+             </view>
+           </form>
+          </view> 
+          <form bindsubmit="saveLeave" report-submit="true">      
+            <!-- 查看病假条 -->
+                    <view class="leave" wx:if="{{notesArr.showImg}}" >
+                      <view class="leave-wrap" data-id="float" bindtap="closeFloat1">
+                          <view class="no-leave" wx:if="{{!imgSrc}}">尚未上传</view>
+                          <image catchtap="previewImg"  mode="scaleToFill" src="{{imgSrc}}" wx:if="{{imgSrc}}"></image>
+                          <view class="btn flex">
+                            <!-- <button data-status="1" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">通过</button> -->
+                            <!-- <button data-status="0" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">不通过</button> -->
+                            <button data-status="1" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">同意病假</button>
+                            <button data-status="0" data-id="{{index}}" formType="submit" disabled="{{!imgSrc}}">不同意</button>
+                          </view>
+                      </view>
+                    </view>
+          </form> 
+          <form bindsubmit="sure" report-submit="true">      
+            <view class="btns">
+              <!-- 状态1 请求中  -->
+              <view class="status" wx:if="{{notesArr.nStatus == 0}}">
+                <button class="btn" open-type="share">帮转发</button>
+              </view>
+              
+              <!-- 状态4 已超时  -->
+              <view class="status" wx:if="{{notesArr.nStatus == 3}}">
+                <button class="btn btn1 btn2" disabled="true">超时</button>
+              </view>
+              <!-- 状态5 已完成  -->
+              <view class="status" wx:if="{{notesArr.nStatus == 4}}">
+                <button class="btn btn2" bindtap="evaluateTeacher">查看教师评价</button>
+                <view class="evaluate" wx:if="{{showEvaluate}}">{{notesArr.sComment}}</view>
+              </view>
+            </view>  
+            <view class="btns complate" wx:if="{{isShowTeacher && notesArr.nStatus!=0}}">
+              <view class="teachers flex">
+                <view class="teacher flex" data-phone="{{notesArr.sTeacherPhone}}" bindtap="getPhone">
+                  <view>{{notesArr.sTeacherName}}</view>
+                  <view >{{notesArr.sTeacherPhone}}</view>
+                </view>
+                <text class="iconfont icon-arrowback"></text>
+                <!-- <image class="arrow" src="../images/back.png"></image> -->
+                <view class="teacher flex" bindtap="getPhone" data-phone="{{notesArr.sTeacherPhone1}}">
+                  <view>{{notesArr.sTeacherName1}}</view>
+                  <view>{{notesArr.sTeacherPhone1}}</view>
+                </view>
+              </view>
+              <!-- 状态2 待审核  -->
+              <view class="status status1" wx:if="{{notesArr.nStatus == 1}}">
+                <button class="btn" formType="submit" data-status="2">同意</button>
+                <button class="btn" formType="submit" data-status="0">不同意</button>
+              </view>
+              <!-- 状态3 代课中  -->
+              <view class="statu" wx:if="{{notesArr.nStatus == 2}}">
+                <button class="btn btn2" bindtap="showTip">代课进行中</button>
+              </view>
+          </view> 
+          </form> 
+             
+        </view>
+      
+    </view>
+  </view>
+  
+
+ 
+  <!-- 打电话或复制 -->
+  <include src="../../utils/xml/phone.wxml"/>
+  <!-- 导航 -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

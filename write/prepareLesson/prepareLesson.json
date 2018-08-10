@@ -1,0 +1,11 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "备课评分",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "select":"/components/Select/select",
+    "input-menu":"/components/InputMenu/inputMenu"
+  }
+}

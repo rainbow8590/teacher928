@@ -1,0 +1,78 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+    </view>
+    <!-- 基本信息表单 -->
+    <form bindsubmit="saveInfos">
+      <view class="thead flex">
+        <view class="sName">姓名</view>
+        <view class="sSchool">就读学校</view>
+        <view class="sExperimental" wx:if="{{isShow}}">实验班</view>
+      </view>
+      <view class="tbody" style="height: {{resultH}}px">
+        <view class="tbody-row flex" wx:for="{{studentslist}}" wx:key="id">
+          <input type="hidden" class="hidInp" name="datas[{{index}}][sStudentCode]" value="{{item.sStudentCode}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][sDistrict]" value="{{item.schoolDistrict}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][sExperimentalType]" value="{{item.sExperimentalType}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][nSchoolID]" value="{{item.schoolId}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][nXueBu]" value="{{item.nXueBu}}" />
+          <input type="hidden" class="hidInp" name="datas[{{index}}][school]" value="{{item.sSchoolName}}"  />
+          <view class="sName">{{item.sName}}</view>
+          <view class="sSchool" bindtap="checkSchool" data-schoolnum="{{index}}">{{item.sSchoolName}}</view>
+          <view class="sExperimental" wx:if="{{isShow}}" bindtap="sExperimental" data-numb="{{index}}" data-id="experimental">{{item.sExperimentalType}}<text class="iconfont icon-arrowdownbold"></text></view>
+        </view>
+      </view>
+
+      <view class="btn">
+        <button formType="submit" class="loginBtn" hover-class="hoverLogin" disabled="{{!studentslist.length}}">保存</button>
+      </view>
+    </form>
+  </view>
+
+ 
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+
+  <!-- 学校弹窗 -->
+  <view class="float" wx:if="{{show1 && isAjaxOver1}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap floatWrap1">
+      <view class="arrows arrowT"><text class="iconfont icon-arrowup"></text></view>
+      <view class="floatC-item floatC-item1"><input type="text" value="{{inpValue}}" placeholder="请输入学校关键字进行搜索" bindinput="selectName" /></view>
+      <view class="floatC">
+        <view class="floatC-item" data-id="0" bindtap="getIndex2">其他</view>
+        <view class="floatC-item" wx:for="{{setSchoolList}}" data-district="{{item.schoolDistrict}}" data-schoolname="{{item.schoolName}}" data-id="{{item.schoolId}}" bindtap="getIndex1">{{item.schoolName}}</view>
+      </view>
+      <view class="arrows arrowB"><text class="iconfont icon-arrowup"></text></view>
+    </view>
+  </view>
+  <!-- 其他弹窗 -->
+  <view class="float" wx:if="{{show2}}" data-id="float" bindtap="closeFloat1">
+    <view class="floatWrap floatWrap2">
+      <view class="floatC-item floatC-item1"><input type="text" value="{{inpValue1}}" bindinput="writeVlaue" placeholder="请输入学校名称" /></view>
+      <button bindtap="otherSchool">确定</button>
+    </view>
+  </view>
+
+  <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

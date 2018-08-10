@@ -1,0 +1,101 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex{
+  display: flex;
+}
+.teacherName{
+  font-size: 48rpx;
+  font-weight: bold;
+  padding: 36rpx 0 36rpx 34rpx;
+}
+.tip{
+  font-size: 30rpx;
+  line-height: 48rpx;
+  color: #939393;
+  padding:  0 34rpx 65rpx;
+}
+
+
+
+.task{
+  width: 90%;
+  height: 240rpx;
+  box-shadow:  0 0 20px rgba(105,105,107,.2);
+  margin: 0 auto;
+  padding: 24rpx 14rpx;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+  flex-direction: column;
+  /*padding: 30rpx 30rpx 10rpx;
+  color: #666;
+  */
+}
+.task image{
+  width: 118rpx;
+  height: 118rpx;
+  padding-left: 16rpx;
+  padding-right: 30rpx;
+}
+.endtime{
+  text-align: right;
+  color: #b2b9be;
+  font-size: 24rpx;
+}
+
+.title{
+  align-items: center;
+  flex: 1;
+  padding-top:20rpx;
+}
+.content{
+  flex: 1;
+  height: 100%;
+}
+.task .task-title{
+  font-size: 36rpx;
+  /*padding-top: 10rpx;*/
+  padding-bottom: 8rpx;
+  font-weight: bold;
+  justify-content: space-between;
+}
+.task .icon-arrowback{
+  color: #b2b9be;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-top: -20rpx;
+}
+.task .task-des{
+  color: #b2b9be;
+  font-size: 26rpx;
+  /*line-height: 60rpx;*/
+}
+.task .task-status{
+  color: #f25646;
+  font-size: 24rpx;
+  text-align: right;
+}
+
+.task .task-status .status{
+  color: #f25646;
+  font-size: 24rpx;
+}
+
+.task .task-status .status1{
+  color: #1fba21;
+  font-size: 24rpx;
+}
+
+.task  .icon-warm-strock{
+  padding-right: 4rpx;
+  line-height: 20px;
+}
+

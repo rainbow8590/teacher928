@@ -1,0 +1,39 @@
+<view class="container" style="height:{{contentH}}px">
+  <!-- <teacher-menu teacherName="{{teacherName}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu> -->
+  <view class="title">任务说明</view>
+  <view class="tip">请在{{baseInfo.ListenTimeShort}}日前，到校区至少听{{baseInfo.ListenLesson}}次课，听课完成后上传听课笔记。</view>
+  <view class="title title1">预约听课</view>
+  <view class="tip tip1">应听课 {{baseInfo.ListenLesson}}  已预约 {{baseInfo.ReserveListen}}</view>
+  <view class="tip tip1" wx:if="{{!bListenFinish}}">请点击预约听课预约课程</view>
+  <view class="content">
+    <view class="lessons" wx:for="{{baseInfo.ClassList}}" bindtap="uploadNotes" data-id="{{index}}" wx:key="index">
+      <view class="lessonName flex">
+        <image src="../../pages/images/class.png"></image>
+        <text>{{item.ClassName}}</text>
+      </view>
+      <view class="lessonInfo">
+        <view class="address flex">
+          <view >{{item.SemesterName}}</view>
+          <view>{{item.AreaName}}</view>
+        </view>
+        <view class="lessonTime flex">
+          <text class="iconfont icon-rili-strock"></text>
+          <text>{{item.dtDate}} </text> 
+          <text class="iconfont icon-clock-strock"></text>
+          <text>{{item.sTime}}</text>
+        </view>
+        <view class="status flex">
+          <text>已预约</text>    
+          <text wx:if="{{item.TaskAudit == false}}">审核中</text>
+          <button wx:if="{{item.TaskAudit == null}}" catchtap="uploadNotes" type="primary"  class="uploadBtn" data-id="{{index}}">上传听课笔记</button>
+        </view>
+      </view>
+      <view class="finish-solid" wx:if="{{item.ListenLevel}}">
+        <view class="finish-dash">
+          <text>评级{{item.ListenLevel}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button class="upload" type="primary"  bindtap="preLessons" disabled="{{!(baseInfo.ListenLesson>baseInfo.ReserveListen)}}">预约听课</button>
+</view>

@@ -1,0 +1,10 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "学员信息",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "menu":"/components/Menu/menu",
+    "select":"/components/Select/select",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "升班详情",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "select":"/components/Select/select",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

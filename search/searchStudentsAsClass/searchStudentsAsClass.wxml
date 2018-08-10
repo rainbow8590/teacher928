@@ -1,0 +1,166 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap" bindtap="hideBubble">
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+      <select type="grade" typeInn="{{gradeInn}}" bind:getEvent="getGrade" wx:if="{{classGrade>=7}}"></select>
+    </view> 
+
+    <!-- 查询结果 -->
+    <view class='table' bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' style="height:{{heigh+theadH}}px">
+      <!--表格标题 -->
+      <view class='thead flex'>
+        <view class="thead-left flex" style="width:{{sNameW}}px;border-top:1px solid #1fba21;border-bottom:1px solid #1fba21;">
+          <view class="sName">姓名</view>
+          <view class="sKe">多科 <br/> 在读</view>
+        </view>
+        <view class="thead-right">  
+          <view class="rightWrap" style="width:{{contentW}}px;left:{{scrollL}}px;">
+            <view class="scrollItem flex" style="border-top:1px solid #1fba21;border-bottom:1px solid #1fba21;border-right:{{ scrollLZheng > criticalValue-20?'1px solid #1fba21':'none'}};">
+              <view class="flex" style="width:{{criticalAllValue}}px">
+                <view class="sKe sKe2"><view>升班</view><view>情况</view></view>
+                <view class="sKe"><view>升其</view><view>他科</view></view>
+                <view class="sKe sKe3" wx:if="{{classGrade<0}}"><view>高思杯</view><view>成绩</view></view>
+                <view class="sKe sKe3" wx:if="{{classGrade<0}}"><view>高思杯</view><view>排名</view></view>
+                <view class="sSchool">就读学校</view>
+                <view class="sExperimental">实验班</view>
+              </view>
+              <view class="sKemu flex" wx:if="{{scoreShow}}">
+                <view class="sKemu-top">期中成绩</view>
+                <view class="sKemu-bottom flex">
+                  <text>语文</text>  
+                  <text>数学</text>
+                  <text>英语</text>  
+                  <text>物理</text>  
+                  <text>化学</text>  
+                </view>
+              </view>
+              <view class="sKemu flex" wx:if="{{scoreShow}}">
+                <view class="sKemu-top">期末成绩</view>
+                <view class="sKemu-bottom flex">
+                  <text>语文</text>  
+                  <text>数学</text>  
+                  <text>英语</text>  
+                  <text>物理</text>  
+                  <text>化学</text> 
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!--表格内容 -->
+      <view class='thead tbody' style="height:{{heigh}}px;">
+        <view class="twrap flex" style="top:{{}}px; ">
+          <view class="thead-left" style="width:{{sNameW}}px;" >
+            <view style="height:{{contentH}}px;">
+              <view class="leftItem flex" wx:for="{{infos}}" wx:for-item="info"  wx:key="id" style="background:{{index%2==0? '#f1f1f1':'#fff'}};border-bottom:{{index == infos.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};margin-bottom:{{index == infos.length-1 ? '10px':'0'}}">
+                <view class="sName sName1" bindtap="getPhone" data-phone="{{info.sPhone}}" data-bubble="bubble" data-id="{{index}}">
+                  <view>{{info.sName}}</view>
+                  <view>{{info.sPhone}}</view>
+
+                </view>
+                <view class="sKe sKe1" catchtap="showTip1" data-bubble="bubble" data-id="{{index}}">{{info.isOthersubject}}
+                  <view class="{{index == 0?'bubble2':'bubble2_2'}} {{currentItem1 == index?'tipShow':'tipHide'}}" wx:if="{{info.sOthersubject!= null}}">
+                      {{info.sOthersubject}}
+                      <image src="/../pages/images/{{index == 0?'arrow-zoom1':'arrow-zoom'}}.png"></image>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="thead-right">  
+            <view class="rightWrap" style="width:{{contentW}}px;height:{{contentH}}px;left:{{scrollL}}px;">
+              <view class="scrollItem flex" wx:for="{{infos}}" wx:for-item="info"  wx:key="id" style="background:{{index%2==0? '#f1f1f1':'#fff'}};border-bottom:{{index == infos.length-1 ? '1px solid #1fba21':'1px solid #f1f1f1'}};border-right:{{ scrollLZheng > criticalValue-20?'1px solid #1fba21':'none'}};margin-bottom:{{index == infos.length-1 ? '10px':'0'}}">
+                <view class="flex"  style="width:{{criticalAllValue}}px;">
+                  <view class="sKe sKe2" catchtap="showShengbanDetail" data-idx="{{index}}"><view style="line-height: {{info.sbInfoArrLength<=1?40:20}}px">{{info.sbInfo}}</view></view>
+
+                  <view class="sKe" catchtap="showTip2" data-bubble="bubble" data-id="{{index}}">
+                    <view style="line-height: 40px;">{{info.sShengQiTaXueKeFlag}}</view>
+                    <view class="{{index == 0?'bubble3':'bubble3_3'}} {{currentItem2 == index?'tipShow':'tipHide'}}" wx:if="{{info.sShengQiTaXueKe.length}}">
+                        {{info.sShengQiTaXueKe}}
+                        <image src="/../pages/images/{{index == 0?'arrow-zoom1':'arrow-zoom'}}.png"></image>
+                    </view>
+                  </view>
+                  <view class="sKe sKe3" wx:if="{{classGrade<0}}">
+                    <block wx:for="{{info.sScore}}" wx:key="{{index}}">
+                      <view style="line-height: {{info.sScore.length-1>=2? 20:40}}px" data-grade="{{info.sGrade[index]}}" data-subject="{{info.sSubject[index]}}" data-code="{{info.code}}">{{item}}</view>
+                    </block>
+                  </view>
+                  <view class="sKe sKe3" wx:if="{{classGrade<0}}">
+                    <block wx:for="{{info.sRank}}" wx:key="{{index}}">
+                      <view style="line-height: {{info.sRank.length-1>=2? 20:40}}px">{{item}}</view>
+                    </block>
+                  </view>
+                  <view class="sSchool"><view style="padding-top:{{info.sSchool.length>= 14?'10':'20'}}px">{{info.sSchool}}</view></view>
+                  <view class="sExperimental">{{info.sExperimentalType}}</view>
+                </view>
+                <view class="sKemuScore flex" wx:if="{{scoreShow}}">
+                  <text wx:for="{{info.QiZhong}}" wx:key="{{index}}">{{item.Score}}<text wx:if="{{item.TotalScore}}">/</text>{{item.TotalScore}}</text>
+                </view>
+                <view class="sKemuScore flex" wx:if="{{scoreShow}}">
+                  <text wx:for="{{info.QiMo}}" wx:key="{{index}}">{{item.Score}}<text wx:if="{{item.TotalScore}}">/</text>{{item.TotalScore}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+        <!-- 左滑提示 -->
+      <view class="goLeftTip" wx:if="{{showLoad}}">
+        <view><image src="/../pages/images/arrowLeft.gif"></image></view>
+      </view>
+    </view>
+
+  </view>
+
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <!-- 升班弹窗 -->
+  <view class="upFloat" wx:if="{{showUp && isAjaxOver1}}" data-id="float" bindtap="closeShengbanFloat">
+    <view class="floatWrap">
+      <view class="fItem" wx:for="{{shengbanArr}}">
+        <view class="fItemTop flex" style="line-height:{{item.sPrintTeachers.length>5 ||item.sClassName.length>12?40:54}}rpx;">
+          <view class="sCode">{{item.sClassCode}}</view>
+          <view class="sName">{{item.sClassName}}</view>
+          <view class="sTeacher">{{item.sPrintTeachers}}</view>
+        </view>
+        <view class="fItemBottom flex" >
+          <view class="sTime" style="line-height:{{item.sPrintTime.length>15 ||item.sAreaName.length>12 ?36:54}}rpx;">{{item.sPrintTime}}</view>
+          <view class="sSchool" style="line-height:{{item.sAreaName.length>11 ? 36:54}}rpx;">{{item.sAreaName}} </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  
+
+  <!-- 导航 -->
+  <include src="../../utils/xml/phone.wxml"/>
+  <!-- 导航 -->
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+  <!-- 手指左滑 -->
+  <view class="goLeft" wx:if="{{localShow}}">
+    <view><image mode="widthFix" src="/../pages/images/hua.png"></image></view>
+    <button bindtap="hideZoom">知道了</button>
+  </view>
+
+</view>

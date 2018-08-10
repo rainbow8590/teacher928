@@ -1,0 +1,148 @@
+<!--index.wxml-->
+<view class="container" catchtap="closePickerFloat">
+  <view class="wrap" >
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+      <select type="kejie" typeInn="{{kejieInn}}" bind:getEvent="getKejie"></select>
+    </view>
+    <view class="setTask" wx:if="{{showTime}}">
+      <view class="setTask-title">自定义打卡内容：</view>
+      <view class="setTask-content flex">
+        <text>截止时间：</text>
+        <text class="write writeDate" data-id="write" bindtap="showPicker">{{year}}年{{month1}}月{{day}}日 </text> 
+        <text class="write writeTime" data-id="write" bindtap="showPicker">{{hour}}:{{min}}</text>
+      </view>
+      <!-- 弹层 -->
+      <picker-view indicator-style="height: 50px;" style="width: 100%;font-size: 14px;" value="{{value}}" bindchange="bindChange" class="pickerView" wx:if="{{showPicker}}" data-id="pickerFloat">
+        <picker-view-column>
+          <view wx:for="{{years}}" style="line-height: 50px">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{months}}" style="line-height: 50px">{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{days}}" style="line-height: 50px">{{item}}日</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{hours}}" style="line-height: 50px">{{item}}时</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{mins}}" style="line-height: 50px">{{item}}分</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+
+    <view class="tasks">
+     <form bindsubmit="postTaskTemplate" wx:if="{{!showTime}}">
+        <view class="taskItems">
+          <view class="taskItem flex" wx:for="{{AllTemplateArr}}" wx:key="id">
+            <input type="text" class="hideInp" name="datas[{{index}}][sClassCode]" value="{{item.classCode}}" />
+            <input type="text" class="hideInp" name="datas[{{index}}][ID]" value="{{item.id}}" />
+            <view class="taskItem-left flex">
+              <view class="dot" style="background:#ff8c59}}"></view>
+              <view class="txt">
+                <input type="text" focus="{{item.focus}}"  name="datas[{{index}}][sName]" data-index="{{index}}" value="{{item.task}}" placeholder="自定义添加，最多7项" bindblur="templateGetInpVal1" />
+              </view>
+              <!-- <input type="text" class="hideInp" name="datas[{{index}}][isComplete]" value="{{item.isComplete}}" /> -->
+            </view>
+            <view class="radio radio1" bindtap="checkRadio" data-id="{{index}}">
+              <!-- <image src="../images/delete.png"></image> -->
+              <text class="eyeicon1 iconfont icon-delete"></text>
+            </view>
+          </view>
+        </view>
+        <view class="taskItem taskAdd flex">
+          <view class="flex">
+            <view class="dot" style="background:#fafafa"></view>
+            <view class="txt"><input type="text" disabled value="自定义添加，最多7项" /></view>
+          </view>
+          <view class="add" bindtap="addTaskTemplate">
+          <!-- <image src="../images/add.png"></image> -->
+            <text class="eyeicon2 iconfont icon-plus"></text>
+          </view>
+        </view>
+        <view class="btn">
+          <button formType="submit" class="loginBtn" hover-class="hoverLogin">确定</button>
+        </view>
+      </form>
+
+      <form bindsubmit="postTask" wx:if="{{showTime}}">
+        <view class="taskItems">
+          <!-- 模板中的任务卡 -->
+          <view class="taskItem flex" wx:for="{{taskArr}}" wx:key="id">
+            <input type="text" class="hideInp" name="datas[{{index}}][sClassCode]" value="{{classCode}}" />
+            <input type="text" class="hideInp" name="datas[{{index}}][nLessonNo]" value="{{tipKejieIndex}}" />
+            <input type="text" class="hideInp" name="datas[{{index}}][dtEndDate]" value="{{endTime}}" />
+            <view class="taskItem-left flex">
+              <view class="dot" style="background:#ff8c59}}"></view>
+              <view class="txt">
+                <input type="text"  name="datas[{{index}}][sItemName]"  value="{{item.task}}" data-index="{{index}}" placeholder="自定义添加，最多7项" bindblur="getInpVal1" />
+              </view>
+              <!-- <input type="text" class="hideInp" name="datas[{{index}}][isComplete]" value="{{item.isComplete}}" /> -->
+            </view>
+            <input type="text" class="hideInp" name="datas[{{index}}][sCode]" value="{{item.code}}" />
+            <view class="{{status == 2?'radio':'radio radio1'}}" data-id="{{index}}" bindtap="checkRadio2">
+               <text class="eyeicon1 iconfont {{status == 2?'icon-checkgray':'icon-delete'}}"></text>
+              <!-- <image src="/../pages/images/{{status == 2?'check_gray':'delete'}}.png"></image> -->
+            </view>
+          </view>
+          <!-- 自定义添加的任务卡 -->
+          <view class="taskItem flex" wx:for="{{newTaskArr}}">
+            <input type="text" class="hideInp" name="datas[{{index+taskArr.length}}][sClassCode]" value="{{classCode}}" />
+            <input type="text" class="hideInp" name="datas[{{index+taskArr.length}}][nLessonNo]" value="{{tipKejieIndex}}" />
+            <input type="text" class="hideInp" name="datas[{{index+taskArr.length}}][dtEndDate]" value="{{endTime}}" />
+            <view class="taskItem-left flex">
+              <view class="dot" style="background:#ff8c59"></view>
+              <view class="txt">
+                <input type="text" focus="{{item.focus}}" name="datas[{{index+taskArr.length}}][sItemName]" data-index="{{index}}" value="{{item.task}}" placeholder="自定义添加，最多7项" bindblur="getInpVal2" />
+              </view>
+            </view>
+            <input type="text" class="hideInp" name="datas[{{index+taskArr.length}}][sCode]" value="{{item.sCode}}" />
+            <view class="radio radio1" bindtap="checkRadio1" data-id="{{index}}">
+              <text class="eyeicon1 iconfont icon-delete"></text>
+              <!-- <image src="/../pages/images/delete.png"></image> -->
+            </view>
+          </view>
+         
+        </view>
+        
+       
+        <view class="taskItem taskAdd flex">
+          <view class="flex">
+            <view class="dot" style="background:#fafafa"></view>
+            <view class="txt"><input type="text" disabled value="自定义添加，最多7项" /></view>
+          </view>
+          <view class="add" bindtap="addTask">
+          <!-- <image src="/../pages/images/add.png"></image> -->
+          <text class="eyeicon2 iconfont icon-plus"></text>
+          </view>
+        </view>
+        <view class="btn">
+          <button formType="submit" class="loginBtn" hover-class="hoverLogin">确定</button>
+        </view>
+      </form>
+    </view>
+  </view>
+
+ <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+ <!-- 导航 -->
+ <!-- <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+</view>

@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <swiper-change title-one="我的任务" title-two="规章制度">
+      <view slot="leftSwiper" class="tabBodyItem" style="height:{{heigh-34-55}}px;">
+        <block wx:for="{{taskArr}}" wx:key="index">
+          <view class="newsItem flex" bindtap="goDetail" data-noticeid="{{item.sNoticeId}}">
+            <text class="newTip" wx:if="{{ item.sIsLook == 0 }}">new</text>
+            <text class="dot" wx:if="{{item.sIsLook == 1}}">●</text>
+            <view class="title">{{ item.sTitle }}</view>
+            <view class="date">{{ item.sDate }}</view>
+          </view>
+        </block>
+      </view>
+      <view slot="rightSwiper" class="tabBodyItem" style="height:{{heigh-34-55}}px;">
+        <block wx:for="{{thinkArr}}" wx:key="index">
+          <view class="newsItem flex" bindtap="goDetail" data-noticeid="{{item.sNoticeId}}">
+            <text class="iconfont icon-new newTip" wx:if="{{item.sIsLook == 0}}"></text>
+            <text class="dot" wx:if="{{item.sIsLook == 1}}">●</text>
+            <view class="title">{{ item.sTitle }}</view>
+            <view class="date">{{ item.sDate }}</view>
+          </view>
+        </block>
+      </view>
+    </swiper-change>
+  </view>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+  
+</view>

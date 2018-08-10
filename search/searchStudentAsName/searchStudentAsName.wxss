@@ -1,0 +1,477 @@
+/*@import "../../utils/public.wxss";*/
+
+page {
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.tipShow {
+  display: block;
+}
+
+.tipHide {
+  display: none;
+}
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.wrap .choise {
+  height: auto;
+  padding-left: 46rpx;
+  box-sizing: border-box;
+  background: #fff;
+  font-size: 30rpx;
+  color: #1fba21;
+  padding-top:10px;
+  padding-bottom:10px;
+
+}
+
+.wrap .choise .classI {
+  height: 30px;
+  line-height: 30px;
+  justify-content: space-between;
+}
+
+.wrap .choise image {
+  width: 16rpx;
+  height: 18rpx;
+  padding-right: 10rpx;
+}
+/*
+.wrap .choise .choiseItem {
+  position: relative;
+  padding-left: 20rpx;
+  padding-right: 60rpx;
+  margin-right: 60rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: #eee;
+  border-radius: 25rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.wrap .choise .choiseItem image {
+  position: absolute;
+  right: 20rpx;
+  top: 50%;
+  margin-top: -8rpx;
+  width: 25rpx;
+  height: 18rpx;
+}
+*/
+
+.wrap .table {
+  overflow: hidden;
+  background: #fff;
+  font-size: 13px;
+  position: relative;
+}
+
+.wrap .table .thead {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  /*border-bottom: 1px solid #1fba21;*/
+  text-align: center;
+  z-index: 1000;
+}
+
+.wrap .table .tbody {
+  position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  border-bottom-color: transparent;
+  z-index: 999;
+}
+
+.wrap .table .thead .thead-left {
+  position: relative;
+  background: #fff;
+  z-index: 99;
+}
+
+
+.wrap .table .scrollItem {
+  border-bottom: 1px solid #f1f1f1;
+  border-right: 1px solid #1fba21;
+  margin-right: 6px;
+  height: 60px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+
+.wrap .table .tbody .thead-left .leftItem {
+  border-bottom: 1px solid #f1f1f1;
+  line-height: 20px;
+  padding: 10px 0;
+  height: 60px;
+  white-space: nowrap;
+  /*overflow-y: hidden;*/
+  background: #fff;
+  box-sizing: border-box;
+  line-height: 40px;
+  position: relative;
+}
+
+.wrap .table .thead .thead-right {
+  position: relative;
+  background: #fff;
+  z-index: 88;
+}
+
+.wrap .table  .rightWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  /*overflow: hidden;*/
+  background: #fff;
+}
+
+.wrap .table .thead .twrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.wrap .table .sName {
+  width: 140px;
+  text-align: center;
+  position: relative;
+}
+.wrap .table .sName1 {
+  line-height: 20px;
+}
+
+.wrap .table .sKe {
+  width: 38px;
+  text-align: center;
+  position: relative;
+  line-height: 20px;
+  padding-top: 10px;
+}
+
+.wrap .table .sKe1 {
+  line-height: 40px;
+  padding-top: 0;
+}
+
+.wrap .table .sKe2 {
+  width: 65px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.wrap .table .sKe3 {
+  width: 65px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.wrap .table .sKemu {
+  height: 60px;
+  width: 350px;
+  flex-direction: column;
+  border-left: 1px dashed #ccc;
+}
+
+.wrap .table .sKemu .sKemu-top {
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.wrap .table .sKemu .sKemu-bottom {
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+}
+
+.wrap .table .sKemu .sKemu-bottom text {
+  height: 30px;
+  width: 20%;
+  text-align: center;
+}
+
+.wrap .table .sKemuScore {
+  width: 350px;
+  border-left: 1px dashed #ccc;
+}
+
+.wrap .table .sKemuScore text {
+  width: 20%;
+  text-align: center;
+}
+
+.wrap .table .bubble2_2 {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  margin-left: -90%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 180%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+
+
+.wrap .table .bubble1_1 {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  margin-left: -60%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 120%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+
+.wrap .table .bubble3_3 {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  margin-left: -90%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 200%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+
+.wrap .table .bubble1 {
+  position: absolute;
+  left: 50%;
+  top: 90rpx;
+  margin-left: -50%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 120%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+.wrap .table .bubble2 {
+  position: absolute;
+  left: 50%;
+  top: 90rpx;
+  margin-left: -50%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 180%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+
+.wrap .table .bubble3 {
+  position: absolute;
+  left: 50%;
+  top: 110rpx;
+  margin-left: -60%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 200%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+  white-space: normal;
+}
+
+.wrap .table .bubble1 image,.wrap .table .bubble2 image,.wrap .table .bubble3 image {
+  position: absolute;
+  left: 50%;
+  margin-left: -26rpx;
+  top: -26rpx;
+  width: 40rpx;
+  height: 28rpx;
+}
+
+.wrap .table .bubble1_1 image,.wrap .table .bubble2_2 image,.wrap .table .bubble3_3 image{
+  position: absolute;
+  left: 50%;
+  bottom: -26rpx;
+  width: 40rpx;
+  height: 28rpx;
+}
+
+.wrap .table .sSchool {
+  width: 160px;
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wrap .table .sExperimental {
+  width: 70px;
+}
+
+.wrap .table .sKejie {
+  width: 60px;
+}
+
+/*学校折行的样式*/
+.wrap .table .sSchool view {
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  padding-top: 10px;
+  white-space: normal;
+}
+
+/*向左滑动*/
+.goLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .6);
+  color: #fff;
+  z-index: 10000;
+}
+
+.goLeft view {
+  text-align: left;
+  font-size: 18px;
+  padding-top: 184px;
+  padding-bottom: 100rpx;
+}
+
+.goLeft view image {
+  width:90%;
+  margin-left: 5%;
+  display:block;
+}
+
+.goLeft button {
+  position: absolute;
+  right: 60rpx;
+  top: 160rpx;
+  background: rgba(0, 0, 0, .0);
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #fff;
+  font-size: 12px;
+  color: #fff;
+  margin:0 auto;
+}
+
+
+/*升班弹窗*/
+.upFloat{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.54);
+  z-index: 19999;
+}
+.upFloat .floatWrap{
+  position: absolute;
+  left: 50%;
+  top: 200rpx;
+  width: 580rpx;
+  padding:10px;
+  margin-left: -290rpx;
+  border-radius: 5px;
+  background: #fff;
+  box-sizing: border-box;
+}
+.upFloat .floatWrap .fItem{
+  width: 100%;
+  margin:30rpx 0;
+  font-size: 22rpx;
+}
+.upFloat .floatWrap .fItem .fItemTop,.upFloat .floatWrap .fItem .fItemBottom{
+  width:100%;
+  min-height:54rpx;
+  border: 1px solid #ddd;
+  text-align: center;
+  line-height: 54rpx;
+  justify-content: space-between;
+}
+.upFloat .floatWrap .fItem .fItemBottom{
+  border-top: none;
+}
+.upFloat .floatWrap .fItem .fItemTop view{
+  border-right: 1px solid #ddd;
+}
+.upFloat .floatWrap .fItem .fItemBottom view{
+  border-right: 1px solid #ddd;
+}
+.upFloat .floatWrap .fItem .fItemTop .sCode{
+  width:160rpx;
+}
+.upFloat .floatWrap .fItem .fItemTop .sName{
+  flex:1;
+}
+.upFloat .floatWrap .fItem .fItemTop .sTeacher{
+  width:130rpx;
+  border-right: none;
+}
+.upFloat .floatWrap .fItem .fItemBottom .sTime{
+  flex:1;
+}
+.upFloat .floatWrap .fItem .fItemBottom .sSchool{
+  width:230rpx;
+  border-right: none;
+}
+
+/*左滑提示*/
+.goLeftTip{
+  position: absolute;
+  right:0;
+  top: 0;
+  z-index:9999;
+  width: 50px;
+  height: 100%;
+  font-size: 12px;
+  padding-top:40px;
+  text-align: center;
+  color: #fff;
+}
+.goLeftTip image{
+  width: 77rpx;
+  height: 104rpx;
+/*  opacity: .5;*/
+}

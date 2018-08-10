@@ -1,0 +1,235 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+@import "../../utils/css/task.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: scroll;
+}
+
+.flex{
+  display: flex;
+}
+
+.tip{
+  width: 100%;
+  padding-top: 1px solid #ddd;
+  line-height: 60rpx;
+  height: 30px;
+  overflow: hidden;
+  background: #d5eee1;
+  color: #2da867;
+  font-size: 24rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
+.select{
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  padding-top: 34rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+}
+picker{
+  display: inline-block;
+  border-right: 1px solid #ccc;
+  width:50%;
+  box-sizing:border-box;
+  text-align:center;
+  font-size: 32rpx;
+  position: relative;
+}
+
+.picker1{
+  border: none;
+  color: #2da867;
+}
+
+.picker text{
+  font-size: 24rpx;
+  padding-left: 10rpx;
+  vertical-align: middle;
+}
+
+.content{
+  padding-bottom: 20px;
+}
+.lesson{
+  padding: 30rpx 30rpx 0;
+  align-items: center;
+}
+
+.lessons{
+  width: 100%;
+  margin-bottom: 0;
+  padding-bottom: 40rpx;
+}
+
+.lesson checkbox{
+  margin-right: 30rpx;
+}
+.lessons .lessonTime{
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.endpage{
+  font-size: 24rpx;
+  color: #ccc;
+  line-height: 94rpx;
+  text-align: center;
+}
+
+/* .content{
+  width: 100%;
+}
+.lessons{
+  width: 100%;
+  font-size: 24rpx;
+  color: #888;
+  padding: 0 30rpx 20rpx;
+  flex-wrap: wrap;
+  box-sizing:border-box;
+  margin: 0 auto;
+  box-shadow:  0 0 20px rgba(105,105,107,.2);
+  background: #fff;
+}
+.lesson{
+  width: 100%;
+  align-items: center;
+  padding: 30rpx 30rpx 0;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.lessonName{
+  padding-top: 30rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+.lessonName image{
+  width: 68rpx;
+  height: 80rpx;
+}
+.lessonName text{
+}
+.lessonInfo{
+  font-size: 24rpx;
+}
+
+.address view{
+  color: #a3a3a3;
+  border: 1px solid #a3a3a3;
+  padding: 0 16rpx;
+  border-radius: 10rpx;
+  margin-right: 32rpx;
+  margin-bottom: 30rpx;
+}
+.lessonTime{
+  align-items: center;
+  color: #a3a3a3;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 32rpx;
+  display: inline-block;
+  margin-bottom: 16rpx;
+}
+.lessonTime text{
+  padding-right: 16rpx;
+}
+.lessonTime .iconfont{
+  font-size: 26rpx;
+}
+.icon-clock-strock{
+  padding-left: 20rpx;
+}
+
+
+.upload{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 0;
+  background-color: #2da867;
+} */
+
+/*.lessons{
+  width: 100%;
+}
+.lesson{
+  width: 100%;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+}
+.lesson image{
+  width: 70px;
+  height: 50px;
+  margin-right: 30rpx;
+}*/
+
+/*
+.classInfo{
+  flex: 1;
+  font-size: 26rpx;
+}
+.classInfo .className{
+  font-size: 30rpx;
+  padding-bottom: 10rpx;
+}
+.classInfo .classDes{
+  color: #888;
+  font-size: 22rpx;
+  padding-bottom: 8rpx;
+}
+
+.upload{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 0;
+}
+*/
+
+/* 未选中的 背景样式 */
+radio .wx-radio-input{
+   border-radius: 50%;/* 圆角 */
+   width: 40rpx; /* 背景的宽 */
+   height: 40rpx; /* 背景的高 */
+   margin-right: 30rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked{
+   border-color: #2da867;
+   background: #2da867;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 40rpx;
+   text-align: center;
+   font-size:30rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+

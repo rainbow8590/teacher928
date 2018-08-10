@@ -1,0 +1,263 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+.icon-horn{
+  font-size: 100rpx;
+  padding-bottom: 60rpx;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+}
+page {
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.tipShow {
+  display: block;
+}
+
+.tipHide {
+  display: none;
+}
+
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.wrap .choise {
+  padding: 16rpx;
+  height: 42px;
+  line-height: 42px;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  /*border-bottom: 1px solid #1fba21;*/
+  background: #fff;
+}
+
+.wrap .table {
+  overflow: hidden;
+  background: #fff;
+  font-size: 13px;
+}
+
+.wrap .table .thead {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  /*border-bottom: 1px solid #1fba21;*/
+  text-align: center;
+  z-index: 1000;
+}
+
+.wrap .table .tbody {
+  position: relative;
+  overflow: hidden;
+  overflow-y: scroll;
+  border-bottom-color: transparent;
+  z-index: 999;
+}
+
+.wrap .table .thead .thead-left {
+  position: relative;
+  background: #fff;
+  z-index: 99;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  box-sizing: border-box;
+
+}
+
+.wrap .table .tbody .thead-left .leftItem {
+  border-bottom: 1px solid #f1f1f1;
+  line-height: 20px;
+  padding: 10px 0;
+  height: 60px;
+  white-space: nowrap;
+  /*overflow-y: hidden;*/
+  background: #fff;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.wrap .table .scrollItem {
+  border-bottom: 1px solid #f1f1f1;
+  border-right: 1px solid #1fba21;
+  margin-right: 6px;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+
+.wrap .table .thead .thead-right {
+  position: relative;
+  background: #fff;
+
+  z-index: 88;
+}
+
+.wrap .table  .rightWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+
+}
+
+.wrap .table .thead .twrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.wrap .table .sNum {
+  width: 60px;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.wrap .table .sNum1 {
+  width: 100px;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.wrap .table .sNum2 {
+  width: 130px;
+}
+.wrap .table .sNum3 {
+  width: 200px;
+  padding: 0 10px;
+}
+.wrap .table .sNum3 text{
+  color: blue;
+}
+
+.wrap .table .sAddress {
+  width: 100px;
+  padding: 10px 10px;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+
+.wrap .table .bubble1_1 {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  margin-left: -40%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 100%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+}
+
+.wrap .table .bubble1 {
+  position: absolute;
+  left: 50%;
+  top: 110rpx;
+  margin-left: -40%;
+  background: #d0eab5;
+  line-height: 30rpx;
+  width: 100%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  z-index: 9999;
+  font-size: 22rpx;
+
+}
+
+
+.wrap .table .bubble1 image{
+  position: absolute;
+  left: 50%;
+  margin-left: -26rpx;
+  top: -26rpx;
+  width: 40rpx;
+  height: 28rpx;
+}
+
+.wrap .table .bubble1_1 image{
+  position: absolute;
+  left: 50%;
+  bottom: -26rpx;
+  width: 40rpx;
+  height: 28rpx;
+}
+/*学校折行的样式*/
+.wrap .table .sAddress view {
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  padding-top: 10px;
+  white-space: normal;
+}
+
+.float {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+ }
+ 
+ .float .floatWrap {
+  width: 80%;
+  height: 560rpx;
+  padding: 0 12rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -280rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+ }
+ 
+
+/* 详情 弹窗*/
+.float1 .floatWrap{
+  top: 140px;
+  margin-top: 0;
+  padding: 10px;
+  font-size: 28rpx;
+  line-height: 30px;
+  text-align: center;
+}
+/* .float1 .floatWrap image{
+  width: 114rpx;
+  height: 99rpx;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 60rpx;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+} */
+.float1 .floatWrap view{
+  padding: 0 60rpx;
+}
+
+
+

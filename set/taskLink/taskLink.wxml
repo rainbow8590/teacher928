@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+     <image class="showImg" src="{{src}}"></image>
+    <view class="btn">
+      <button open-type="share" bindtap="forward" class="loginBtn" hover-class="hoverLogin">转发</button>
+    </view>
+  </view>
+ 
+
+
+</view>

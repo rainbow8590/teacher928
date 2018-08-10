@@ -1,0 +1,9 @@
+<view class="searchW">
+  <view class="searchIf">
+    <slot></slot>
+  </view>
+  <view class="menu">
+    <!-- <image id="menu" src="/pages/images/menu.gif" bindtap="powerDrawer" data-statu="{{isopen}}"></image> -->
+    <text id="menu" class="iconfont icon-menus" bindtap="powerDrawer" data-statu="{{isopen}}"></text>
+  </view>
+</view>

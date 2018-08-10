@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+      <select-input title="学年:" type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select-input>
+      <select-input title="学期:" type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select-input>
+      <select-input title="班级:" type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select-input>
+      <view class="item-btns">
+        <radio-group bindchange="getKind">
+          <label class="radio flex">
+            <view>基本信息</view><radio value="1" checked="true" />
+          </label>
+          <label class="radio flex">
+            <view>期中期末</view><radio value="2"/>
+          </label>
+        </radio-group>
+      </view>
+      <view class="btn">
+        <button   bindtap="goDetail" class="loginBtn" hover-class="hoverLogin">确定</button>
+      </view>
+         
+  </view>
+
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav"
+  >
+  </menu>
+
+
+</view>

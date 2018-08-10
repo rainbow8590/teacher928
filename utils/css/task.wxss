@@ -1,0 +1,180 @@
+/*实习期作业和听课任务 公共样式*/
+.upload{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 0;
+  background-color: #2da867;
+}
+
+/* 选择课程 */
+.content{
+  width: 100%;
+}
+.lessons{
+  width: 95%;
+  font-size: 24rpx;
+  color: #888;
+  padding: 0 30rpx 20rpx;
+  flex-wrap: wrap;
+  box-sizing:border-box;
+  margin: 0 auto;
+  box-shadow:  0 0 20px rgba(105,105,107,.2);
+  margin-bottom: 20rpx;
+  background: #fff;
+}
+.lessons .lesson{
+  width: 100%;
+  align-items: center;
+  padding: 30rpx;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.lessons .lessonName{
+  padding-top: 30rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+.lessons .lessonName image{
+  width: 68rpx;
+  height: 80rpx;
+}
+.lessons .lessonName text{
+}
+.lessons .lessonInfo{
+  font-size: 24rpx;
+}
+
+.lessons .address view{
+  color: #a3a3a3;
+  border: 1px solid #a3a3a3;
+  padding: 0 16rpx;
+  border-radius: 10rpx;
+  margin-right: 32rpx;
+  margin-bottom: 30rpx;
+}
+.lessons .lessonTime{
+  align-items: center;
+  color: #a3a3a3;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 32rpx;
+  display: inline-block;
+  margin-bottom: 16rpx;
+}
+.lessons .lessonTime text{
+  padding-right: 16rpx;
+}
+.lessons .lessonTime .iconfont{
+  font-size: 26rpx;
+}
+.lessons .icon-clock-strock{
+  padding-left: 20rpx;
+}
+.lessons .status{
+  width: 100%;
+  font-size: 30rpx;
+  color: #00a86a;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+.lessons .status button{
+  height: 50rpx;
+  line-height: 40rpx;
+  border: 2px solid #00a86a;
+  margin-right: 0;
+  padding: 0 10rpx;
+  background: #fff;
+  box-sizing: border-box;
+  color:#00a86a; 
+}
+
+
+
+/*弹窗 */
+.dialog-mask{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.3);
+}
+.dialog{
+  width: 540rpx;
+  height: 280rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -270rpx;
+  margin-top: -140rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.dialog-title{
+  line-height: 50px;
+}
+.dialog-text{
+  width: 540rpx;
+  height: 190rpx;
+  padding-top: 78rpx;
+  font-size: 34rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+.dialog-btns{
+  display: flex;
+  border-top: 1px solid #dfe1e2;
+}
+.dialog-btns button{
+  font-size: 34rpx;
+  width: 50%;
+  line-height: 90rpx;
+  border-right: 1px solid #dfe1e2;
+  background: #fff;
+  border-radius: 0;
+  color: #2da867!important;
+}
+
+/* 添加图片 */
+.add{
+  font-size:160rpx;
+  border:2px solid #bbb;
+  width:160rpx;
+  height:160rpx;
+  text-align:center;
+  line-height:130rpx;
+  box-sizing: border-box;
+}
+.pic{
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 38rpx;
+  margin-bottom: 38rpx;
+  border:1px solid #ccc;
+}
+.pic image{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:160rpx;
+  height:160rpx;
+}
+.delete{
+  position: absolute;
+  right: -4px;
+  top: -7px;
+  font-size: 50rpx;
+  color: #616161;
+  background: #fff;
+  border-radius: 50%;
+
+}

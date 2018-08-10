@@ -1,0 +1,70 @@
+@import "../../utils/public.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height:100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+/*  导航   */
+/* .tabBar{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 109rpx;
+  border-top: 1px solid #DADADA;
+}
+.tabBar .tabItem{
+  width: 33.3%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  color: #525252;
+}
+.tabBar .tabItem image{
+  width: 52rpx;
+  height: 47rpx;
+}
+ */
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.showImg{
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.btn {
+  padding-top: 15px;
+  background: #fafafa;
+}
+.btn .loginBtn{
+  width: 80%;
+  height: 44px;
+  line-height: 44px;
+  background: #1fba21;
+  color: #fff;
+  margin: 0 auto;
+  font-size: 36rpx;
+}
+.hoverLogin{
+  background: #009502!important;
+}
+
+

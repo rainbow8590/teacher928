@@ -1,0 +1,11 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "任务卡",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "select-input":"/components/SelectInput/selectInput",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

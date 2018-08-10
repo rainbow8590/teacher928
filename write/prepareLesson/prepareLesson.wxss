@@ -1,0 +1,81 @@
+@import "../../utils/font.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  color: #666;
+}
+.flex{
+  display: flex;
+}
+.wrap{
+  width: 100%;
+}
+
+.search{
+  height: 90px;
+  border-bottom: 1px solid #b2e7b2;
+  background: #fff;
+  box-sizing: border-box;
+}
+.top{
+  padding: 26rpx 30rpx;
+  color: #4ab430;
+  justify-content: space-between;
+}
+.top .grade{
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.top .icon-menus{
+  font-size: 47rpx;
+}
+
+.choise{
+  padding: 16rpx 30rpx;
+  align-items:center;
+}
+
+
+.teacher-title{
+  line-height: 82rpx;
+  background: #fafafa;
+  font-size: 26rpx;
+  padding-left: 30rpx;
+  color: #4ab430;
+}
+.teachers{
+  width: 100%;
+  padding: 0 30rpx;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  line-height: 90rpx;
+  color: #888;
+  overflow-y: scroll;
+
+}
+.teachers .teachername{
+ font-size: 26rpx;
+ color: #3b3b3b;
+}
+.teachers .item{
+  align-items: center;
+  padding: 0  6rpx 0 10rpx;
+  border-bottom: 1px solid #e5e5e5;
+  box-sizing: border-box;
+}
+.teachers .item1{
+  border-bottom: none;
+}
+.teachers .teachername{
+  flex:1;
+}
+.teachers .teacherjiaoan{
+  width: 160rpx;
+  padding-right: 20rpx;
+}
+.teachers .teacherjiaoxue{
+  width: 220rpx;
+  padding-right: 30rpx;
+}

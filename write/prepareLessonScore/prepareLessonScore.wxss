@@ -1,0 +1,199 @@
+@import "../../utils/font.wxss";
+page{
+  height: 100%;
+  background: #fafafa;
+}
+.container{
+  padding: 0;
+  color: #666;
+  height: auto;
+}
+.flex{
+  display: flex;
+}
+.wrap{
+  width: 100%;
+}
+
+.search{
+  padding: 26rpx 30rpx;
+  border-bottom: 1px solid #b2e7b2;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+.top,.bottom{
+  font-size: 22rpx;
+  color: #888;
+  padding-top: 0;
+  font-weight: normal;
+}
+.top-ng{
+  font-size: 30rpx;
+  color: #4ab430;
+  font-weight: bold;
+}
+.bottom-ng{
+  font-size: 26rpx;
+}
+.endscore{
+  font-size: 36rpx;
+  color: #fe5553;
+}
+
+.icon-menus{
+  font-size: 47rpx;
+}
+.scoretitle{
+  padding-left: 30rpx;
+  line-height: 82rpx;
+  font-size: 26rpx;
+  color: #4ab430;
+}
+.score{
+  background: #fff;
+  padding: 0 30rpx;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.score1{
+  box-shadow: none;
+}
+.score .item{
+  font-size: 26rpx;
+  padding-top: 10rpx;
+  line-height: 60rpx;
+  color: #3b3b3b;
+}
+
+.itemselect{
+  border-bottom: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+}
+.itemselect1{
+  border-bottom: none;
+}
+.itemselect2{
+   padding-left: 0;
+}
+.score .item text{
+  color: #888;
+  font-size: 22rpx;
+}
+
+.submit{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  width: 100%;
+  height: 112rpx;
+  line-height: 112rpx;
+  padding-left: 30rpx;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: #fff;
+}
+.submit view{
+  color: #eb5549;
+  font-size: 30rpx;
+}
+.submit text{
+  font-size: 36rpx;
+}
+.submit button{
+  border-radius: 0;
+  background: #1fba21;
+  color: #fff;
+  width: 300rpx;
+  margin: 0;
+  line-height: 112rpx;
+  font-size: 34rpx;
+  box-sizing: border-box;
+}
+.area{
+  width: 100%;
+  padding: 36rpx 0;
+  background: #fff;
+  font-size: 26rpx;
+  margin-bottom: 120rpx;
+  box-sizing: border-box;
+}
+textarea,.answer{
+  width: 100%;
+  height: 180rpx;
+  background: #fafafa;
+  color: #888;
+  padding: 12rpx;
+  box-sizing: border-box;
+}
+label{
+  display: inline-block;
+  width: 33.3%;
+  text-align: center;
+}
+radio .wx-radio-input{
+   border-radius: 50%;/* 圆角 */
+   width: 18rpx;
+   height: 18rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked{
+   background: red;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{
+   border-radius: 50%;/* 圆角 */
+   width: 0rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 0rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 40rpx;
+   text-align: center;
+   font-size:0rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+
+
+.float{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.3);
+  z-index:99999;
+}
+.floatwrap{
+  width: 80%;
+  height: 300rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -160rpx;
+  border-radius: 10rpx;
+}
+.content{
+  height:200rpx;
+  line-height: 200rpx;
+  text-align: center;
+}
+.floatwrap button{
+  width: 40%;
+  margin: 0 5%;
+  margin-top: 26rpx;
+  display: inline-block;
+  font-size: 30rpx;
+  color: #fff;
+}
+.floatwrap button.btn1{
+  background: #4ab430;
+}
+.floatwrap button.btn2{
+  background: #ccc;
+}
+

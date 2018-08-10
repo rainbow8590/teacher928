@@ -1,0 +1,12 @@
+<form class="form {{(txt == '代课审核'|| txt == '备课评分')? 'blueform':''}} my-class" bindsubmit="goPage" report-submit="true">
+  <view class="item flex" hover-class="activeStyle">
+    <view class="dot" wx:if="{{showdot && num>0}}">{{num}}</view>
+    <!-- <view class="icon"><image mode="aspectFit" src="{{src}}"></image></view> -->
+    <view class="icons">
+      <text class="iconfont {{classname}}"></text>
+    <!-- <image mode="aspectFit" src="{{src}}"></image> -->
+    </view>
+    <view class="txt">{{txt}}</view>
+    <button formType="submit"></button>
+  </view>
+</form>

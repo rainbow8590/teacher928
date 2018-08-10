@@ -1,0 +1,8 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "我的班级-点名",
+  "usingComponents":{
+    "menu":"/components/Menu/menu",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

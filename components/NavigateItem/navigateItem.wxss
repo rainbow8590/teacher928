@@ -1,0 +1,63 @@
+@import "../../utils/font.wxss";
+.flex{
+  display: flex;
+}
+form.form{
+  display: block;
+  width: 94%;
+  height: 260rpx;
+  margin: 0 3%;
+  color: #525252;
+  font-family: 'iconfont';
+}
+form.blueform{
+   color:#48b1ee;
+}
+.item{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+  box-shadow: 0 0 10rpx #ccc;
+  
+  font-size: 30rpx;
+  position: relative;
+}
+.item .dot{
+  position: absolute;
+  right: 110rpx;
+  top: 62rpx;
+  width: 42rpx;
+  height: 42rpx;
+  background: #ff4545;
+  border-radius: 50%;
+  font-size: 18rpx;
+  color: #fff;
+  line-height: 42rpx;
+  text-align: center;
+}
+.item button{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.item .icons{
+  font-size: 44rpx;
+  overflow: hidden;
+}
+.item image{
+/*  width: 39rpx;
+  height: 39rpx;*/
+}
+.item .txt{
+  /*padding-top: 12rpx;*/
+}
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}

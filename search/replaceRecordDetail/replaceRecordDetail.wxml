@@ -1,0 +1,79 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <view class="tab" style="height:{{heigh}}px">
+      <form bindsubmit="accept" report-submit="true">
+        <view class="tabBodyItem" style="height:{{heigh}}px;">
+          <view class="progressItem">
+            <view class="title">
+                <view>{{notesArr.sClassCode}} {{notesArr.sClassName}}</view>
+                <view>{{notesArr.sTeacherName}}老师 第{{notesArr.nLessonNo}}讲请求代课 距上课还有<text>{{notesArr.time}}</text></view>
+            </view>
+            <view class="content">
+               <view class="contentItem flex"><text class="left">本讲主题:</text><text>{{notesArr.sTopic}}</text></view>
+               <view class="contentItem flex"><text class="left">上课时间:</text><text>{{notesArr.dtDate}}</text></view>
+               <view class="contentItem flex"><text class="left">上课教室:</text><text>{{notesArr.sAreaName}}</text></view>
+            </view>
+          </view>
+          <view class="btns">
+            <!-- 状态1 请求中  -->
+            <view class="status" wx:if="{{notesArr.nStatus == 0}}">
+              <button class="btn" formType="submit">接受</button>
+              <button class="btn" bindtap="giveUp">放弃</button>
+            </view>
+          </view>   
+          <view class="btns complate" wx:if="{{isShowTeacher&& notesArr.nStatus!=0}}">
+            <view class="teachers flex">
+              <view class="teacher flex" bindtap="getPhone" data-phone="{{notesArr.sTeacherPhone}}">
+                <view>{{notesArr.sTeacherName}}</view>
+                <view>{{notesArr.sTeacherPhone}}</view>
+              </view>
+              <text class="iconfont icon-arrowback"></text>
+              <!-- <image class="arrow" src="/../pages/images/back.png"></image> -->
+              <view class="teacher flex" bindtap="getPhone" data-phone="{{notesArr.sTeacherPhone1}}">
+                <view>{{notesArr.sTeacherName1}}</view>
+                <view>{{notesArr.sTeacherPhone1}}</view>
+              </view>
+            </view>
+            <!-- 状态2 审核中 -->
+            <view class="status status1" wx:if="{{notesArr.nStatus == 1}}">
+              <button class="btn btn1 btn2">教管审核中...</button>
+            </view>
+            <view class="statu" wx:if="{{notesArr.nStatus == 2}}">
+              <button class="btn btn2" bindtap="goSchedule">查看课表</button>
+            </view>
+            <!-- 状态5 已完成  -->
+            <view class="status status1" wx:if="{{notesArr.nStatus == 4}}">
+              <button class="btn btn2" bindtap="lookEvaluate">查看代课评价</button>
+              <view class="evaluate" wx:if="{{showEvaluate}}">{{notesArr.sComment}}</view>
+            </view>
+          </view> 
+        </view>
+      </form>
+    </view>
+  </view>
+
+  <!-- 弹窗 -->
+  <view class="float" wx:if="{{show}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap">
+      <view class="arrows arrowT"><text class="iconfont icon-arrowup"></text></view>
+      <view class="floatC">
+        <view class="floatC-item" wx:for="{{arr}}" data-id="{{item.id}}" wx:key="id" bindtap="getIndex">{{item.value}}</view>
+      </view>
+      <view class="arrows arrowB"><text class="iconfont icon-arrowdown"></text></view>
+    </view>
+  </view>
+  <!-- 确认弹层 -->
+  <view class="yes" wx:if="{{show1}}">
+    <view class="yes-wrap yes-wrap1">
+        <view class="inner">{{tipInner}}</view>
+        <view class="btn btn-sure flex">
+          <button bindtap="submit">确定</button>
+        </view>
+    </view>
+  </view>
+  <!-- 打电话或复制 -->
+  <include src="../../utils/xml/phone.wxml"/>
+  <!-- 导航 -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

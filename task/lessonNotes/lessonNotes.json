@@ -1,0 +1,9 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "上传听课笔记",
+  "usingComponents":{
+    "menu":"/components/Menu/menu",
+    "tab":"/components/Tab/tab",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

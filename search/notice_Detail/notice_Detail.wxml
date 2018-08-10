@@ -1,0 +1,30 @@
+<import src="../../wxParse/wxParse.wxml"/> 
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+
+    <view class="notice" style="height:{{heigh}}px;background-color:#f1f1f1;">
+      <view class="niticeTitle">{{title}}</view>
+      <view class="niticeContent">
+        <view style="width: 100%">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+</view>

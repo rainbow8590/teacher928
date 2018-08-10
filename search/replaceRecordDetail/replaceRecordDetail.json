@@ -1,0 +1,7 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "代课进度",
+  "usingComponents":{
+    "tab":"/components/Tab/tab"
+  }
+}

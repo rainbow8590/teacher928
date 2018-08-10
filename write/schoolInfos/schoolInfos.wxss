@@ -1,0 +1,104 @@
+@import "../../utils/public.wxss";
+
+page {
+  height: 100%;
+}
+
+.container {
+  padding: 0;
+  color: #32343d;
+}
+
+.flex {
+  display: flex;
+}
+
+.hoverLogin {
+  background: #009502 !important;
+}
+
+
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+.wrap {
+  display: block;
+  width: 100%;
+/*  padding-top: 30rpx;*/
+/*  background: #fff;*/
+}
+
+/* .wrap  .item {
+  position: relative;
+  width: 100%;
+  height: 134rpx;
+  line-height: 134rpx;
+  border-bottom: 1px solid #F0F0F0;
+  font-size: 28rpx;
+  padding-right: 52rpx;
+  box-sizing: border-box;
+}
+
+.wrap  .item label {
+  padding: 0 48rpx 0 56rpx;
+}
+
+.wrap  .item .inp {
+  margin: auto 0;
+  flex: 1;
+  padding: 0 20rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  border-radius: 26px;
+  background: rgba(223, 223, 223, .52);
+  box-sizing: border-box;
+  font-size: 28rpx;
+} */
+
+.wrap  .item .inp input {
+  width: 100%;
+  height: 52rpx;
+  line-height: 52rpx;
+}
+
+.wrap  .item-btns .radio {
+  width: 100%;
+  height: 84rpx;
+  padding: 0 56rpx;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+/* .wrap  .item image {
+  width: 25rpx;
+  height: 17rpx;
+  position: absolute;
+  right: 70rpx;
+  top: 50%;
+  margin-top: -8rpx;
+  z-index: 9999;
+} */
+
+.btn {
+  padding-top: 94rpx;
+  background: #fafafa;
+}
+
+.btn .loginBtn {
+  width: 80%;
+  height: 90rpx;
+  background: #1fba21;
+  color: #fff;
+  margin:0 auto;
+  font-size:36rpx;
+}
+

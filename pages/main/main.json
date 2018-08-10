@@ -1,0 +1,7 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "录入",
+  "usingComponents":{
+    "navigate-item":"/components/NavigateItem/navigateItem"
+  }
+}

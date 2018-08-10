@@ -1,0 +1,73 @@
+<view class="container">
+  <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+    <select type="auditing" typeInn="{{pullInn}}" bind:getEvent="getAuditing"></select>
+  </input-menu>
+
+  <scroll-view class="lists" scroll-y style="height: {{windowHeight- 55}}px;" scroll-top="{{scrollTop}}" bindscroll="getScrollTop" lower-threshold="50" bindscrolltolower="scrolltolower">
+    <view wx:if="{{!isAjaxOver && !studentsList.length}}" class="noData">没有查询到数据</view>
+    <form bindsubmit="saveData" report-submit="true">
+      <block wx:for="{{studentsList}}" wx:key="index">
+        <view class="list">
+          <input type="hidden" class="hidInp" name="datas[{{index}}][id]" value="{{item.id}}"/>
+          <view class="list-top flex">
+            <view class="left" data-phone="{{item.sPhone}}" bindtap="getPhone">
+              <view>{{item.sStudentName}}</view>
+              <view class="phone" data-ids="{{index}}" data-studentGrade="{{item.studentGrade}}" data-classCode="{{item.classCode}}" data-studentCode="{{item.studentCode}}" data-studentSgrade="{{item.studentSgrade}}" >{{item.sPhone}}</view>
+            </view>
+            <view class="center" bindtap="{{item.status == 1 ? 'goDetail':''}}" data-index="{{index}}">
+              <view>{{item.classCode}}{{item.time1}}{{item.time2}}</view>
+              <view>{{item.sClassName}}</view>
+            </view>
+            <view class="right" data-ids="{{index}}" bindtap="open">
+              <view>退班原因</view>
+              <view >...<text class="open">[展开]</text></view>
+            </view>
+          </view>
+          <view class="list-bottom flex">
+            <view class="time" wx:if="{{!(item.status=='3'|| item.status=='6')}}">审批倒计时：{{item.createOn}}</view>
+            <view class="time" wx:if="{{item.status=='3'|| item.status=='6'}}"><text class="{{item.memo == '自动审批：同意退班'?'auto':''}}">{{item.memo}}</text></view>
+            <button class="sure" bindtap="sure" wx:if="{{!(item.status=='3'|| item.status=='6')}}" data-status="3" data-ids="{{index}}">同意退班</button>
+            <button class="sure sure1" wx:if="{{!(item.status=='3'|| item.status=='6')}}"  data-status="6" data-ids="{{index}}" formType="submit">已挽回</button>
+          </view>
+        </view>
+        <view class="yes" wx:if="{{item.show1}}">
+          <view class="yes-wrap">
+              <view class="tip">你真的确定了吗！！？</view>
+              <view class="btn flex">
+                <button data-status="3" data-ids="{{index}}" formType="submit">确定</button>
+                <button bindtap="off" class="off" data-ids="{{index}}" >取消</button>
+              </view>
+          </view>
+        </view>
+      </block>
+      
+    </form>
+  </scroll-view>
+  <!-- 弹窗 -->
+  <!-- 退班原因弹层 -->
+  <view class="float floatReason" wx:if="{{show2}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap">
+      <view>{{openInn}}</view>
+    </view>
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver1}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <include src="../../utils/xml/phone.wxml"/>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+</view>

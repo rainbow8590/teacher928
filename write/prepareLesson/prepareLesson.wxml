@@ -1,0 +1,50 @@
+<view class="container">
+  <view class="wrap">
+    <view class="search">
+      <view class="top flex">
+        <text class="grade">{{gradeXuekeStr}}</text>
+        <text class="iconfont icon-menus" bindtap="powerDrawer" data-statu="{{isopen}}"></text>
+      </view>
+      <view class="choise flex">  
+        <select type="year" typeInn="{{yearInn}}年" bind:getEvent="getYear"></select>
+        <select type="semester" typeInn="{{semesterInn}}" bind:getEvent="getSemester"></select>
+        <select type="kejie" typeInn="{{kejieInn}}" bind:getEvent="getKejie"></select>
+      </view>
+    </view>
+    
+    <view class="teacher-title">备课老师</view>
+    <view class="teachers" style="height: {{resultH}}px" wx:if="{{isAjaxOver}}">
+      <block wx:for="{{teachers}}" wx:key="index">
+        <view class="item {{index == teachers.length-1? 'item1':''}} flex" bindtap="goTeacher" data-index="{{index}}">
+          <text class="teachername">{{item.TeacherName}}</text>
+          <view class="task">
+            <text wx:if="{{!item.isShowJiaoAn}}" class="teacherjiaoan">教案 {{item.JiaoAnNum}}/{{item.GradeXuke.length}}</text>
+            <text wx:if="{{item.isShowJiaoAn}}" class="teacherjiaoan" style="color:#fe5553">教案未提交</text>
+            <text wx:if="{{!item.isShowJiaoXue}}" class="teacherjiaoxue">教学表现 {{item.JiaoXueNum}}/{{item.GradeXuke.length}}</text>
+            <text wx:if="{{item.isShowJiaoXue}}" class="teacherjiaoxue" style="color:#fe5553">未参加备课</text>
+          </view>
+          <text class="iconfont icon-arrowback"></text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+<tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

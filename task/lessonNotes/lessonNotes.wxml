@@ -1,0 +1,32 @@
+<view class="container" style="height:{{classInfo.TaskAudit == null? (contentH-50): (contentH)}}px">
+  <view class="tip">请准时到校区听课，无法按时听课请提前2小时取消约课！</view>
+  <view class="classInfo">
+    <view class="className">{{classInfo.ClassName}}</view>
+    <view class="classDes flex"><text>{{classInfo.SemesterName}}</text> <text>{{classInfo.AreaName}}</text></view>
+    <view class="classTime"><text class="iconfont icon-clock-strock1"></text> <text>{{classInfo.dtDate}} {{classInfo.sTime}}</text> </view>
+    <button class="giveup" size="mini" bindtap="showPrepareModal" wx:if="{{isShowGiveUpBtn || classInfo.TaskAudit==null }}">取消预约</button>
+  </view>
+
+  <view class="tip1" wx:if="{{classInfo.TaskAudit == null}}">听课完成后请上传听课笔记，最多可上传10张图</view>
+  <view class="tip1" wx:if="{{classInfo.TaskAudit == false}}">听课笔记已提交，正在审核中</view>
+  <view class="tip1" wx:if="{{classInfo.TaskAudit}}">听课笔记审核通过，评级：{{classInfo.ListenLevel}}</view>
+  <view class="content flex">
+    <view class="pic" wx:for="{{pics}}" wx:key="index">
+      <image src="{{item}}" bindtap="previewImage" data-index="{{index}}"></image>
+      <text class="iconfont icon-delete-fill delete" data-index="{{index}}" bindtap="delete" wx:if="{{classInfo.TaskAudit==null}}"></text>
+    </view>
+    <text class="add" bindtap="choosePic" wx:if="{{classInfo.TaskAudit == null}}">+</text>
+  </view>
+  <button class="upload" type="primary" disabled="{{isDisabled}}" bindtap="showModal" wx:if="{{classInfo.TaskAudit==null}}">上传听课笔记<text wx:if="{{pics.length>0}}">({{pics.length}})</text></button>
+  <view class="dialog-mask" wx:if="{{showDialog}}">
+    <view class="dialog">
+      <view class="dialog-title"></view>
+      <view class="dialog-text">{{msg}}</view>
+      <view class="dialog-btns">
+        <button bindtap="giveup">取消</button>
+        <button bindtap="{{msg == '确认取消约课？'?'giveupPrepare':'uploadPIcs'}}">{{btnTxt}}</button>
+      </view>
+    </view>
+  </view>
+
+</view>

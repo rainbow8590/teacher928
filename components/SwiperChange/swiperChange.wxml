@@ -1,0 +1,28 @@
+ <view class="tab" style="height:{{heigh}}px">
+      <view class="tabTitle">
+        <scroll-view scroll-x="true" class="weui-navbar">
+          <view id="0" class="{{activeIndex == 0 ?'titleActive':''}} titleItem" bindtap="tabClick" >
+            {{titleOne}}
+            <view class="arrow" wx:if="{{showArrow}}"></view>
+          </view>
+          <view id="1" class="{{activeIndex == 1 ?'titleActive':''}} titleItem" bindtap="tabClick">
+            {{titleTwo}}
+            <view class="arrow" wx:if="{{!showArrow}}"></view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="tabBody" style="height:{{heigh-34-55}}px">
+        <view class="tabBodyWrap" style="height:{{heigh-34-55}}px;">
+          <swiper current="{{activeIndex}}" duration="500" bindchange="swiperChange" style="height:{{heigh-34-55}}px;">
+            <!-- 左页面-->
+            <swiper-item>
+              <slot name="leftSwiper"></slot>
+            </swiper-item>
+            <!-- 右页面 -->
+            <swiper-item>
+              <slot name="rightSwiper"></slot>
+            </swiper-item>
+          </swiper>
+        </view>
+      </view>
+    </view>

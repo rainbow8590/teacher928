@@ -1,0 +1,244 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+.iconfont{
+  font-size: 26rpx;
+  color:#919191;
+}
+
+page {
+  height: 100%;
+}
+
+.container {
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+
+/*主体内容*/
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.wrap .choise {
+  height: 42px;
+  padding: 16rpx;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #95C796;
+  background: #fff;
+}
+
+.wrap  .thead {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #1fba21;
+  color: #666;
+  margin: 0 20rpx;
+  font-size: 26rpx;
+}
+
+.wrap  .thead .sNumber {
+  width: 60rpx;
+  padding-left: 14rpx;
+  padding-right: 34rpx;
+  text-align: center;
+}
+
+.wrap  .thead .sName {
+  width: 160rpx;
+  padding-left: 14rpx;
+  padding-right: 14rpx;
+  text-align: center;
+}
+.wrap  .thead .edit {
+  width:60rpx;
+  padding-left: 14rpx;
+  padding-right: 10rpx;
+  text-align: center;
+}
+.wrap  .thead .sSchool {
+  flex: 1;
+  text-align: center;
+}
+
+.wrap  .tbody {
+  padding: 0 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: scroll;
+  font-size: 26rpx;
+}
+
+.wrap  .tbody .tbody-row {
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #ddd;
+  color: #666;
+  box-sizing: border-box;
+}
+
+.wrap  .tbody .tbody-row .hidInp {
+  width: 0;
+  height: 0;
+}
+
+.wrap  .tbody .tbody-row .sNumber {
+  width: 60rpx;
+  padding-left: 14rpx;
+  padding-right: 14rpx;
+  text-align: center;
+}
+
+.wrap  .tbody .tbody-row .sName {
+  width: 160rpx;
+  padding-left: 14rpx;
+  padding-right: 14rpx;
+  text-align: center;
+}
+.wrap  .tbody .tbody-row .edit {
+  width:60rpx;
+  padding-left: 14rpx;
+  padding-right: 10rpx;
+  text-align: center;
+  color: #f3914c;
+}
+.wrap  .tbody .tbody-row .write {
+  color: #1fba21;
+}
+
+.wrap  .tbody .tbody-row .sSchool {
+  flex: 1;
+  text-align: center;
+  margin: 15rpx 15rpx;
+  margin-left: 0;
+  height: 52rpx;
+  line-height: 52rpx;
+  white-space: nowrap;
+  padding: 0 10rpx;
+  overflow: hidden;
+  border-radius: 26rpx;
+  background: #F2F2F2;
+  box-sizing: border-box;
+}
+
+.wrap  .tbody .tbody-row input {
+  display: block;
+  min-height: 50rpx;
+  width: 142rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  border-radius: 26rpx;
+  margin: 0 auto;
+}
+
+.btn {
+  padding-top: 15px;
+  background: #fafafa;
+}
+
+.btn .loginBtn {
+  width: 80%;
+  height: 45px;
+  background: #1fba21;
+  color: #fff;
+  margin:0 auto;
+  font-size:36rpx;
+}
+
+.hoverLogin {
+  background: #009502 !important;
+}
+
+/*弹窗*/
+.float {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+}
+
+.float .floatWrap {
+  width: 80%;
+  height: 560rpx;
+  padding: 0 12rpx;
+  padding-top: 30rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -280rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.sSchool {
+  flex: 1;
+  text-align: left;
+  margin: 0 0 0 0;
+  margin-bottom: 20rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  white-space: nowrap;
+  padding: 0 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #666;
+}
+
+.sSchool text{
+  font-size: 26rpx;
+  width: 70rpx;
+  text-align: right;
+
+}
+
+.sSchool .inp {
+  flex: 1;
+  margin-left: 20rpx;
+  position: relative
+}
+
+.sSchool .inp view{
+  height: 52rpx;
+  line-height: 52rpx;
+  font-size: 26rpx;
+  margin-top: 14rpx;
+  background: #F2F2F2;
+  padding-left: 20rpx;
+  border-radius: 26rpx;
+}
+.sSchool .inp text{
+  position: absolute;
+  right: 15rpx;
+  top: 50%;
+  margin-top: -12rpx;
+  width: 25rpx;
+  height: 18rpx;
+}
+.btns{
+  padding-top: 20rpx;
+  width: 100%;
+}
+.btns button{
+  width: 40%;
+  margin: 0 auto;
+  background: #F2F2F2;
+}
+.btns button.save{
+  background: #1fba21;
+  color: #fff;
+}

@@ -1,0 +1,65 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="dates flex">
+      <view class="date {{nowDate == item.dtDate?'now':''}}" wx:for="{{dates}}" wx:key="id" data-date="{{item.dtDate}}" bindtap="changeDate">
+        <view class="dot" wx:if="{{item.nNewCount!=null}}"></view>{{item.dtDate}}
+      </view>
+      <view class="download" bindtap="copyurl" data-url="{{url}}">表单下载</view>
+    </view>
+    <view class="items" style="height:{{resultH}}px;">
+      <view class="noStudent" wx:if="{{!students.length}}">没有报名的学员</view>
+      <block wx:for="{{students}}" wx:key="index">
+        <view class="item flex">
+          <view class="name-phone flex" bindtap="getPhone" data-phone="{{item.sParents1Phone}}">  
+            <view class="comment">{{item.sStudentName}}</view>
+            <view class="comment phone">{{item.sParents1Phone}}</view>
+          </view>
+          <view class="class-info flex" data-id="{{index}}" bindtap="goQuestionResult">    
+            <view class="comment">{{item.sGradeName}}{{item.sXueKe}}</view>
+            <view class="comment">{{item.sTimeQuanTumName}}{{item.sTime}}</view>
+          </view>
+          <view class="ticket-info">
+            <view class="btns" wx:if="{{!item.bSubmitQuestionnaire}}">
+              <button class="btn btn1" open-type="share" id="{{index}}" hover-class="activeClass" >发调查问卷</button>
+              <button class="btn btn2" id="{{index}}" bindtap="sendMsg" >发加群短信</button>
+            </view>
+            <view class="btns" wx:if="{{item.bSubmitQuestionnaire && !item.bGiveJDCard}}">
+              <button class="btn btn1 btn3" bindtap="gaveJDcard" id="{{index}}" data-studentcode="{{item.sStudentCode}}" hover-class="activeClass">发放京东卡</button>
+              <button class="btn btn2" id="{{index}}" bindtap="sendMsg">发加群短信</button>
+            </view>
+    
+            <view class="ticket-num" bindtap="copyCode" data-code="{{item.JDCardNo}}" wx:if="{{item.bSubmitQuestionnaire && item.bGiveJDCard}}">
+              <view class="comment">{{item.JDCardNo}}</view>
+              <view class="comment">已发放</view>
+            </view>
+
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 打电话 复制功能 -->
+  <include src="../../utils/xml/phone.wxml"/>
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav"
+  >
+  </menu>
+</view>

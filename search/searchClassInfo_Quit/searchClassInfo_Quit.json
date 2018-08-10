@@ -1,0 +1,10 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "我的班级-退班情况",
+  "usingComponents":{
+    "select-popup":"/components/SelectPopup/selectPopup",
+    "menu":"/components/Menu/menu",
+    "select":"/components/Select/select",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu"
+  }
+}

@@ -1,0 +1,91 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="choise flex">
+      <select type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+      <select type="kejie" typeInn="{{kejieInn}}" bind:getEvent="getKejie"></select>
+    </view>
+      <view class="thead flex">
+        <view class="sNumber">序号</view>
+        <view class="sName">姓名</view>
+        <view class="sSchool">学校</view>
+        <view class="edit">录入</view>
+      </view>
+      <view class="tbody" style="height:{{resultH}}px">
+        <view class="tbody-row flex" wx:for="{{studentsList}}" wx:key="id">
+          <view class="sNumber">{{index+1}}</view>
+          <view class="sName">{{item.sName}}</view>
+          <view class="sSchool">{{item.sSchoolName}}</view>
+          <view class="edit" bindtap="showFloat" data-index="{{index}}"> 
+            <text class="{{item.isWrite? '' :'write'}}">{{item.txt}}</text> 
+          </view>
+        </view>
+      </view>
+  </view>
+
+  <!-- 弹窗控制输入学生信息 -->
+  <view class="float" wx:if="{{showFloat&&isAjaxOver}}">
+    <view class="floatWrap">
+        <view class="sSchool flex">
+          <text>版本:</text>
+          <view class="inp inp1">
+            <view bindtap="getBookVersion" data-id="version" data-text="{{sBookVersionInn}}">{{sBookVersionInn}}</view>
+            <text class="iconfont icon-arrowdownbold"></text>
+          </view>
+        </view>
+        <view class="sSchool flex">
+          <text>教材:</text>
+          <view class="inp inp1">
+            <view bindtap="getBookName" data-id="name" data-text="{{sBookNameInn}}">{{sBookNameInn}}</view>
+            <text class="iconfont icon-arrowdownbold"></text>
+          </view>
+        </view>
+        <view class="sSchool flex">
+          <text>章:</text>
+          <view class="inp inp1">
+            <view bindtap="getBookChapter" data-id="chapter" data-text="{{sBookChapterInn}}">{{sBookChapterInn}}</view>
+            <text class="iconfont icon-arrowdownbold"></text>
+          </view>
+        </view>
+        <view class="sSchool flex">
+          <text>节:</text>
+          <view class="inp inp1">
+            <view bindtap="getBookSection" data-id="section" data-text="{{sBookSectionInn}}">{{sBookSectionInn}}</view>
+            <text class="iconfont icon-arrowdownbold"></text>
+          </view>
+        </view>
+      <div class="btns flex">
+        <button bindtap="saveInfo" class="save">保存</button>
+        <button bindtap="giveup">取消</button>
+      </div>
+    </view>
+  </view>
+
+
+
+
+
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+
+  <!-- 导航 -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+<tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

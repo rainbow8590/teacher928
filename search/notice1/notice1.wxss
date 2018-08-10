@@ -1,0 +1,107 @@
+@import "../../utils/public.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+/* .wrap .tab{
+  width: 100%;
+}
+.wrap .tab .tabTitle .titleItem{
+  width: 50%;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1FB923;
+  position: relative;
+  display: inline-block;
+  color: #979797;
+  overflow-y: scroll;
+}
+.wrap .tab .tabTitle .titleActive{
+  color: #32343d;
+  background: #f1f1f1;
+}
+.wrap .tab .tabTitle .titleItem .arrow{
+  border: 4px solid #1FB923;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -4px;
+}
+.wrap .tab .tabBody{
+  width: 200%;
+  position: relative;
+}
+.wrap .tab .tabBodyWrap{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+} */
+.wrap .tabBodyItem{
+  width: 50%;
+  flex-direction: row;
+  overflow-y:scroll;
+}
+.wrap .tabBodyItem .newsItem{
+  width: 100%;
+  height: 112rpx;
+  font-size: 26rpx;
+  line-height: 112rpx;
+  border-bottom: 1px solid #f1f1f1;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.wrap .tabBodyItem .title{
+  flex: 1;
+}
+.wrap .tabBodyItem .date{
+  width: 90px;
+  text-align: center;
+  color: #979797;
+}
+.wrap .tabBodyItem .newsItem .newTip{
+  display: block;
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 44rpx;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxN2VmNWE2MS1iNzJhLTQxODQtOWFmNC1iOTQzYjUzMzExYzMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjI1MTYwMzJEQkQ0MTFFN0FDRjVDNTkwQjdDOEExQzkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjI1MTYwMzFEQkQ0MTFFN0FDRjVDNTkwQjdDOEExQzkiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MGU5YmNjYTgtZWViZC00YWZjLWEyZmQtZDA4M2Y0YjVjYzBkIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjE3ZWY1YTYxLWI3MmEtNDE4NC05YWY0LWI5NDNiNTMzMTFjMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNnP8UAAAJQSURBVHjatFYxTCJREJ2FBeRYLOFaoeZsxfbU8lZjcomaS2y8q7UwIblYamJhYy5RTNTkhBaolRZshdZAe9ApS2AFlpv57Mddd0WC7iSz+RnYeTPz5v2s8PB99RMAHKGvowfh46yBnkbfEfGxj/4LPt6Cel7VhY81cNY2CSTkMMi0a9SvrlAYfPIKeObm34UijgQJfwbf+gb0yiXo3BaGcSEggRj7MkgQjQ5ioRArSs1lTf+1BRFjszCFiY3mxoTSwSE796oV6JZK4N/esRTVbzaxsPD4nQiSBH1FAa1SebXT7m0ROsUiaPU6aLV/CKLYT8TyYvmOtUztdzCJkthlTqBkreTJc+WYnEbTq9y/CmALQsZeRB688jKbP5HPQScxARXfNwYG2xQ3jUzAOQuBwHB01ClxQoVo1aolaSv1d/ztIgBXJMIIteOGFsKtb5nR2tmMaXwWEDWXYc5XNXh+Cf1ajfHCjeuGE++Jx0HE7tV0ChegZuFHtBXg4pJl0/wbP9hZo43DREbiuVYo/lIjtiDuSBQ832QzCJLOYzQ24uRdiqdKtEQdRRnDURRAOv7DErfOkixGo6Tl4F1NfK14ccZUebdctsR6CMhVzcf2lll0wu6lrwuMVFKxaWOQA58sg3smogu3NBmId2GRaULN5V7cSwq0U1esO1pr0sgolY8cF82cEvm3fpoAOF+B33uDc3F89dteK8a7iCpup9PPak6eQid/A0/562FM0y9SEu1Y14oTRp08OozRIJBLh0EuiPgE+pT+1eLEd1fivwADACiPHEq7pB+RAAAAAElFTkSuQmCC);
+  background-size: 25rpx 25rpx;
+}
+.wrap .tabBodyItem .newsItem .dot{
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  color: #b2b8bc;
+  font-size: 12px;
+  width: 25rpx;
+  height: 25rpx;
+  text-align: center;
+}
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}

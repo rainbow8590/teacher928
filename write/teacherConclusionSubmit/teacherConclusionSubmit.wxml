@@ -1,0 +1,111 @@
+<!--index.wxml-->
+<view class="container" >
+  <view class="wrap" >
+    <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <view class="table" style="height:{{tableH}}px">
+      <view>
+        <view class="title">进门考得分</view>
+        <view class="score">
+          <view class="score-title flex">
+            <text>讲次</text>
+            <text>得分</text>
+            <text class="nobd">班级平均分</text>
+          </view>
+          <view class="score-title flex" wx:for="{{jinmenkaoScore}}">
+            <text>{{item.nLessonNo}}</text>
+            <text>{{item.Score}}</text>
+            <text class="nobd">{{item.AvgScore}}</text>
+          </view>
+        </view>
+        <view class="title">课后作业得分</view>
+        <view class="score">
+          <view class="score-title flex">
+            <text>讲次</text>
+            <text>得分</text>
+            <text class="nobd">班级平均分</text>
+          </view>
+          <view class="score-title flex" wx:for="{{kejieScore}}">
+            <text>{{item.nLessonNo}}</text>
+            <text>{{item.Score}}</text>
+            <text class="nobd">{{item.AvgScore}}</text>
+          </view>
+        </view>
+        <view class="title">教师评语</view>
+        <view class="tip">
+          <view>请填写老师寄语，将会在学生成绩报告中展示。</view>
+          <view>老师寄语需涵盖：1.通过该学生上课的一个细节表达喜爱 2.学习上的长处 3.委婉指出学习短板 4.期待一路陪伴</view>
+        </view>
+      </view>
+      <view class="textarea" wx:if="{{showText.length>=70}}" >
+       {{showText}}
+       <!--  <textarea placeholder="请填写70-150个字的教师寄语" style="" bindinput="getTextareaValue" bindblur="changeTextarea" bindfocus="clearTextareaValue" maxlength='-1' value="{{textareaValue}}" disabled="{{gameOver}}" placeholder-style="color:#666" auto-focus="{{focus}}" focus="{{focus}}" wx:if="{{showArea}}" cursor-spacing="0" selection-start="{{textareaValue.length}}" selection-end="{{textareaValue.length}}" fixed="true" show-confirm-bar="" />
+
+        <view  wx:if="{{showAreawrap}}"  style="width: 100%;height: 100%;line-height: 16px;padding:0" bindtap="showTextarea">{{textareaValue}}</view> -->
+      </view>
+    </view>
+    <view class="submit" style="bottom:{{focus? -80: 0}}px">
+      <view class="submit-con flex">
+        <button catchtap="prev" disabled="{{prevDisabled}}">上一页</button>
+        <button catchtap="showArea" disabled="{{gameOver}}" class="cen">{{Remark.length>=70? '编辑':'填写老师寄语'}}</button>
+        <button catchtap="next" disabled="{{nextDisabled}}">下一页</button>
+      </view>
+    </view>
+  </view>
+
+  
+  
+  <!-- 提交弹窗 -->
+  <view class="yes" wx:if="{{show}}" >
+    <view class="yes-wrap yes-wrap1">
+        <view class="inner">确认提交老师寄语?提交后学生可在成绩报告中看到, 请确认无误后提交</view>
+        <view class="btn btn-sure flex">
+          <button catchtap="submit" class="sure">提交</button>
+          <button catchtap="giveup">取消</button>
+        </view>
+    </view>
+  </view>
+  <view class="yes" wx:if="{{showClose}}" >
+    <view class="yes-wrap yes-wrap1">
+        <view class="inner">确定要放弃填写的老师寄语吗?</view>
+        <view class="btn btn-sure flex">
+          <button catchtap="close" class="sure">确定</button>
+          <button catchtap="giveupClose" >取消</button>
+        </view>
+    </view>
+  </view>
+  
+  <!-- 提交弹窗 -->
+  <view class="area" wx:if="{{showArea}}" >
+    <view class="area-wrap">
+        <view class="title">
+          <text>填写老师寄语</text>
+          <text class="close" bindtap="closeArea">╳</text>
+        </view>
+        <view class="tip">
+          <view>请填写老师寄语，将会在学生成绩报告中展示。</view>
+          <view>老师寄语需涵盖：1.通过该学生上课的一个细节表达喜爱 2.学习上的长处 3.委婉指出学习短板 4.期待一路陪伴</view>
+        </view>
+        <view class="count">已输入 <text>{{count}}</text> 字, 还可输入 <text wx:if="{{150-count>=0}}">{{150-count}}</text> <text wx:if="{{150-count<0}}">0</text> 字 </view>
+        <view class="inner">
+        <textarea placeholder="请填写70-150个字的教师寄语" style="" bindinput="getTextareaValue" maxlength='150' value="{{textareaValue}}" disabled="{{gameOver}}" placeholder-style="color:#999"  cursor-spacing="20" selection-start="{{textareaValue.length}}" selection-end="{{textareaValue.length}}"  show-confirm-bar="" />
+        </view>
+        <view class="btn">
+          <button catchtap="showTip" class="sure" >提交</button>
+        </view>
+    </view>
+  </view>
+
+  <!-- 导航 -->
+<!--   <include src="../../utils/xml/phone.wxml"/>
+ -->
+  <!-- 导航 -->
+  <!-- <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+</view>

@@ -1,0 +1,6 @@
+<view class="teacherInfo flex">
+  <view wx:if="{{teacherName}}"><text>{{teacherName}}</text>老师</view>
+  <view wx:if="{{!teacherName}}" class="classInfo">{{classInfo}}</view>
+  <!-- <image  src="/pages/images/menu.gif" bindtap="_powerDrawer" data-statu="{{isopen}}"></image> -->
+  <text id="menu" class="iconfont icon-menus" bindtap="_powerDrawer" data-statu="{{isopen}}"></text>
+</view>

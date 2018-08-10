@@ -1,0 +1,167 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+    </input-menu>
+    <swiper-change title-one="发起请求" title-two="代课进度">
+        <view slot="leftSwiper" class="tabBodyItem" style="height:{{heigh-34-55-10}}px;">
+          <view class="noNotes" wx:if="{{isAjaxOver && !noLessonArr.length}}">暂无请求</view>
+            <block wx:for="{{noLessonArr}}" wx:key="index">
+              <view class="newsItem flex" bindtap="checkKejie" data-id="{{index}}">
+                <text class="dot" >●</text>
+                <view class="time">{{item.sClassQiShu}}{{item.sTime}} </view>
+                <view class="className">{{item.sClassName}}</view>
+                <view class="next">下一讲 第{{item.lessonArr[0].nLessonNo}}讲</view>
+              </view>
+            </block>
+        </view>
+        <view slot="rightSwiper" class="tabBodyItem" style="height:{{heigh-34-55-10}}px;">
+          <view class="noNotes" wx:if="{{!notesArr.length}}">暂无请求</view>
+          <block wx:for="{{notesArr}}" wx:key="index">
+            <view class="progressItem"  >
+              <view bindtap="goDetail" data-id="{{index}}">
+                <view class="progressonIcon" wx:if="{{item.sStatus == '取消'}}">{{item.sStatus}}</view>
+                <view class="progressonIcon qingqiu" wx:if="{{item.sStatus == '申请中'}}">{{item.sStatus}}</view>
+                <view class="progressonIcon shenhe" wx:if="{{item.sStatus == '待审核'}}">{{item.sStatus}}</view>
+                <view class="progressonIcon daike" wx:if="{{item.sStatus == '审核通过'}}">{{item.sStatus}}</view>
+                <view class="progressonIcon" wx:if="{{item.sStatus == '超时'}}">{{item.sStatus}}</view>
+                <view class="progressonIcon chaoshi" wx:if="{{item.sStatus == '完成'}}">{{item.sStatus}}</view>
+                <view class="title">
+                  <view>{{item.sClassCode}} {{item.sClassName}}</view>
+                  <view>{{item.sTeacherName}}老师 第{{item.nLessonNo}}讲请求代课 距上课还有<text>{{item.time}}</text></view>
+                </view>
+                <view class="content">
+                  <view class="contentItem flex"><text class="left">本讲主题:</text><text>{{item.sTopic}}</text></view>
+                  <view class="contentItem flex"><text class="left">上课时间:</text><text>{{item.dtDate}}</text></view>
+                  <view class="contentItem flex"><text class="left">上课教室:</text><text>{{item.sAreaName}}</text></view>
+                </view>
+              </view>
+              <form bindsubmit="upload" report-submit="true">
+                <view class="btn">
+                  <text wx:if="{{item.nLeaveType==1}}">事假</text>
+                  <button wx:if="{{item.nLeaveType==3}}" data-id="{{item.id}}" formType="submit">上传病假条</button>
+                </view>
+             </form>
+            </view>
+          </block>
+        </view>
+    </swiper-change>
+
+   <!--  <view class="tab" style="height:{{heigh}}px">
+      <view class="tabTitle">
+        <scroll-view>
+          <view id="0" class="{{activeIndex == 0 ?'titleActive':''}} titleItem" bindtap="tabClick" >
+            发起请求
+            <view class="arrow" wx:if="{{showArrow}}"></view>
+          </view>
+          <view id="1" class="{{activeIndex == 1 ?'titleActive':''}} titleItem" bindtap="tabClick">
+            代课进度
+            <view class="arrow" wx:if="{{!showArrow}}"></view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="tabBody" style="height:{{heigh-34-55}}px">
+        <view class="tabBodyWrap" style="height:{{heigh-34-55}}px;">
+          <swiper current="{{activeIndex}}" duration="500" bindchange="swiperChange" style="height:{{heigh-34-55}}px;">
+            <swiper-item>
+              <view class="tabBodyItem" style="height:{{heigh-34-55-10}}px;">
+                <view class="noNotes" wx:if="{{!noLessonArr.length}}">暂无请求</view>
+                  <block wx:for="{{noLessonArr}}" wx:key="index">
+                    <view class="newsItem flex" bindtap="checkKejie" data-id="{{index}}">
+                      <text class="dot" >●</text>
+                      <view class="time">{{item.sClassQiShu}}{{item.sTime}} </view>
+                      <view class="className">{{item.sClassName}}</view>
+                      <view class="next">下一讲 第{{item.lessonArr[0].nLessonNo}}讲</view>
+                    </view>
+                  </block>
+              </view>
+            </swiper-item>
+            <swiper-item>
+              <view class="tabBodyItem" style="height:{{heigh-34-55-10}}px;">
+                <view class="noNotes" wx:if="{{!notesArr.length}}">暂无请求</view>
+                <block wx:for="{{notesArr}}" wx:key="index">
+                  <view class="progressItem"  >
+                    <view bindtap="goDetail" data-id="{{index}}">
+                      <view class="progressonIcon" wx:if="{{item.sStatus == '取消'}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon qingqiu" wx:if="{{item.sStatus == '申请中'}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon shenhe" wx:if="{{item.sStatus == '待审核'}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon daike" wx:if="{{item.sStatus == '审核通过'}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon" wx:if="{{item.sStatus == '超时'}}">{{item.sStatus}}</view>
+                      <view class="progressonIcon chaoshi" wx:if="{{item.sStatus == '完成'}}">{{item.sStatus}}</view>
+                      <view class="title">
+                        <view>{{item.sClassCode}} {{item.sClassName}}</view>
+                        <view>{{item.sTeacherName}}老师 第{{item.nLessonNo}}讲请求代课 距上课还有<text>{{item.time}}</text></view>
+                      </view>
+                      <view class="content">
+                        <view class="contentItem flex"><text class="left">本讲主题:</text><text>{{item.sTopic}}</text></view>
+                        <view class="contentItem flex"><text class="left">上课时间:</text><text>{{item.dtDate}}</text></view>
+                        <view class="contentItem flex"><text class="left">上课教室:</text><text>{{item.sAreaName}}</text></view>
+                      </view>
+                    </view>
+                    <form bindsubmit="upload" report-submit="true">
+                      <view class="btn">
+                        <text wx:if="{{item.nLeaveType==1}}">事假</text>
+                        <button wx:if="{{item.nLeaveType==3}}" data-id="{{item.id}}" formType="submit">上传病假条</button>
+                      </view>
+                   </form>
+                  </view>
+                </block>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
+      </view>
+    </view> -->
+  </view>
+  <!-- 课节弹窗 -->
+  <view class="float float1" wx:if="{{show1}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap">
+      <radio-group class="radio-group" bindchange="radioChange" >
+        <label class="radio flex" wx:for="{{checkKejieArr}}">
+          <text>{{item.dtDate}}日 第{{item.nLessonNo}}讲 {{item.sTopic}}</text> <radio value="{{index}}" checked="{{item.checked}}"/>
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <!-- 事假/病假弹窗 -->
+  <view class="float float2" wx:if="{{show2}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap">
+      <view class="title">说明</view>
+        <view>请病假需要在请假课次开课日一周内上传正规医院病假条，限传一张，审批通过即病假成立。如审批未通过，还可继续上传病假条，再次请求审批。逾期未通过按请事假扣款处理。</view>
+
+        <form bindsubmit="saveNextLesson" report-submit="true">
+          <radio-group class="radio-group" bindchange="radioChange1">
+            <label class="radio " wx:for="{{vacationArr}}">
+               <radio value="{{item.id}}"  checked="{{item.checked}}"/>{{item.value}}
+            </label>
+          </radio-group>
+        <button class="ok" formType="submit">确定</button>
+      </form>
+    </view>
+  </view>
+ 
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+
+  <!-- 导航 -->
+  <!-- <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  <!-- 导航tab -->
+  <!-- <include src="../../utils/xml/tab.wxml"/> -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

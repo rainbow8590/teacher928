@@ -1,0 +1,65 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+
+    <view class="choise flex">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+    </view> 
+    <view class='noTable' wx:if="{{!studentsArr.length}}" style="height:{{resultH}}px;line-height:{{resultH-60}}px ">本季度没有班级</view>
+   <!-- 结果显示 -->
+  <!-- 按人名 -->
+  <view class="searchResult1" style="height:{{resultH}}px" wx:if="{{studentsArr.length}}" >
+
+
+      <view class="searchT flex">
+        <input class="searchName" type="text"  value="{{sName}}" placeholder="学员姓名" bindinput="getName" />
+        <input class="searchPhone" type="number" value="{{sPhone}}" placeholder="注册电话" bindinput="getPhone" />
+        <button class="searchBtn" hover-class="buttonActive" catchtap="searchStudent">查询</button>
+      </view>
+
+    <scroll-view class="itemW" style="height:{{resultH - searchH}}px;" scroll-y lower-threshold="30" bindscroll="scrollT">
+      <view class="tip" wx:if="{{showTip}}">{{tipStr}}</view>
+      <block wx:for="{{studentsArr}}" wx:key="id" > 
+        <view class="resultItem1 flex" data-index="{{index}}" bindtap="goStudentInfo" style="border-bottom:{{index == studentsArr.length-1?'1px solid #1fba21':'1px solid #ddd'}};margin-bottom: {{index == studentsArr.length-1? '10px':'0'}}">
+       <!--  border-bottom:{{index == studentsArr.length-1?'1px solid #1fba21':'1px solid #ddd'}};margin-bottom: {{index == studentsArr.length-1? '10px':'0'}} -->
+          <view class="sName">{{item.sStudentName}}</view>
+          <view class="sPhone">{{item.sPhone}}</view>
+          <view class="sClass">{{item.grade}}</view>
+        </view>
+      </block>
+      <!-- <view class="allNum" wx:if="{{isAjaxOver}}">{{studentsArr.length}}位学生</view> -->
+      
+    </scroll-view>
+  </view>
+</view>
+ 
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+  <!-- 导航 -->
+  <!-- <include src="../../utils/xml/menu.wxml"/> -->
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+  
+</view>
+<!-- 导航 -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+<!-- 字母检索 -->
+<view class="wordsWrap flex" style="height:{{wordHeight}}px;margin-top:{{-wordHeight/2}}px" wx:if="{{studentsArr.length}}">
+  <view class="word" wx:for="{{wordsArr}}" wx:key="index" data-content="{{item}}" id="{{index}}" bindtap="selectStudents" style="color:{{currentWordIndex == index?'#1FB923':'#999'}};">{{item}}</view>
+</view>

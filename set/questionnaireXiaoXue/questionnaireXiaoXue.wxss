@@ -1,0 +1,224 @@
+::-webkit-scrollbar {
+    width: 0;
+}
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  width:100%;
+  color: #363636;
+}
+.flex{
+  display: flex;
+}
+form{
+  width: 100%;
+}
+.base{
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 90rpx;
+  color: #1fba21;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+/*选择学校*/
+.school{
+  width: 100%;
+}
+.schoolSelect{
+  width: 80%;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  background: #F2F2F2;
+  margin: 20rpx auto;
+  font-size: 28rpx;
+  color: #666;
+}
+.questions{
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-bottom: 30rpx;
+}
+.questions .ques{
+  display: block;
+  font-size: 26rpx;
+  color: #888;
+  padding-top: 20rpx;
+}
+.questions .ques1{
+  width: 100%;
+}
+.questions .ques .ques-title{
+  font-size: 28rpx;
+  padding-left: 30rpx;
+  line-height: 70rpx;
+  background: #fafafa;
+  color: #666;
+}
+.questions .ques radio-group{
+}
+.questions .ques radio-group label{
+  display: block;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+.questions .ques checkbox-group label{
+  display: block;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.questions .ques .select{
+  display: inline-block;
+  padding: 6rpx 20rpx;
+  min-width: 160rpx;
+  color: #999;
+  text-align: center;
+  background: #f2f2f2;
+  border-radius: 40rpx;
+  margin-left: 20rpx;
+}
+.questions .ques .hidInp{
+  display: block;
+  width: 0;
+  height: 0;
+  min-height: 0;
+}
+ button{
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  width: 60%;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  font-size: 30rpx;
+  background: #1fba21;
+}
+textarea{
+  width: 100%;
+  padding: 10rpx;
+  margin-top: 20rpx;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  z-index:8888;
+}
+radio .wx-radio-input{
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+}
+checkbox .wx-checkbox-input{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+
+
+
+
+
+
+
+
+.float {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+ }
+ 
+ .float .floatWrap {
+  width: 80%;
+  height: 560rpx;
+  padding: 0 12rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -280rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+ }
+ 
+ .float .floatWrap .arrows {
+  position: relative;
+  height: 67rpx;
+  text-align: center;
+ }
+ 
+ /*.float .floatWrap .arrows image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -9rpx;
+  margin-top: -5rpx;
+  width: 18rpx;
+  height: 11rpx;
+ }*/
+ 
+ .float .floatWrap .floatC {
+  height: 450rpx;
+  overflow-y: scroll;
+  overflow-x: hidden;
+ }
+ 
+ .float .floatWrap .floatC .floatC-item {
+  height: 97rpx;
+  line-height: 97rpx;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 28rpx;
+  color: #333;
+ }
+ .float1 .floatWrap .floatC .floatC-item label{
+  display: block;
+  width: 100%;
+ } 
+.float .floatWrap1{
+  height: 690rpx;
+  margin-top: -345rpx;
+}
+.float .floatWrap2{
+  height: 300rpx;
+  margin-top: -150rpx;
+  padding-top: 40rpx;
+}
+.float .floatWrap2 button{
+  width: 80%;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #ccc;
+  margin: 0 auto;
+  margin-top: 60rpx;
+  border: none;
+  color: #333;
+  font-size: 30rpx;
+}
+
+.float .floatWrap .floatC-item1{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+}
+.float .floatWrap .floatC-item input{
+  width: 460rpx;
+  height: 60rpx;
+  padding-left: 16rpx;
+  background: #f1f1f1;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  text-align: center;
+  font-size: 28rpx;
+} 

@@ -1,0 +1,71 @@
+<!--index.wxml-->
+<view class="container">
+  <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+  </input-menu>
+  <!-- 结果显示 -->
+  <view class="searchResult" style="height:{{resultH}}px">
+    <view class="resultItem flex" wx:for="{{classes}}" bindtap="goPic" data-index="{{index}}" data-id="classes" wx:key="id">
+      <view class="dot"></view>
+      <view class="txt">{{item.value}}</view>
+    </view>
+  </view>
+
+  <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+ 
+
+  <!-- 按钮弹窗 -->
+  <view class="float float1" wx:if="{{show1 && isAjaxOver}}" data-id="float" bindtap="closeFloat">
+    <view class="floatWrap">
+      <view class="floatC">
+        <radio-group class="radio-group" bindchange="getIndex">
+          <view class="floatC-item">
+            <label class="radio">
+              <radio value="7" />至第7讲
+            </label> 
+          </view>
+          <view class="floatC-item">
+            <label class="radio">
+              <radio value="10" />至第10讲
+            </label> 
+          </view>
+          <view class="floatC-item">
+            <label class="radio">
+              <radio value="12" />至第12讲
+            </label> 
+          </view>
+          <view class="floatC-item">
+            <label class="radio">
+              <radio value="15" />至第15讲
+            </label> 
+          </view>
+        </radio-group>
+      </view>
+    </view>
+  </view>
+
+  <!-- 导航tab -->
+
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+
+  <!-- 导航 -->
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+
+</view>
