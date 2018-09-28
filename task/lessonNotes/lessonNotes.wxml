@@ -15,7 +15,7 @@
       <image src="{{item}}" bindtap="previewImage" data-index="{{index}}"></image>
       <text class="iconfont icon-delete-fill delete" data-index="{{index}}" bindtap="delete" wx:if="{{classInfo.TaskAudit==null}}"></text>
     </view>
-    <text class="add" bindtap="choosePic" wx:if="{{classInfo.TaskAudit == null}}">+</text>
+    <text class="add" bindtap="choosePic" wx:if="{{classInfo.TaskAudit == null&& pics.length<10}}">+</text>
   </view>
   <button class="upload" type="primary" disabled="{{isDisabled}}" bindtap="showModal" wx:if="{{classInfo.TaskAudit==null}}">上传听课笔记<text wx:if="{{pics.length>0}}">({{pics.length}})</text></button>
   <view class="dialog-mask" wx:if="{{showDialog}}">

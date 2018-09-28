@@ -4,6 +4,10 @@
     <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
     <swiper-change title-one="基础课酬" title-two="绩效奖金">
       <view slot="leftSwiper" class="tabBodyItem" style="height:{{heigh-34-55}}px;">
+        <view class="kechoutip flex" bindtap="{{canTip?'goPayInfo':''}}">
+          <text>8月课酬将执行新考勤规则</text>
+          <text>查看新考勤规则></text>
+        </view>
         <!-- 下拉选项 -->
         <view class="choise flex">
           <select type="year" typeInn="{{schoolYear1}}年" bind:getEvent="getYear"></select>
@@ -119,6 +123,7 @@
 
     </swiper-change>
   </view>
+
   <!-- 点名弹窗1 -->
   <view class="callDetail" wx:if="{{showCall1 && isAjaxOver}}" data-id="float" bindtap="closeCallDetail">
     <view class="floatWrap">

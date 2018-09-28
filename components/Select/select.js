@@ -4,7 +4,7 @@ Component({
     // 这里定义了tabBarArr属性，属性值可以在组件使用时指定
     type:{
       type: String,
-      value: ''
+      value: '111'
     },
     typeInn:{
       type: String,
@@ -17,7 +17,9 @@ Component({
   },
   methods: {
     _getEvent(e){
-      var detail = e.target;
+      console.log(11111111)
+      console.log(e)
+      var detail = e.currentTarget.id;
       this.triggerEvent('getEvent',{detail})
     }
   }

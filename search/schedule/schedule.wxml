@@ -33,14 +33,34 @@
                   </view>
                 </view>
                 <view class="selectDetail" style="height:{{}}px;">
-                  <view class="detailItem flex" wx:for="{{classContent}}" wx:key="index">
-                    <view class="dot">●</view>
-                    <view class="content">
-                       <view>{{item.dtDateSect}} <text style="color:#1FB923;" wx:if="{{item.bTeacherChanged == 1}}">代 {{item.sTeacherName}}</text></view>
-                       <view>{{item.title}}</view>
-                       <view class="address"><text wx:if="{{!item.sRoomName}}">{{item.sAreaName}}</text>{{item.sRoomName}}</view>
+                  <view class="detailItem" wx:for="{{classContent}}" wx:key="index" wx:for-index="fatherIndex">
+                    <view class="baseInfo flex">
+                      <view class="dot">●</view>
+                      <view class="content">
+                         <view>{{item.dtDateSect}} <text style="color:#1FB923;" wx:if="{{item.bTeacherChanged == 1}}">代 {{item.sTeacherName}}</text></view>
+                         <view>{{item.title}}</view>
+                         <view class="address"><text wx:if="{{!item.sRoomName}}">{{item.sAreaName}}</text>{{item.sRoomName==null? '':item.sRoomName}}</view>
+                         <!-- <view class="zhibo">{{item.sOnlineClassTime==null?'':item.sOnlineClassTime}}</view> -->
+                      </view>
+                      <view class="kejie">第{{item.nLessonNo}}讲</view>
                     </view>
-                    <view class="kejie">第{{item.nLessonNo}}讲</view>
+                    <!-- 直播信息 -->
+                    <view class="player" wx:for="{{item.player}}" wx:for-item="player" wx:for-index="childIndex" wx:key="childIndex">
+                     <view class="player-title player-title1 flex">
+                       <text>{{player.liveName}} {{player.BeginTime}}上课</text>
+                       <text class="status" style="color:{{player.status == 0?'#333':'#1fba21'}}">{{player.status == 0?'未开始':(player.status == 1?'上课中':'已下课')}}</text>
+                     </view>
+                     <view class="player-title flex">
+                       <view>
+                         <text class="iconfont icon-headportrait"></text>
+                         <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" style="color: #989898" wx:if="{{player.status == 0}}">{{player.online}}人在线</text>
+                         <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:elif="{{player.status == 1}}">{{player.online}} / {{player.total}}</text>
+                         <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:elif="{{player.status == 2}}">学员名单</text>
+                       </view>
+                       <text class="status" bindtap="goRoom" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:if="{{player.status == 0 || player.status == 1 }}" style="color:{{player.status == 0?'#989898':'#333'}}"><text class="play-icon"></text>观看直播</text>
+                       <text class="status" bindtap="goRoom" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:if="{{player.status == 2}}"><text class="play-icon"></text>观看回放</text>
+                     </view>
+                   </view>
                   </view>
                   <!-- 无课程 -->
                   <view class="detailItem detailItem1 flex" wx:if="{{!classContent.length}}">

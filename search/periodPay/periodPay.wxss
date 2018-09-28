@@ -1,0 +1,593 @@
+@import "../../utils/public.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+
+.choise{
+  justify-content: flex-end;
+}
+
+.typeTitle {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 26rpx;
+}
+.type-title {
+  display: inline-block;
+  padding: 0 50rpx;
+}
+.active {
+  color: #1fba21;
+}
+
+ .red{
+  color: #f3914c;
+}
+
+
+
+.new-date  {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  justify-content: space-between;
+  font-size: 26rpx;
+  text-align: center;
+  background: #1fba21;
+  color: #fff;
+}
+.new-date  .month {
+  width: 180rpx;
+  background: #3cc13e;
+}
+.new-date  .now-month {
+  flex: 1;
+  font-size: 30rpx;
+}
+.new-date  .dis-month {
+  background: #1fba21;
+  color: #6cc86d;
+}
+.des {
+  width: 100%;
+  text-align: right;
+  padding-right: 50rpx;
+  line-height: 70rpx;
+  box-sizing: border-box;
+  font-size: 26rpx;
+}
+.total-pay {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40rpx;
+  font-size: 26rpx;
+}
+.total-pay .total {
+  font-size: 70rpx;
+  color: #ff6000;
+}
+.simulation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 80rpx;
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  background: #fafafa;
+  font-size:26rpx;
+
+}
+.simulation .dex {
+  color: #c6c6c6;
+}
+.tab {
+  width: 100%;
+}
+.tab .tabTitle .titleItem {
+  width: 50%;
+  height: 76rpx;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  display: inline-block;
+  color: #666;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+.tab .tabTitle .titleItem .activeBottom {
+  width: 100%;
+  height: 4rpx;
+  background: #666;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.tabBodyWrap{
+  background: #fafafa;
+}
+.tabBody,
+.typeContent {
+  width: 100%;
+  position: relative;
+}
+.tabBodyWrap,
+.typeContentWrap {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+scroll-view {
+  height: 76rpx;
+  border-bottom:1px solid #eaeaea;
+}
+.swiper-item {
+  width: 100%;
+  height: 100%;
+  padding-top: 20rpx;
+  background:#fff;
+}
+.swiper-item .content {
+  background: #fff;
+}
+.swiper-item .content .content-item {
+  justify-content: space-between;
+}
+.swiper-item .content .content-item .item-active {
+  color: #1fba21;
+}
+.swiper-item .content .content-item .item {
+  height: 80rpx;
+  margin: 16rpx 0;
+  width: 33.4%;
+  font-size: 34rpx;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #eaeaea;
+}
+.swiper-item .content .content-item .item .item-title {
+  font-size: 26rpx;
+}
+.swiper-item .content .content-item .item-no {
+  border-right: none;
+}
+.swiper-item .content .content-des .content-des-item {
+  /*padding-top: 20rpx;*/
+  border-top: 1px solid #eaeaea;
+}
+.swiper-item .content .content-des .content-des-item .no-deduction{
+  font-size: 30rpx;
+  color: #999;
+  line-height: 200rpx;
+  text-align: center;
+}
+.swiper-item .content .content-des .th {
+  justify-content: space-between;
+  padding: 0 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 70rpx;
+  border-bottom: 1px solid #eaeaea;
+  font-size:26rpx;
+}
+.swiper-item .content .content-des .th .th-title{
+  flex: 1;
+}
+.swiper-item .content .content-des .th .th-num{
+  width: 100rpx;
+}
+.swiper-item .content .content-des .th .th-price{
+  width: 200rpx;
+  text-align: right
+}
+.swiper-item .content .content-des .th .red {
+  color: red;
+}
+.showdes {
+  position: fixed;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+.showdes .des-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -300rpx;
+  margin-top: -200rpx;
+  background: #fff;
+  width: 600rpx;
+  height: 400rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+}
+.simulation-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /*height: 400rpx;*/
+  background: #fff;
+  font-size: 26rpx;
+}
+.simulation-wrap .simulation-title {
+  width: 100%;
+  height: 60rpx;
+  background: #eee;
+  line-height: 60rpx;
+}
+.simulation-wrap .simulation-title .close {
+  padding: 0 30rpx;
+  font-size: 44rpx;
+}
+.simulation-wrap .simulation-title .title {
+  flex: 1;
+  text-align: center;
+}
+.simulation-wrap .simulation-content {
+  text-align: center;
+  line-height: 66rpx;
+  padding-bottom: 40rpx;
+}
+.simulation-wrap .simulation-content .normal {
+  font-size: 34rpx;
+  color: #ff6c00;
+}
+.simulation-wrap .simulation-content .result {
+  color: #ff6c00;
+}
+.simulation-wrap .simulation-content .result text {
+  text-decoration: underline;
+  padding: 0 6rpx;
+}
+.simulation-wrap .simulation-content .inputs {
+  justify-content: center;
+  align-items: center;
+  padding: 0 20rpx;
+}
+.simulation-wrap .simulation-content input {
+  width: 100rpx;
+  margin: 0 20rpx;
+  background: #f1f1f1;
+  border-radius: 50rpx;
+}
+.simulation-wrap .simulation-content button {
+  padding: 0 30rpx;
+  font-size: 24rpx;
+  margin: 0;
+  border-radius: 50rpx;
+  background: #00bfdb;
+  color: #fff;
+}
+
+
+
+
+/*基础课酬*/
+.payInfos{
+  padding: 20rpx 20rpx 0;
+  font-size: 26rpx;
+  box-sizing: border-box;
+  box-shadow:0 1px 1px #eee;
+
+}
+.payInfos .payInfos-row{
+  width: 100%;
+  background: #e7f5e4;  
+  overflow: hidden;
+  color: #6a6a6a;
+}
+.payInfos .payInfos-row2{
+  background: #fff;
+}
+.payInfos .payInfos-row1{
+  border-bottom: none;
+}
+.payInfos .payInfos-row view{
+  width: 33.4%;
+  padding: 10rpx 0;
+  text-align: center;
+  /*border-right: 1px solid #ccc;*/
+}
+.payInfos .payInfos-row2 view{
+  padding: 10rpx 0;
+  border-right: 1px solid #ccc;
+  margin: 12rpx 0 20rpx 0;
+}
+.payInfos .payInfos-row4 view{
+  width: 50%;
+}
+.payInfos .payInfos-row .active{
+  color: #2a91ae;
+  text-decoration: underline;
+}
+.payInfos .payInfos-row .nobd{
+  border-right: none;
+}
+
+/*绩效奖金*/
+.bonus{
+  box-sizing: border-box;
+  position: relative;
+}
+.bonus .title{
+  text-align: center;
+  font-size: 28rpx;
+  color: #3b3b3b;
+  padding: 10rpx 0 20rpx 0;
+  position: relative;
+}
+.bonus .title text{
+  position: absolute;
+  right: 40rpx;
+  top: 12rpx;
+  font-size: 24rpx;
+  color: #46b52e;
+}
+.wrap .tab .tabBody .tabBodyItem .payInfos-row4 view{
+  width: 50%;
+}
+
+.bonus  .noClass{
+  font-size: 50rpx;
+  text-align: center;
+  line-height: 300rpx;
+}
+.bonus  .goDetail{
+  padding: 30rpx 0 10rpx 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: #888888;
+}
+
+
+
+
+
+
+.zoom{
+  position: fixed;
+  left: -100%;
+  top: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+
+
+
+
+
+
+/* ===================================================== */
+
+/* 旧页面样式 */
+.kechoutip{
+  padding: 0 20rpx;
+  background:#f3914c;
+  color: #fff;
+  font-size:24rpx;
+  line-height:50rpx;
+  justify-content: space-between;
+}
+
+
+.choise{
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+.checkDate{
+  position: relative;
+  width: 100%;
+  height: 44px;
+  padding-top: 19px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.checkDateWrap{
+  position: relative;
+  width: 22%;
+  text-align: center;
+  margin-left: 39%;
+  box-sizing: border-box;
+}
+.checkDate .date{
+  width: 100%;
+  height: 100%;
+  font-size: 26rpx;
+  color: #888;
+}
+.checkDate .leftArrowWrap{
+  width:20px;
+  height:16px;
+  position:absolute;
+  left:-30px;
+  top:50%;
+  margin-top:-10px;
+  padding-top:4px;
+}
+.checkDate .leftArrow{
+  border: 12rpx solid #838383;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+}
+
+.checkDate .rightArrowWrap{
+  width:20px;
+  height:16px;
+  position:absolute;
+  right: -36px;
+  top:50%;
+  margin-top:-10px;
+  padding-top:4px;
+}
+.checkDate .rightArrow{
+  border: 12rpx solid #838383;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+}
+.checkDate .bottomArrow{
+  border: 10rpx solid #838383;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  top:18px;
+  margin-left: -6px;
+}
+
+.checkDate .today{
+  font-size: 24rpx;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  margin-top: -13px;
+  padding: 10px;
+  color: #46b52e;
+}
+
+/* 课酬模拟器 */
+.simulator{
+  padding: 0 20rpx 30rpx 20rpx;
+  font-size: 26rpx;
+  line-height: 48rpx;
+  margin-top:20rpx;
+  background: #fff;
+  text-align: center;
+  color: #3b3b3b;
+}
+.simulator .title{
+  text-align: center;
+  font-size: 32rpx;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+}
+.simulator .simulator-con text{
+  margin-right: 10rpx;
+}
+.simulator .simulator-con{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.simulator .simulator-con1{
+  padding-top: 6rpx;
+}
+.simulator .simulator-con1 .wid{
+  padding: 0 20rpx;
+  text-align: center;
+  border-bottom: 1px solid #f3914c;
+}
+ .red{
+  color: #f3914c;
+}
+.simulator .red{
+  color: #f3914c;
+}
+.simulator input{
+  width: 100rpx;
+  text-align: center;
+  margin-right: 16rpx;
+  border-radius: 26rpx;
+  background: #eee;
+}
+.simulator .btn{
+  width: 100rpx;
+  height:54rpx;
+  line-height: 52rpx;
+  text-align: center;
+  background: #51b2cd;
+  color: #fff;
+  border-radius: 26rpx;
+} 
+
+
+
+/*点名弹窗*/
+.callDetail{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.54);
+  z-index: 9999;
+}
+.callDetail .floatWrap{
+  position: absolute;
+  left: 50%;
+  top: 300rpx;
+  width: 580rpx;
+  padding:10px;
+  margin-left: -290rpx;
+  border-radius: 5px;
+  background: #fff;
+  box-sizing: border-box;
+  max-height:700rpx;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+.callDetail4 .floatWrap{
+  top: 500rpx;
+  line-height: 40rpx;
+}
+.callDetail .floatWrap .callDetail-item{
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.callDetail .floatWrap .callDetail-item .row{
+  width: 100%;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.callDetail .floatWrap .callDetail-item .row1{
+  border-top: none;
+}
+.callDetail .floatWrap .callDetail-item .row .row-left{
+  width: 70%;
+  padding: 10rpx 0;
+  border-right: 1px solid #ccc;
+}
+.callDetail .floatWrap .callDetail-item .row .row-right{
+  width: 30%;
+  padding: 10rpx 10rpx;
+  box-sizing: border-box;
+}

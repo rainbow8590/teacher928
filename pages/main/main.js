@@ -59,7 +59,7 @@ Page({
       openId:wx.getStorageSync('openId'),
     })
 
-    this.isShowAfterClassAndTeacher()
+    // this.isShowAfterClassAndTeacher()
 
     // 设置标题
     if(this.data.activeIndex == 0){
@@ -80,19 +80,20 @@ Page({
         }
     });
     if(this.data.identity!= 100 && this.data.identity!=101 && this.data.identity!=102){
-      this.isCourse();
-      GetUnhandleOutClassApplyCount.GetUnhandleOutClassApplyCount(this);
-      this.getDateList();
+      this.getSynthesize();
+      // this.isCourse();
+      // GetUnhandleOutClassApplyCount.GetUnhandleOutClassApplyCount(this);
+      // this.getDateList();
     }
-    
+    // this.demo();
   },
   onShow(option){
-    if(this.data.identity!= 100 && this.data.identity!=101 && this.data.identity!=102){
-      this.getDateList();
-      if(this.data.identity == 1){ //教师才有退班审核操作
-        GetUnhandleOutClassApplyCount.GetUnhandleOutClassApplyCount(this);
-      }
-    }
+    // if(this.data.identity!= 100 && this.data.identity!=101 && this.data.identity!=102){
+    //   this.getDateList();
+    //   if(this.data.identity == 1){ //教师才有退班审核操作
+    //     GetUnhandleOutClassApplyCount.GetUnhandleOutClassApplyCount(this);
+    //   }
+    // }
   },
   // 点击切换tab
   tabClick(e){
@@ -238,7 +239,16 @@ Page({
   // 通知公告
   goNotice(e){
     mta.Event.stat("notice",{})
+    //获取新老校区
+    
     publicJs.goPage(e,this,'/search/notice1/notice1')
+  },
+  // 续报排行
+  goRank(e){
+    mta.Event.stat("notice",{})
+    // this.getRankingAreaType(e);
+    publicJs.goPage(e,this,'/search/rank/rank?area='+this.area)
+    
   },
   // 学生信息
   goStudentInfos(e){
@@ -258,7 +268,8 @@ Page({
   // 薪酬绩效
   goPay(e){
     mta.Event.stat("pay",{})
-    publicJs.goPage(e,this,'/search/pay/pay')
+    // publicJs.goPage(e,this,'/search/pay/pay')
+    publicJs.goPage(e,this,'/search/periodPay/periodPay')
   },
   // 代课记录
   goReplaceRecord(e){
@@ -274,6 +285,11 @@ Page({
   goPracticeTask(e){
     mta.Event.stat("daike_auditing",{})
     publicJs.goPage(e,this,'/task/practiceTask/practiceTask')
+  },
+  // 实习任务
+  goCommont(e){
+    mta.Event.stat("daike_auditing",{})
+    publicJs.goPage(e,this,'/search/commont/commont')
   },
   // 教师退班审核
   goAuditing(e){
@@ -444,6 +460,192 @@ Page({
     }
   },
 
+  getRankingAreaType: function(e){
+    var that = this;
+    var stamp = new Date().getTime();
+    var nSemester = publicJs.flagSemester();
+    var token = this.data.teacherToken;
+    var query = {
+      appid: appId,
+      timestamp:stamp,
+      token:token,
+      nclassyear: new Date().getFullYear(),
+      nsemester: nSemester,
+    }
+    var option = {
+      api:'api/Teacher/GetTeacherRankingAreaType',
+      query: query,
+      type: 'get',
+    }
+    wx.showLoading({
+      title:'努力加载中...',
+      success: function(){
+        requests.request(option, function(res){
+          getRes(res)
+        })
+        function getRes(res){
+          console.log(res)
+          if(res.data.ResultType == 0){
+            var result = res.data.AppendData[0];
+            var area = null;
+            if(result.sTeacherAreaType.indexOf('老校区')!= -1){
+              area = '老校区';
+            }else{
+              area = '新校区';
+            }
+              publicJs.goPage(e,that,'/search/rank/rank?area='+area)
+            
+          }else if(res.data.ResultType == 7){
+            publicJs.resultTip(res.data.Message)
+            if(res.data.Message == '身份验证失败'){
+              wx.clearStorageSync();
+              wx.reLaunch({ url: '/pages/index/index'})
+            }
+            
+          }
+          setTimeout(()=>{
+            wx.hideLoading()
+          },500)
+        }
+      }
+    })
+  },
+
+
+  // 综合接口  获取退班审核 / 京东卡日期 / 今日是否有课 / 新老校区教师
+  getSynthesize: function(e){
+    var that = this;
+    var stamp = new Date().getTime();
+    var nSemester = publicJs.flagSemester();
+    var token = this.data.teacherToken;
+    var query = {
+      appid: appId,
+      timestamp:stamp,
+      token:token,
+      nclassyear: new Date().getFullYear(),
+      nsemester: nSemester,
+    }
+    var option = {
+      api:'api/System/GetFocus',
+      query: query,
+      type: 'get',
+    }
+    wx.showLoading({
+      title:'努力加载中...',
+      success: function(){
+        requests.request(option, function(res){
+          getRes(res)
+        })
+        function getRes(res){
+          console.log(res)
+          if(res.data.ResultType == 0){
+            // 今日有课
+            if(res.data.AppendData.CourseCount> 0){
+              that.setData({showCall: true}) 
+            }else{
+              that.setData({showCall: false})
+            }
+            // 代课审核
+            that.setData({noAuditing: res.data.AppendData.UnhandleOutClassApplyCount})
+            wx.setStorageSync('noAuditing',res.data.AppendData.UnhandleOutClassApplyCount)
+
+            // 京东卡
+            let dates = [];
+            let sum = 0;
+            for(let i = 0 ; i < res.data.AppendData.JDCard.length; i++){
+              sum += Number(res.data.AppendData.JDCard[i].nNewCount);
+              dates.push({
+                dtDate: res.data.AppendData.JDCard[i].dtDate.substr(5).replace('-','.'),
+                nNewCount: res.data.AppendData.JDCard[i].nNewCount
+              })
+            }
+            that.setData({dates: dates,sum: sum})
+
+            // 课后作业及老师寄语 教师培训任务
+            if(isInArray('HomeworkTask')){
+              that.setData({isShowAfterClassTask: true})
+            }
+            if(isInArray('Remark')){
+              that.setData({isShowTeacherConclusion: true})
+            }
+            if(isInArray('TeacherTrain')){
+              that.setData({isShowTrainModule: true})
+            }
+            function isInArray(value){
+              for(var i = 0; i < res.data.AppendData.SummerTaskShowmodule.length; i++){
+                  if(value === res.data.AppendData.SummerTaskShowmodule[i]){
+                      return true;
+                  }
+              }
+              return false;
+            }
+
+            // 新老校区
+            var result = res.data.AppendData.TeacherAreaType;
+            that.area = null;
+            if(result.indexOf('老校区')!= -1){
+              that.area = '老校区';
+            }else{
+              that.area = '新校区';
+            }
+            
+          }else if(res.data.ResultType == 7){
+            publicJs.resultTip(res.data.Message)
+            if(res.data.Message == '身份验证失败'){
+              wx.clearStorageSync();
+              wx.reLaunch({ url: '/pages/index/index'})
+            }
+            
+          }
+          setTimeout(()=>{
+            wx.hideLoading()
+          },500)
+        }
+      }
+    })
+  },
+
+
+  demo: function(){
+    var that = this;
+    var stamp = new Date().getTime();
+    var token = this.data.teacherToken;
+    var query = {
+      appid: appId,
+      timestamp:stamp,
+      token:token,
+      
+    }
+    var option = {
+      api:'api/AssistTeacher/GetCommentTeacherInfo',
+      query: query,
+      type: 'get',
+    }
+    wx.showLoading({
+      title:'努力加载中...',
+      success: function(){
+        requests.request(option, function(res){
+          getRes(res)
+        })
+        function getRes(res){
+          console.log(res)
+          if(res.data.ResultType == 0){
+            
+          }else if(res.data.ResultType == 7){
+            publicJs.resultTip(res.data.Message)
+            if(res.data.Message == '身份验证失败'){
+              wx.clearStorageSync();
+              wx.reLaunch({ url: '/pages/index/index'})
+            }
+            
+          }
+          setTimeout(()=>{
+            wx.hideLoading()
+          },500)
+        }
+      }
+    })
+  }
 
 
 })

@@ -32,18 +32,18 @@ Page({
     zoomShow: false,
     isAjaxOver: false,
     questions:[
-      {id: 0, flag:0},
-      {id: 1, flag:0},
-      {id: 2, flag:1},
-    ]
+      // {id: 0, flag:0},  flag:0 是对的题目  1 是错的题目
+    ],
+    Scores:[], // 分数集合
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
     this.selectPopup = this.selectComponent("#selectPopup");
     this.tab = this.selectComponent("#tab");
   },
-  onLoad: function(){
-
+  onLoad: function(option){
+    console.log(option)
+    wx.setStorageSync('isSubmit',false)
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
       teacherToken: wx.getStorageSync('teacherToken'),
@@ -55,17 +55,21 @@ Page({
       noAuditing: wx.getStorageSync('noAuditing'),
       // openId:wx.getStorageSync('openId'),
       identity: wx.getStorageSync('identity'),
-
+      query: JSON.parse(option.query)
     })
-    
+    // console.log(this.data.query)
     // 设置班级
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-    this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+    this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
+    wx.setNavigationBarTitle({
+        title: this.data.query.sName
+      })
     // 获取手机宽高
     var that = this;
     publicJs.getSystem(that,function(){
-      that.setData({resultH: that.data.windowHeight -45 - 42 - 14 -40-45-15-15 -56})
+      that.setData({resultH: that.data.windowHeight -55-50-56 -75})
     });
+    this.getQuestions();
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -97,7 +101,7 @@ Page({
     }
   },
   // 获取题目
-  getScore: function(){
+  getQuestions: function(){
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
@@ -109,14 +113,15 @@ Page({
       appid: appId,
       timestamp:stamp,
       token:token,
-      nlessonno:lessonNum,
-      pageindex:1,
-      pagesize:100,
-      sclasscode:ClassCode,
+      nlessonno:this.data.query.nLessonNum,
+      sclasstypecode:this.data.query.sClassTypeCode,
+      nclassyear:this.data.query.nClassYear,
+      nsemester:this.data.query.nSemester,
+      sstudentcode:this.data.query.sStudentCode,
     }
   
     var option = {
-      api:'api/JinMenKao',
+      api:'api/LessonEndPaper/GetLessonEndPaperStudentScore',
       query: query,
       type: 'get',
     }
@@ -129,39 +134,53 @@ Page({
         function getRes(res){
           var resData = res.data;
           if(resData.ResultType == 0){
-            that.data.studentsList = [];
-            var studentInfos = resData.AppendData;
-            if(!studentInfos.length){
-              that.setData({studentsList:that.data.studentsList ,isAjaxOver: true})
-            }else{
-
-              for(var i = 0 ; i < studentInfos.length; i++){
-                var student = studentInfos[i]
-                that.data.studentsList.push({
-                  sStudentCode: student.sStudentCode,
-                  sClassCode: student.sClassCode,
-                  sName: student.sStudentName,
-                  sCardCode: student.sCardCode,
-                  nLessonNum: student.nLessonNo,
-                  ScoreType: student.ScoreType,
-                  Score: student.Score,
-                  changeLessonState:student.changeLessonState,
-                  tipText:student.changeLessonState == '调出'?'调出不可录':'满分100分',
-                  disable:student.changeLessonState == '调出'? true :false
-                })
-              }
-              for(var i = 0 ; i < that.data.studentsList.length; i++){
-                var curS = that.data.studentsList[i];
-                (function(i){
-                  if(curS.changeLessonState == '正常' || curS.changeLessonState == '调入' || curS.changeLessonState == '转入' ){
-                    that.setData({tipText: "满分100分"})
-                  }else if(curS.changeLessonState == '调出'){
-                    that.setData({tipText: "调出不可录"})
+            if(resData.AppendData.length){
+              var totalScore = 0;
+              
+              if(that.data.query.kemu =='英语'){ //判断题
+                if(that.data.query.dStudentTotalScore== null){
+                  for(var i = 0 ; i < resData.AppendData.length; i++){
+                    var now = resData.AppendData[i];
+                    now.dStudentScore = now.dTopicScore;
+                    totalScore += now.dTopicScore;
+                    now.flag = 0;
                   }
-                })(i);
+                }else{
+                  for(var i = 0 ; i < resData.AppendData.length; i++){
+                    var now = resData.AppendData[i];
+                    totalScore += now.dStudentScore;
+                    if(now.dStudentScore == now.dTopicScore){
+                      now.flag = 0;
+                    }else{
+                      now.flag = 1;
+                    }
+                  }
+                }
+                
+                that.setData({totalScore:totalScore,questions:resData.AppendData})
+              }else{
+                if(that.data.query.dStudentTotalScore== null){
+                  for(var i = 0 ; i < resData.AppendData.length; i++){
+                    var now = resData.AppendData[i];
+                    now.focus = false;
+                  }
+                  that.setData({totalScore:0,questions:resData.AppendData})
+                }else{
+                  for(var i = 0 ; i < resData.AppendData.length; i++){
+                    var now = resData.AppendData[i];
+                    totalScore += now.dStudentScore;
+                    now.focus = false;
+                  }
+                  that.setData({totalScore:totalScore,questions:resData.AppendData})
+                }
               }
-              that.setData({studentsList:that.data.studentsList ,isAjaxOver: true})
             }
+            that.setData({isAjaxOver: true})
+          }else if(res.data.ResultType == 3){
+              publicJs.resultTip(res.data.Message,function(){
+                wx.navigateBack({delta:1})
+              })
+
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
             if(res.data.Message == '身份验证失败'){
@@ -173,9 +192,51 @@ Page({
             wx.hideLoading()
           },500)
         }
-        
       }
     })
+  },
+  // 储存显示提示框
+  saveScoreModal(){
+    var that = this;
+    var questions = this.data.questions;
+    var ques = [];
+    for(var i = 0; i < questions.length; i++){
+     ques.push({
+          "nTopicIndex": questions[i].nTopicIndex,
+          "nTopicType": questions[i].nTopicType,
+          "nTopicId": questions[i].nTopicId,
+          "dTopicScore": questions[i].dTopicScore,
+          "dStudentScore": questions[i].dStudentScore== null? null : Number(questions[i].dStudentScore)
+        })
+    }
+    var falgArr = true;
+    for(var i = 0; i < ques.length; i++){
+      if(ques[i].dStudentScore == null){
+        falgArr = false;
+        publicJs.resultTip('每小题都需要录入分数')
+        break;
+      }
+    }
+    
+
+    if(falgArr){
+      this.ques = ques;
+      var str = '学员出门考得分：'+this.data.totalScore+',请核对输入是否正确';
+      wx.showModal({
+        title: '提示',
+        content: str,
+        success: function(res) {
+          if (res.confirm) {
+            that.saveScore();
+          } else if (res.cancel) {
+            
+          }
+        }
+      })
+    }
+
+
+    
   },
   // 储存学生分数
   saveScore: function(e){
@@ -183,49 +244,33 @@ Page({
     var token = this.data.teacherToken; // token值
     var nxuebu = this.data.nXueBu;   //学部信息
     var stamp = new Date().getTime();  //时间戳
-    var studentSize = this.data.classInfo[this.data.tipClassIndex].studentNumber;
-    var ClassCode = this.data.classInfo[this.data.tipClassIndex].classCode;
-    var datas = e.detail.value;
-   
-    var arr = [];
-    var arr1 = [];
-    for(var k in datas){
-     var str = k + '=' + datas[ k ]
-      arr.push(str);
+    
+    
+    // console.log(ques)
+    // return;
+    var data = {
+      "sStudentCode": this.data.query.sStudentCode,
+      "sClassTypeCode": this.data.query.sClassTypeCode,
+      "nClassYear": this.data.query.nClassYear,
+      "nSemester": this.data.query.nSemester,
+      "sClassCode": this.data.query.sClassCode,
+      "nLessonNo": this.data.query.nLessonNum,
+      "sFromClassCode": this.data.query.sFromClassCode,
+      "nFromLessonNo": this.data.query.nFromLessonNo,
+      "nPaperId": this.data.questions[0].nPaperId,
+      "topicList": this.ques
     }
-    console.log(datas)
-    for(var i = 0 ; i < arr.length; i+=6){
-      arr1.push({
-        "sClassCode": arr[i].substr(arr[i].indexOf('=')+1),
-        "nLessonNo": Number(arr[i+1].substr(arr[i+1].indexOf('=')+1)),
-        "sCardCode": arr[i+2].substr(arr[i+2].indexOf('=')+1) == "" ? null : arr[i+2].substr(arr[i+2].indexOf('=')+1),
-        "sStudentCode": arr[i+3].substr(arr[i+3].indexOf('=')+1),
-        "ScoreType": Number(arr[i+4].substr(arr[i+4].indexOf('=')+1)),
-        "Score": Number(arr[i+5].substr(arr[i+5].indexOf('=')+1)),
-      })
-    }
-    var arr2 = [];
-    for(var i = 0; i < arr1.length; i++){
-      if(arr1[i].Score !=0){
-        console.log(arr1[i].Score)
-        arr2.push(arr1[i])
-      }
-    }
-    console.log(arr2)
-    if(!arr2.length){
-      publicJs.resultTip('没有要保存的数据')
-      return;
-    }
+
     var query = {
       appid: appId,
       timestamp: stamp,
       token: token
     }
     var option = {
-      api: 'api/JinMenKao',
+      api: 'api/LessonEndPaper/SaveLessonEndPaperStudentScore',
       query: query,
       type: 'post',
-      data: arr2
+      data: data
     }
     wx.showLoading({
       title:'保存中',
@@ -235,7 +280,7 @@ Page({
         })
         function saveRes(res){
           var resData = res.data;
-          // var resD = JSON.parse(res.data)
+    
           if(resData.ResultType == 0){
             wx.showToast({
               title: '保存成功',
@@ -243,6 +288,7 @@ Page({
               duration: 2000
             })
             setTimeout(()=>{
+              wx.setStorageSync('isSubmit',true)
               wx.navigateBack({ delta: 1 })
             },1000)
           }else if(resData.ResultType == 7){
@@ -272,11 +318,23 @@ Page({
       changeType(1)
     }
     function changeType(type){
-      console.log(type)
-      for(var i = 0 ; i < questions.length; i++){
-        questions[i].flag = type;
+      var totalScore = 0;
+      
+      if(type == 1){
+        totalScore = 0;
+        for(var i = 0 ; i < questions.length; i++){
+          questions[i].dStudentScore = 0;
+          questions[i].flag = 1
+        }
+      }else{
+        for(var i = 0 ; i < questions.length; i++){
+          questions[i].flag = type;
+          questions[i].dStudentScore = questions[i].dTopicScore;
+          totalScore+=questions[i].dTopicScore;
+          questions[i].flag = 0;
+        }
       }
-      that.setData({questions: questions})
+      that.setData({questions: questions,totalScore:totalScore})
     }
   },
   checkOne: function(e){
@@ -285,10 +343,93 @@ Page({
     var questions = this.data.questions;
     if(questions[index].flag == 0){
       questions[index].flag = 1
+      questions[index].dStudentScore = 0;
+      this.data.totalScore -= questions[index].dTopicScore;
     }else{
-      questions[index].flag = 0
+      questions[index].flag = 0;
+      questions[index].dStudentScore = questions[index].dTopicScore;
+      this.data.totalScore += questions[index].dStudentScore;
     }
-    this.setData({questions:questions})
+    this.setData({questions:questions,totalScore:this.data.totalScore})
+  },
+  // 非英语
+  writeScore: function(e){
+    var index = e.target.dataset.index;
+    
+    var val = e.detail.value ==''? null : e.detail.value;
+    var reg = /^[0-9]+([.]{1}[0-9]{0,1})?$/;
+    //console.log(e.detail.value)
+    // console.log(!reg.test(val))
+    if(val> this.data.questions[index].dTopicScore || (!reg.test(val)&&val!=null)){
+      // this.data.questions[index].focus = false;
+      this.setData({questions: this.data.questions})
+      publicJs.resultTip('不能超过最高分, 且能填写一位小数',function(){
+        return;
+      })
+    }
+    /*else if(val < 0 || (!reg.test(val)&&val!=null)){
+      // this.data.questions[index].focus = false;
+      this.setData({questions: this.data.questions})
+      publicJs.resultTip('不能低于最低分,且能填写一位小数',function(){
+        return;
+      })
+    }*/
+    else{
+      // this.data.questions[index].focus = true;
+      this.data.questions[index].dStudentScore = val;
+      this.setData({questions: this.data.questions})
+      var totalScore = 0;
+      for(var i = 0 ; i <  this.data.questions.length; i++){
+        var now =  this.data.questions[i];
+        totalScore += ((now.dStudentScore == null||now.dStudentScore == 0||now.dStudentScore == '')?0:Number(now.dStudentScore));
+      }
+       totalScore = totalScore.toFixed(1);
+       if(totalScore.indexOf('.0')!= -1){
+        totalScore = totalScore.substr(0,totalScore.indexOf('.'))
+       }
+      this.setData({totalScore: totalScore})
+    }
+
+  },
+  // blurScore:function(e){
+  //   var index = e.target.dataset.index;
+  //   this.data.questions[index].focus = false;
+  //   this.setData({questions: this.data.questions})
+  // },
+  focusScore:function(e){
+    var index = e.target.dataset.index;
+    console.log(index)
+    for(var i = 0 ; i < this.data.questions.length; i++){
+      this.data.questions[i].focus = false;
+    }
+    this.data.questions[index].focus = true;
+    this.setData({questions: this.data.questions})
+  },
+  minScore: function(e){
+    var index = e.target.dataset.index;
+    this.data.questions[index].dStudentScore = 0
+    this.setData({questions: this.data.questions})
+    var totalScore = 0;
+    for(var i = 0 ; i <  this.data.questions.length; i++){
+      this.data.questions[i].focus = false;
+      var now =  this.data.questions[i];
+      totalScore += ((now.dStudentScore == null||now.dStudentScore == 0||now.dStudentScore == '')?0:Number(now.dStudentScore));
+    }
+    // this.data.questions[index].focus = false;
+    this.setData({totalScore: totalScore,questions: this.data.questions})
+  },
+  maxScore: function(e){
+    var index = e.target.dataset.index;
+    this.data.questions[index].dStudentScore = this.data.questions[index].dTopicScore
+    this.setData({questions: this.data.questions})
+    var totalScore = 0;
+    for(var i = 0 ; i <  this.data.questions.length; i++){
+      this.data.questions[i].focus = false;
+      var now =  this.data.questions[i];
+      totalScore += ((now.dStudentScore == null||now.dStudentScore == 0||now.dStudentScore == '')?0:Number(now.dStudentScore));
+    }
+    // this.data.questions[index].focus = false;
+    this.setData({totalScore: totalScore,questions: this.data.questions})
   }
  
 })

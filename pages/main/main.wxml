@@ -1,4 +1,5 @@
 <view class="main">
+      
       <!-- <text class="iconfont icon-rili-strock"></text>
       <text class="iconfont icon-clock-strock"></text>
       <text class="iconfont icon-clock-strock1"></text>
@@ -8,6 +9,13 @@
         <view class="itemsWrap" style="height:{{resultH}}px;">
           <view class="wrap" wx:if="{{showArr[0]}}">
               <view class="itemWrap flex" style="padding-top:{{smallTop}}">
+                <navigate-item 
+                wx:if="{{isShowTrainModule}}"
+                txt="实习任务" 
+                isShowTask="{{isShowTrainModule}}"
+                classname="{{auditingSrc}}"
+                bind:goPage="goPracticeTask">
+                </navigate-item>
                 <navigate-item 
                 showdot="false" 
                 num="0" 
@@ -105,6 +113,18 @@
               classname="{{daikeSrc}}"
               bind:goPage="goReplaceRecord">
               </navigate-item>
+              <navigate-item 
+              wx:if="{{identity==2}}"
+              txt="续报排行" 
+              classname="{{daikeSrc}}"
+              bind:goPage="goRank">
+              </navigate-item>
+              <navigate-item 
+              wx:if="{{identity==1}}"
+              txt="助教评价" 
+              classname="{{daikeSrc}}"
+              bind:goPage="goCommont">
+              </navigate-item>
             </view>
           </view>
           <view class="wrap" wx:if="{{showArr[2]}}">
@@ -122,12 +142,7 @@
               wx:if="{{identity!= 102 && identity!=105 && identity >= 100}}"
               bind:goPage="goDaikeShenhe" >
               </navigate-item>
-              <navigate-item 
-              wx:if="{{isShowTrainModule}}"
-              txt="实习任务" 
-              classname="{{auditingSrc}}"
-              bind:goPage="goPracticeTask">
-              </navigate-item>
+              
             </view>
           </view>
           <view class="wrap" wx:if="{{showArr[3]}}">

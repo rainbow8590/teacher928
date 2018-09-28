@@ -1,0 +1,70 @@
+<view class="container">
+    <view class="rule" bindtap="goRulePage">扣款规则</view>
+    <view wx:if="{{isAjaxOver}}">
+      <view class="pay-total flex">
+        <text>{{father}}{{info.length}}次</text>
+        <text wx:if="{{father!='未点名'&&father!='课前迟到'&&father!='课后迟到'}}"><text wx:if="{{father!='代课'}}">-</text><text  wx:if="{{father=='代课'}}">+</text>{{totalHour}}课时</text>
+        <text wx:if="{{father!='代课'}}">-¥{{totalDeduction}}</text>
+      </view>
+      <view class="lists">
+        <block wx:for="{{info}}" wx:key="index">
+          <view class="list-item flex" data-type="{{item.sLeaveType}}" data-index="{{index}}" bindtap="lookDetail">
+            <view class="class-info">
+              <view class="item-title">{{item.sClassName}} - 第{{item.nLessonNo}}讲</view>
+              <view>{{item.sLessonTime}}</view>
+              <view>{{item.sAreaName}}</view>
+            </view>
+            <text wx:if="{{father == '请假'}}" style="width: 100rpx;text-align: right">{{item.sLeaveType}}</text>
+            <text wx:if="{{father != '请假'}}" style="width: 100rpx;text-align: right">{{father}}</text>
+            <view class="deduct flex">
+              <text wx:if="{{father=='请假'||father=='旷课'||father=='代课'}}">
+              <text wx:if="{{father!='代课'}}">-</text><text wx:if="{{father=='代课'}}">+</text>{{item.nHour}}课时</text>
+              <text wx:if="{{item.sLeaveType=='请假' || father=='旷课' || father=='未点名'|| father=='课前迟到'|| father=='课后迟到'}}">-¥{{item.dDeduction}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- 详情弹窗 -->
+    <view class="zoom {{showDetail ?'fadein':''}} {{hideDetail ?'fadeout':''}}">
+      <view class="type-wrap">
+         <view class="type-title flex">
+           <text class="close" bindtap="closeDetail">×</text>
+           <text class="title">{{selectInfo.sLeaveType}}详情</text>
+         </view>
+         <view class="pay-total flex">
+          <text wx:if="{{father == '请假'}}">{{selectInfo.sLeaveType}}</text>
+          <text wx:if="{{father != '请假'}}">{{father}}</text>
+          <text wx:if="{{father!='课前迟到'&&father!='课后迟到'&&father!='未点名'}}">
+            <text wx:if="{{father!='代课'}}">-</text><text wx:if="{{father=='代课'}}">+</text>{{selectInfo.nHour}}课时
+          </text>
+          <text wx:if="{{father!='代课'&&selectInfo.sLeaveType!='病假'}}">-¥{{selectInfo.dDeduction}}</text>
+         </view>
+         <view class="type-content">
+           <view class="type-item">
+             <text>班级名称: </text><text>{{selectInfo.sClassName}} ({{selectInfo.sClassCode}})</text>
+           </view>
+           <view class="type-item">
+             <text>讲次: </text><text>第{{selectInfo.nLessonNo}}讲 (共{{selectInfo.nLessonCount}}讲)</text>
+           </view>
+           <view class="type-item">
+             <text>上课时间: </text><text>{{selectInfo.sLessonTime}}</text>
+           </view>
+           <view class="type-item">
+             <text>教室: </text><text>{{selectInfo.sAreaName}}</text>
+           </view>
+           <view class="type-item" wx:if="{{father=='旷课' ||father=='未打卡' || father=='课前迟到'|| father=='课后迟到'}}">
+             <text>打卡时间: </text><text>{{selectInfo.sSignInTime}}</text>
+           </view>
+           <view class="type-item">
+             <text>备注: </text>
+             <text wx:if="{{father=='请假'}}">{{selectInfo.sLeaveTypeMemo}}</text><!-- 请假 -->
+             <text wx:if="{{father=='未点名'||father=='课前迟到'||father=='课后迟到'}}">{{selectInfo.sMemo}}</text> <!-- 未点名 课前迟到 课后迟到 -->
+             <text wx:if="{{father=='旷课'}}">{{selectInfo.sNoSignInMemo}}</text> <!-- 旷课 -->
+             <text wx:if="{{father=='代课'}}">{{selectInfo.sReplaceMemo}}</text> <!-- 代课 -->
+           </view>
+           
+         </view>
+      </view>
+    </view>
+</view>

@@ -119,7 +119,7 @@ Page({
  
   // 显示弹窗 学年
   getYear: function (e) {
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
     this.setData({
       sName:'',
@@ -128,7 +128,7 @@ Page({
   },
   // 显示弹窗 学期
   getSemester: function (e) {
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
     this.setData({
       sName:'',

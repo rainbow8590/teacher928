@@ -1,5 +1,6 @@
 {
   "pages":[
+    
     "pages/index/index",
     "pages/main/main",
     "pages/resetPassword/resetPassword"
@@ -40,6 +41,11 @@
         "notice1/notice1",
         "notice_Detail/notice_Detail",
         "schedule/schedule",
+        "playerStudents/playerStudents",
+        "playerRoom/playerRoom",
+        "periodPay/periodPay",
+        "periodPayList/periodPayList",
+        "payInfo/payInfo",
         "pay/pay",
         "pay_detail/pay_detail",
         "searchStudentInfo/searchStudentInfo",
@@ -49,7 +55,9 @@
         "replaceRecord/replaceRecord",
         "replaceRecordDetail/replaceRecordDetail",
         "searchClassInfo_Quit/searchClassInfo_Quit",
-        "searchClassInfo_Detail/searchClassInfo_Detail"
+        "searchClassInfo_Detail/searchClassInfo_Detail",
+        "rank/rank",
+        "commont/commont"
       ]
     },
     {

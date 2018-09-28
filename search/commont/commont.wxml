@@ -1,0 +1,6 @@
+
+<view class="container">
+  
+  <!-- <web-view src="http://test.ucong.net/evaluate/#/?token={{teacherToken}}"></web-view> -->
+  <web-view src="https://weixin.gaosiedu.com/app/evaluate/#/?token={{teacherToken}}"></web-view>
+</view>

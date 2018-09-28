@@ -20,6 +20,10 @@ Component({
     classname:{
       type: String,
       value: ''
+    },
+    isShowTask:{
+      type: Boolean,
+      value: false
     }
   },
   data: {

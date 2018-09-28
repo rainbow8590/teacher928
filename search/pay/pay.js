@@ -15,6 +15,7 @@ Page({
       {id:2,txt:'任务',classname:'icon-tasking',changeTextColor:'#888',isChange: false},
       {id:3,txt:'工具',classname:'icon-setting',changeTextColor:'#888',isChange: false},
     ],
+    isShowPayInfo:false,
     showModalStatus: false, //控制导航显示
     isopen:'open',  //控制菜单显示
     teacherName: '', //教师名称
@@ -60,14 +61,15 @@ Page({
     hasEmptyGrid: false,
     showPicker: false,
     dateInfos:[],
-    today: 0
+    today: 0,
+    canTip: false,
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
     this.selectPopup = this.selectComponent("#selectPopup");
     this.tab = this.selectComponent("#tab");
   },
-  onLoad: function(){
+  onLoad: function(option){
     var that = this;
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
@@ -121,9 +123,11 @@ Page({
     var date = new Date(); //当前日期
     var cur_day = date.getDate(); //当前日
     var cur_year = date.getFullYear(); //当前年份
-    var cur_month = date.getMonth() + 1; //当前月份
+    var cur_month = date.getMonth()+1; //当前月份
+    // var cur_month = option.selectMonth; //当前月份
     var change_year = date.getFullYear(); //当前年份
-    var change_month = date.getMonth() + 1; //当前月份
+    var change_month = date.getMonth()+1; //当前月份
+    // var change_month = option.selectMonth; //当前月份
     this.setData({
       date:cur_year+'-'+cur_month+'-'+cur_day,
       current:date.getMonth(),
@@ -232,20 +236,25 @@ Page({
     }
     
   },
+
+  
+  goPayInfo(){
+    wx.navigateTo({url:'/search/payInfo/payInfo'})
+  },
   
   // 显示弹窗 学年
   getYear: function (e) {
     console.log(this.data.isAjaxOver)
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 显示弹窗 学期
   getSemester: function (e) {
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   getYearType: function (e) {
-    this.setData({arr: this.data.yearTypeArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearTypeArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   getStage: function (e) {
@@ -263,7 +272,7 @@ Page({
             {id: 4, ind: null, value: '正式合计'}],
       })
     }
-    this.setData({arr: this.data.stageTypeArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.stageTypeArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗
@@ -790,6 +799,7 @@ Page({
   },
   // 获取基础课酬的信息
   getBasePayInfo: function(){
+
     var that = this;
     var stamp = new Date().getTime();
     var nYear = this.data.schoolYear1;
@@ -878,6 +888,7 @@ Page({
           }
           setTimeout(()=>{
             wx.hideLoading()
+            that.setData({canTip: true})
           },500)
         }
       }

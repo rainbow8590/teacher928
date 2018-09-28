@@ -155,7 +155,7 @@ Page({
       wx.setStorageSync('semesterIndex',e.detail.detail.dataset.id);
       this.getClassList()
     }else if(inpStr == 'class'){
-      if(this.data.classInn==this.data.arr[e.detail.detail.dataset.id].value) return;
+      // if(this.data.classInn==this.data.arr[e.detail.detail.dataset.id].value) return;
       // console.log(this.data.classInfo)
       this.setData({
         classInn:this.data.arr[e.detail.detail.dataset.id].value, 

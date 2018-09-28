@@ -121,11 +121,13 @@ Page({
         function getRes(res){
           if(res.data.ResultType == 0){
             wx.hideLoading();
-            publicJs.resultTip(res.data.Message)
+            publicJs.resultTip(res.data.Message,function(){
+              wx.setStorageSync('PerpareLesson', true)
+              wx.navigateBack({delta:1})
+            })
             // that.data.classInfo.TaskAudit = null
             // that.setData({classInfo: that.data.classInfo})
-            wx.setStorageSync('PerpareLesson', true)
-            wx.navigateBack({delta:1})
+            
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
             if(res.data.Message == '身份验证失败'){
@@ -174,9 +176,9 @@ Page({
   // 选择图片
   choosePic: function(){
     var that = this;
-    console.log(that.data.pics)
+    var len = that.data.pics.length;
     wx.chooseImage({
-      count: 10- that.data.pics.length, // 默认9
+      count: 10 - len, // 默认9
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
@@ -184,6 +186,13 @@ Page({
         // console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
        pics = pics.concat(res.tempFilePaths)
+       if(pics.length > 10){
+          for(var i = 0; i < pics.length; i++){
+            if(i > 9){
+              pics.splice(i,1)
+            }
+          }
+       }
        that.setData({pics: pics})
       }
     })
@@ -234,8 +243,8 @@ Page({
                   //console.log('成功：'+success+" 失败："+fail);
                   wx.hideToast();
                   var str = '成功：'+success+', 失败：'+fail;
-                  publicJs.resultTip(str)
-                  that.data.classInfo.TaskAudit = false
+                  // publicJs.resultTip(str)
+                  that.data.classInfo.TaskAudit = false;
                   that.setData({classInfo: that.data.classInfo})
                   wx.navigateBack({delta:1})
               }else{//若图片还没有传完，则继续调用函数

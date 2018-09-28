@@ -50,16 +50,7 @@ Page({
     publicJs.getSystem(that,function(){
       that.setData({heigh: that.data.windowHeight - 55})
     });
-    // 获取设备高度
-    // wx.getSystemInfo({
-    //   success: function(res) {
-    //     that.setData({
-    //       windowHeight: res.windowHeight,
-    //       windowWidth: res.windowWidth,
-    //       heigh: res.windowHeight - 55
-    //     })
-    //   }
-    // });
+
     var date = new Date(); //当前日期
     var cur_day = date.getDate(); //当前日
     var cur_year = date.getFullYear(); //当前年份
@@ -72,7 +63,6 @@ Page({
       current1:date.getFullYear()
     });
 
-    // var weeks_ch = [ '日', '一', '二', '三', '四', '五', '六' ]; //星期
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
     this.setData({
@@ -103,7 +93,6 @@ Page({
   closeNav: function(e){
     publicJs.closeNav(e,this)
   },
-  
 
   // 获取信息
   getDateInfos: function(callback){
@@ -138,6 +127,8 @@ Page({
         function getRes(res){
           if(res.data.ResultType == 0){
             var result = res.data.AppendData;
+            // console.log(result)
+          
             that.setData({dateInfos:result})
             callback();
 
@@ -216,7 +207,7 @@ Page({
       urls: [that.data.picSrc], // 需要预览的图片http链接列表
     })
   },
-  // 点击改变tab
+
   
   // 显示年月浮层
   showFloat: function(e){
@@ -325,27 +316,41 @@ Page({
     var days = [];
     var cur_day = new Date().getDate();
     var thisMonthDays = this.getThisMonthDays(year, month); 
+
     this.getDateInfos(function(){
       for (var i = 0; i < that.data.dateInfos.length; i++) {
+        if(that.data.dateInfos[i].CalendarList.length){
+          for(var a = 0; a < that.data.dateInfos[i].CalendarList.length; a++ ){
+            that.data.dateInfos[i].CalendarList[a].player=[{}]
+          }
+        }
         days.push({
           day: i+1,
           choosed: false,
           classInfo: that.data.dateInfos[i].CalendarList,
         });
+      }
 
         if(that.data.isFirst == 0 || that.data.today == 'today'){
-          that.setData({classContent:that.data.dateInfos[cur_day-1].CalendarList })
+           //有课就请求直播信息
+          if( that.data.dateInfos[cur_day-1].CalendarList.length ){
+              var idx = cur_day-1;
+              that.setPlayer(that.data.dateInfos, idx, that.data.dateInfos[idx].CalendarList,'CalendarList')
+          }
+            
+         // that.setData({classContent:that.data.dateInfos[cur_day-1].CalendarList })
         }else{
-          that.setData({classContent:that.data.dateInfos[0].CalendarList })
+          //有课就请求直播信息
+          if( that.data.dateInfos[0].CalendarList.length ){
+              that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[idx].CalendarList,'CalendarList')
+          }
+          // that.setData({classContent:that.data.dateInfos[0].CalendarList })
         }
-      }
       
       that.setData({
         days:days
       });
     });
-
-    
   },
   //点击两侧箭头的事件
   handleCalendar:function(e) {  
@@ -425,6 +430,7 @@ Page({
   },
   // 选择每天的日期改变状态
   tapDayItem:function(e) {
+    var that = this;
     var idx = e.currentTarget.dataset.idx;
     var days = this.data.days;
     for(var i = 0 ; i < days.length; i++){
@@ -436,10 +442,169 @@ Page({
       cur_day: days[idx].day,
     });
 
-    // 显示课程
-    this.setData({classContent:days[idx].classInfo})
+    // that.setData({classContent:this.data.days[idx]['classInfo']})
+
+    //有课就请求直播信息
+    if( this.data.days[idx].classInfo.length ){
+      this.setPlayer(this.data.days, idx, this.data.days[idx].classInfo,'classInfo')
+      // that.setData({classContent:this.data.days[idx]['classInfo']})
+    }else{
+      that.setData({classContent:this.data.days[idx]['classInfo']})
+    }
+   
   },
- 
+  //请求直播课并赋值
+  setPlayer(fatherArr, index, classInfos, classInfo){
+    var that = this;
+    var newPlayerArr = [];
+    for(var j = 0 ; j < classInfos.length; j++) {
+      var kk = new Promise(resolve=>{
+          var that = this;
+          var stamp = new Date().getTime();
+          var token = that.data.teacherToken;
+          var query = {
+            appid: appId,
+            timestamp:stamp,
+            token:token,
+            sclasscode:classInfos[j].sCode,
+            nlessonno:classInfos[j].nLessonNo
+          }
+          var option = {
+            api:'api/Calendar/OnlineClass',
+            query: query,
+            type: 'get',
+          }
+           
+          wx.showLoading({
+            title:'努力加载中...',
+            success: function(){
+              requests.request(option, function(res){
+                getRes(res);
+              })
+              function getRes(res){
+                if(res.data.ResultType == 0){
+                  resolve(res.data.AppendData);
+                }else if(res.data.ResultType == 3){
+                  resolve('没有对应的直播课');
+                }else if(res.data.ResultType == 7){
+                  publicJs.resultTip(res.data.Message)
+                  if(res.data.Message == '身份验证失败'){
+                    wx.clearStorageSync();
+                    wx.reLaunch({ url: '/pages/index/index'})
+                  }
+                }
+                setTimeout(()=>{
+                  wx.hideLoading()
+                },500)
+              }
+            }
+          })
+      })
+      newPlayerArr.push(kk)
+    }
+    Promise.all(newPlayerArr).then(res=>{
+      console.log(res)
+      for(var k = 0 ; k < classInfos.length; k++){
+        (function(k){
+          newPlayerArr[k].then(data=>{
+            // console.log(data)
+            if(data != '没有对应的直播课'){
+              for(var n = 0 ; n < data.length; n++){
+                var reg = /\-/g;
+                data[n].BeginTime = data[n].beginTime.replace('T',' ').substr((data[n].beginTime.indexOf('-')+1),11)
+                data[n].beginTime = data[n].beginTime.replace('T',' ').replace(reg,'/')
+                data[n].endTime = data[n].endTime.replace('T',' ').replace(reg,'/')
+                var cha = 15*60*1000;
+                // 当前时间小于开课时间15分钟 是未开始 0
+                // 当前时间大于开课前十五分钟小于结课时间, 是上课中 1
+                // 当前时间大于结课时间  是已下课  2
+                if( new Date().getTime() < (new Date(data[n].beginTime) - cha) ){
+                  data[n]['status'] = 0;
+                }else if(new Date().getTime() > (new Date(data[n].beginTime) - cha) && new Date().getTime() < new Date(data[n].endTime) ){
+                  data[n]['status'] = 1;
+                }else if(new Date().getTime() > new Date(data[n].endTime) ){
+                  data[n]['status'] = 2;
+                }
+              }
+              classInfos[k]['player']  = data;
+              that.setData({fatherArr:fatherArr})
+              that.setData({classContent:fatherArr[index][classInfo]})
+            }else{
+              classInfos[k]['player']  = [];
+              that.setData({fatherArr:fatherArr})
+              that.setData({classContent:fatherArr[index][classInfo]})
+            }
+            
+            //console.log(data)
+            //console.log(that.data.classContent)
+          })
+        })(k)
+      }
+    })
+    
+  },
+  //获取直播课信息
+  getlivePlayer: function(sClassCode, nLessonNo){
+    var that = this;
+    var stamp = new Date().getTime();
+    var token = this.data.teacherToken;
+    var query = {
+      appid: appId,
+      timestamp:stamp,
+      token:token,
+      sclasscode:sClassCode,
+      nlessonno:nLessonNo
+    }
+    var option = {
+      api:'api/Calendar/OnlineClass',
+      query: query,
+      type: 'get',
+    }
+     
+      wx.showLoading({
+        title:'努力加载中...',
+        success: function(){
+          requests.request(option, function(res){
+            getRes(res);
+          })
+          function getRes(res){
+            // console.log(res)
+            if(res.data.ResultType == 0){
+              //resolve(res.data.AppendData);
+            }else if(res.data.ResultType == 7){
+              publicJs.resultTip(res.data.Message)
+              if(res.data.Message == '身份验证失败'){
+                wx.clearStorageSync();
+                wx.reLaunch({ url: '/pages/index/index'})
+              }
+            }
+            setTimeout(()=>{
+              wx.hideLoading()
+            },500)
+          }
+        }
+      })
+
+  },
+  //查看学生
+  goPlayStudengPage(e){
+    console.log(e.target.dataset)
+    var inds = e.target.dataset
+    var data = this.data.classContent[inds.fatherindex].player[inds.childindex];
+    data.className = this.data.classContent[inds.fatherindex].title
+    console.log(data)
+    wx.navigateTo({url:'/search/playerStudents/playerStudents?content='+JSON.stringify(data)})
+  },
+  goRoom(e){
+    
+    var inds = e.target.dataset
+    var roomId =this.data.classContent[inds.fatherindex].player[inds.childindex].roomId;
+    var sclasscode =this.data.classContent[inds.fatherindex].sCode;
+    var nlessonno =this.data.classContent[inds.fatherindex].nLessonNo;
+    console.log(this.data.classContent[inds.fatherindex])
+    // return;
+    wx.navigateTo({url:'/search/playerRoom/playerRoom?roomid='+roomId+'&sclasscode='+sclasscode+'&nlessonno='+nlessonno})
+  }
   
 })
 

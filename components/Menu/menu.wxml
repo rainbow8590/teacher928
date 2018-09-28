@@ -9,10 +9,10 @@
             <view class="name">{{teacherName}}</view>
         </view>
         <view>
-            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/write/entranceDoor/entranceDoor'>录入进门考</navigator></view>
-            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/scorePic/scorePic'>生成成绩单</navigator></view>
-            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/taskCard/taskCard'>生成任务卡</navigator></view>
-            <view class="con" wx:if="{{identity==1 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/cardIndex/cardIndex'>转发群打卡</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==2 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/write/entranceDoor/entranceDoor?parent=enterdoor'>录入进门考</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==2 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/scorePic/scorePic'>生成成绩单</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==2 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/taskCard/taskCard'>生成任务卡</navigator></view>
+            <view class="con" wx:if="{{identity==1 || identity==2 || identity==103 || identity==104 || identity==105}}"><navigator open-type="reLaunch" url='/set/cardIndex/cardIndex'>转发群打卡</navigator></view>
             <view class="con" wx:if="{{identity==100 || identity==101 || identity==104}}"><navigator open-type="reLaunch" url='/task/daikeAuditing/daikeAuditing'>代课审核</navigator></view>
             <view class="con" wx:if="{{identity==100 || identity==102 || identity==105}}"><navigator open-type="reLaunch" url='/write/prepareLesson/prepareLesson'>备课评分</navigator></view>
         </view>

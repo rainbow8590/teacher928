@@ -1,6 +1,7 @@
 var md51 = require('./md51.js');
 
 var htp = 'http://47.94.40.214:8083/';
+// var htp = 'http://47.94.40.214:8023/'; // 课酬用8023
 // var htp = 'https://teacherapi.gaosiedu.com/';
 
 function requestGet( url,callback){
@@ -16,6 +17,7 @@ function requestGet( url,callback){
         callback(res)
       },
       fail: function(err){
+        console.log(err)
         wx.showToast({
           title: '数据加载失败,请检查网络配置',
           icon: 'loading',
@@ -64,12 +66,26 @@ function request(option,success,fail){
         success(res)
       },
       fail: function(err){
-        // fail(err)
+        console.log(err)
         wx.showModal({
           title: '提示',
           content:'网络或服务器出错,请稍后重试',
           showCancel: false
         })
+      },
+      complete: function(msg){
+        if(msg.statusCode == 500){
+          wx.showModal({
+            title: '提示',
+            content:msg.data.Message,
+            showCancel: false,
+            success: function(){
+              wx.navigateBack({
+                delta:1
+              })
+            }
+          })
+        }
       }
     })
 };

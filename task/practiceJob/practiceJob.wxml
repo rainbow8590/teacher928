@@ -11,10 +11,9 @@
       <image src="{{item}}" bindtap="previewImage" data-index="{{index}}"></image>
       <text class="iconfont icon-delete-fill delete" data-index="{{index}}" bindtap="delete" wx:if="{{baseInfo.TaskAudit == null}}"></text>
     </view>
-    
-    <text class="add" bindtap="choosePic" wx:if="{{baseInfo.TaskAudit == null}}">+</text>
+    <text class="add" bindtap="choosePic" wx:if="{{baseInfo.TaskAudit == null && pics.length<10}}">+</text>
   </view>
-  <button class="upload" type="primary"  bindtap="showModal"  wx:if="{{baseInfo.TaskAudit == null}}">上传作业图片</button>
+  <button class="upload" type="primary"  bindtap="showModal"  wx:if="{{baseInfo.TaskAudit == null}}" disabled="{{pics.length<=0}}">上传作业图片</button>
 
   <view class="dialog-mask" wx:if="{{showDialog}}">
     <view class="dialog">

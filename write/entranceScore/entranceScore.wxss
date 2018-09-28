@@ -119,7 +119,7 @@ page {
 }
 
 .wrap form .tbody .tbody-row .sName {
-  width: 180rpx;
+  width: 200rpx;
   padding-left: 14rpx;
   padding-right: 34rpx;
   text-align: center;
@@ -153,6 +153,7 @@ page {
   text-align: center;
   border-radius: 26rpx;
   margin: 0 auto;
+  background:#eee;
 }
 
 

@@ -1,4 +1,5 @@
 @import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
 page{
   height: 100%;
 }
@@ -230,7 +231,7 @@ page{
   color: #ef5757;
   padding-top:5rpx;
   text-align: center;
-  margin-top: -40px;
+  /*margin-top: -40px;*/
 }
 .wrap .tabBodyItem .selectDetail .dot1{
   color: #888;
@@ -244,7 +245,8 @@ page{
   color: #989898;
 }
 .wrap .tabBodyItem .selectDetail .kejie{
-  width: 130rpx;
+  /*width: 100rpx;*/
+  padding-right: 40rpx;
 }
 .float {
   position: absolute;
@@ -303,4 +305,50 @@ page{
 .activeStyle{
   background: #1FBB1C;
   color: #fff !important;
+}
+.zhibo{
+  color:#f3914c;
+}
+
+
+/*直播相关*/
+.player{
+  font-size: 24rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+  margin-left: 50rpx;
+  padding: 20rpx 0;
+  border-top: 1px dashed #e5e5e5;
+}
+.player-title{
+  justify-content: space-between;
+ 
+}
+.player-title1{
+  margin-bottom: 10rpx;
+}
+.player-title .status{
+  padding-right: 40rpx;
+}
+.iconfont{
+  padding-right: 10rpx;
+}
+.play-icon{
+  display: inline-block;
+  width: 26rpx;
+  height: 26rpx;
+  border: 2rpx solid #999;
+  border-radius: 4rpx;
+  position: relative;
+  vertical-align: middle;
+  box-sizing: border-box;
+  margin-right: 10rpx;
+}
+.play-icon::after{
+  content:'';
+  border: 8rpx solid transparent;
+  border-left-color: #999;
+  position: absolute;
+  left: 8rpx;
+  top: 4rpx;
 }

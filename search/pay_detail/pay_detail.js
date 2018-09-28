@@ -46,8 +46,9 @@ Page({
     this.selectPopup = this.selectComponent("#selectPopup");
     this.tab = this.selectComponent("#tab");
   },
-  onLoad: function(){
+  onLoad: function(option){
     var that = this;
+    wx.setStorageSync('flagAtPayList',false)
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
       teacherToken: wx.getStorageSync('teacherToken'),
@@ -58,53 +59,59 @@ Page({
       qishu: wx.getStorageSync('qishu'),
       noAuditing: wx.getStorageSync('noAuditing'),
       // openId:wx.getStorageSync('openId'),
-      identity: wx.getStorageSync('identity')
+      identity: wx.getStorageSync('identity'),
+      target: option.target ? option.target : null
     })
-    console.log(this.data.stageIndex)
-    if(this.data.yearTypeIndex == 0){
-      this.setData({
-        stageTypeArr: [
-          {id: 4,ind:null, value: '正式合计'},
-        ]
-      })
-      this.setData({
-        stageInn: this.data.stageTypeArr[0].value
-      })
-    }else{
-      this.setData({
-        // stageTypeArr: [{id: 4,ind:null, value: '正式合计'}]
-        stageTypeArr: [
-          {id: 0,ind:0, value: '0期'},
-          {id: 1,ind:1, value: '1期'},
-          {id: 2,ind:2, value: '2期'},
-          {id: 3,ind:3, value: '3期'},
-          {id: 4,ind:null, value: '正式合计'},
-        ]
-        })
-      this.setData({
-        stageInn: this.data.stageTypeArr[this.data.stageIndex].value
-      })
-    }
-    wx.setStorageSync('stageInn',this.data.stageInn)
-    this.setData({
-      yearTypeInn: this.data.yearTypeArr[this.data.yearTypeIndex].value,
-      schoolYear: this.data.yearTypeArr[this.data.yearTypeIndex].item,
-      nSemester1:this.data.semesterIndex,
-    })
-    // 获取手机宽高
     var that = this;
-    publicJs.getSystem(that,function(){
-      that.setData({heigh: that.data.windowHeight - 55- 42-70})
-    });
+    if(this.data.target){
+      this.setData({schoolYear: new Date().getFullYear(),nSemester1:publicJs.flagSemester()})
+      publicJs.getSystem(that,function(){
+        that.setData({heigh: that.data.windowHeight - 55-50})
+      });
+    }else{
+      if(this.data.yearTypeIndex == 0){
+        this.setData({
+          stageTypeArr: [
+            {id: 4,ind:null, value: '正式合计'},
+          ]
+        })
+        this.setData({
+          stageInn: this.data.stageTypeArr[0].value
+        })
+      }else{
+        this.setData({
+          // stageTypeArr: [{id: 4,ind:null, value: '正式合计'}]
+          stageTypeArr: [
+            {id: 0,ind:0, value: '0期'},
+            {id: 1,ind:1, value: '1期'},
+            {id: 2,ind:2, value: '2期'},
+            {id: 3,ind:3, value: '3期'},
+            {id: 4,ind:null, value: '正式合计'},
+          ]
+          })
+        this.setData({
+          stageInn: this.data.stageTypeArr[this.data.stageIndex].value
+        })
+      }
+      wx.setStorageSync('stageInn',this.data.stageInn)
+      this.setData({
+        yearTypeInn: this.data.yearTypeArr[this.data.yearTypeIndex].value,
+        schoolYear: this.data.yearTypeArr[this.data.yearTypeIndex].item,
+        nSemester1:this.data.semesterIndex,
+      })
+      publicJs.getSystem(that,function(){
+        that.setData({heigh: that.data.windowHeight - 55- 42-70})
+      });
+    }
     this.getClassInfos();
   },
 
   getYearType: function (e) {
-    this.setData({arr: this.data.yearTypeArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearTypeArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   getStage: function (e) {
-    this.setData({arr: this.data.stageTypeArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.stageTypeArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗
@@ -117,6 +124,8 @@ Page({
     this.setData({show1:false})
     if(inpStr == 'yearType'){
       if(this.data.yearTypeInn == this.data.arr[e.detail.detail.dataset.id].value) return;
+      // 改变下拉框的值, 以便返回的时候, 父级页面获取新的数据
+      wx.setStorageSync('flagAtPayList',true)
       this.setData({
         yearTypeInn:this.data.arr[e.detail.detail.dataset.id].value, 
       })
@@ -163,6 +172,7 @@ Page({
     }else if(inpStr == 'stage'){
       if(this.data.yearTypeInn == '2018年春季'){
         if(this.data.stageInn==this.data.arr[0].value) return;
+        wx.setStorageSync('flagAtPayList',true)
         this.setData({
           stageInn:this.data.arr[0].value, 
           stage: null,
@@ -170,7 +180,8 @@ Page({
         wx.setStorageSync('yearTypeIndex',0)
       }else{
         if(this.data.stageInn==this.data.arr[e.detail.detail.dataset.id].value) return;
-        console.log(e.detail.detail.dataset.ind)
+        wx.setStorageSync('flagAtPayList',true)
+
         this.setData({
           stageInn:this.data.arr[e.detail.detail.dataset.id].value, 
           stage: e.detail.detail.dataset.ind,

@@ -2,7 +2,7 @@
 <view class="container">
   <view class="wrap">
   <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
-    <view class="choise flex">
+    <view class="choise flex" wx:if="{{target==null}}">
       <select type="yearType" typeInn="{{yearTypeInn}}" bind:getEvent="getYearType"></select>
       <select type="stage" typeInn="{{stageInn}}" bind:getEvent="getStage"></select>
     </view> 

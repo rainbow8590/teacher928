@@ -27,15 +27,24 @@
             <view class="time" wx:if="{{!(item.status=='3'|| item.status=='6')}}">审批倒计时：{{item.createOn}}</view>
             <view class="time" wx:if="{{item.status=='3'|| item.status=='6'}}"><text class="{{item.memo == '自动审批：同意退班'?'auto':''}}">{{item.memo}}</text></view>
             <button class="sure" bindtap="sure" wx:if="{{!(item.status=='3'|| item.status=='6')}}" data-status="3" data-ids="{{index}}">同意退班</button>
-            <button class="sure sure1" wx:if="{{!(item.status=='3'|| item.status=='6')}}"  data-status="6" data-ids="{{index}}" formType="submit">已挽回</button>
+            <button class="sure sure1" wx:if="{{!(item.status=='3'|| item.status=='6')}}"  data-status="6" data-ids="{{index}}" bindtap="already" >已挽回</button>
           </view>
         </view>
         <view class="yes" wx:if="{{item.show1}}">
           <view class="yes-wrap">
-              <view class="tip">你真的确定了吗！！？</view>
+              <view class="tip"><text class="tipwrap">你真的确定了吗！！？</text></view>
               <view class="btn flex">
                 <button data-status="3" data-ids="{{index}}" formType="submit">确定</button>
                 <button bindtap="off" class="off" data-ids="{{index}}" >取消</button>
+              </view>
+          </view>
+        </view>
+         <view class="yes" wx:if="{{item.show2}}">
+          <view class="yes-wrap">
+              <view class="tip"><text class="tipwrap">您已和家长进行沟通，且家长同意不再退班了么？</text></view>
+              <view class="btn flex">
+                <button data-status="6" data-ids="{{index}}" formType="submit">是的</button>
+                <button bindtap="off" class="off" data-ids="{{index}}" >还没</button>
               </view>
           </view>
         </view>

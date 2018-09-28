@@ -29,7 +29,7 @@
         <view class="item item1">
           <label class="userIcon"><text class="iconfont icon-pass"></text></label>
           <input type="text" password="{{showPass}}" focus="{{isFocus}}" name="password" bindinput="passwordChange" value="{{password}}" placeholder="企业邮箱密码" />
-          <view class="eye" bindtap="ifShowPassword">
+          <view class="eye" catchtap="ifShowPassword">
             <text class="eyeicon iconfont {{isShoweye?'icon-closeeye':'icon-openeye'}}"></text>
           </view>
         </view>
@@ -42,7 +42,7 @@
         <view class="item item1">
           <label class="userIcon"><text class="iconfont icon-pass"></text></label>
           <input type="text" password="{{showPass}}" focus="{{isFocus}}" name="password" bindinput="passwordChange" value="{{password}}" placeholder="教师系统密码" />
-          <view class="eye" bindtap="ifShowPassword">
+          <view class="eye" catchtap="ifShowPassword">
           <!-- <image src="{{eyeSrc}}"></image> -->
             <text class="eyeicon iconfont {{isShoweye?'icon-closeeye':'icon-openeye'}}"></text>
           </view>

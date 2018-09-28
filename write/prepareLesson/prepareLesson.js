@@ -17,7 +17,7 @@ Page({
     ],
     isopen:'open',
     zoomShow: false,
-    isAjaxOver: false,
+    isAjaxOver: true,
     teacherName:'',
     isShowPopup: false,
     showModalStatus: false,
@@ -99,17 +99,17 @@ Page({
   // 显示弹窗 学年
   getYear: function (e) {
     console.log(e)
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 显示弹窗 学期
   getSemester: function (e) {
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 显示弹窗 班级
   getKejie: function (e) {
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 获取点击的弹窗的id和value值
@@ -174,6 +174,7 @@ Page({
  
         requests.request(option, function(res){
           getRes(res);
+          console.log(123)
           that.getTeacherList();
         })
         function getRes(res){
@@ -195,6 +196,8 @@ Page({
     
   },
   getTeacherList: function(){
+    // if(this.data.isAjaxOver==false) return;
+    // this.data.isAjaxOver = false;
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
@@ -220,8 +223,7 @@ Page({
 
         })
         function getRes(res){
-          wx.hideLoading();
-          that.setData({isAjaxOver: true})
+          
           var resData = res.data;
           var data = resData.AppendData;
           if(resData.ResultType == 0){
@@ -261,6 +263,10 @@ Page({
             }
             
           }
+          setTimeout(()=>{
+            wx.hideLoading();
+            that.setData({isAjaxOver: true})
+          },500)
 
         }
       }

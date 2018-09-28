@@ -1,0 +1,106 @@
+@import "../../utils/public.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+
+.wrap .tabBodyItem{
+  width: 50%;
+  flex-direction: row;
+  overflow-y:scroll;
+}
+.wrap .tabBodyItem1{
+  width: 100%;
+}
+.wrap .tabBodyItem .newsItem{
+  width: 100%;
+  height: 80rpx;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #f1f1f1;
+  box-sizing: border-box;
+  justify-content: space-between;
+  text-align: center;
+}
+.wrap .tabBodyItem .newsItem1{
+  font-weight: bold;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.wrap .tabBodyItem .rank{
+  width: 200rpx;
+}
+.wrap .tabBodyItem .title{
+  flex: 1;
+}
+.wrap .tabBodyItem .date{
+  width: 300rpx;
+  align-items: center;
+}
+.wrap .tabBodyItem .date .detailBtn{
+  padding:0 5px;
+  line-height:25px;
+  height:25px;
+  margin-right:20rpx;
+  background:#ff8c59;
+  color:#fff;
+  font-size:22rpx;
+
+}
+.wrap .tabBodyItem .first{
+  background: #1fba21;
+  color: #fff;
+  font-weight: bold;
+}
+.wrap .tabBodyItem .self{
+  background: #edf9ed;
+  color: #1fba21;
+  font-weight: bold;
+}
+
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}
+
+.noSheng{
+  color: #999;
+  text-align: center;
+  line-height: 300rpx;
+  font-size: 30rpx;
+}
+.tabBtn{
+  justify-content: space-around;
+  font-size: 24rpx;
+  text-align: center;
+  margin: 30rpx 0 40rpx 0;
+}
+.tabBtn text{
+  margin: 0 30rpx;
+  padding: 6rpx 40rpx;
+  background: #eee;
+  color: #666;
+  border-radius: 30rpx;
+}
+.tabBtn text.active{
+  margin: 0 30rpx;
+  background: #1fba21;
+  color: #fff;
+}

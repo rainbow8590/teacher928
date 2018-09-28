@@ -129,7 +129,7 @@ Page({
               wx.setStorageSync('teacherName',data.TeacherInfo.sName)
               wx.setStorageSync('kind',data.TeacherInfo.nKind)
               wx.setStorageSync('teacherCode',data.TeacherInfo.sCode);
-              wx.setStorageSync('identity',1) //教师
+              wx.setStorageSync('identity',data.TeacherInfo.nKind) //教师
               wx.reLaunch({ url: '/pages/main/main?activeIndex=0&tip=0'});
             }else if(data.Powers.length && !data.TeacherInfo){
               wx.setStorageSync('teacherName',data.EmployeeInfo.sName);

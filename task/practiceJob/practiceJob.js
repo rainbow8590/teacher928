@@ -95,9 +95,9 @@ Page({
   // 选择图片
   choosePic: function(){
     var that = this;
-    console.log(that.data.pics)
+    var len = that.data.pics.length
     wx.chooseImage({
-      count: 10- that.data.pics.length, // 默认9
+      count: 10 - len, // 默认9
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
@@ -105,11 +105,19 @@ Page({
         // console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
        pics = pics.concat(res.tempFilePaths)
+       if(pics.length > 10){
+          for(var i = 0; i < pics.length; i++){
+            if(i > 9){
+              pics.splice(i,1)
+            }
+          }
+       }
        that.setData({pics: pics})
       }
     })
   },
   uploadPIcs(){
+    this.setData({showDialog: false});
     wx.showToast({
       icon: "loading",
       title: "正在上传",
@@ -126,7 +134,7 @@ Page({
   },
   // 上传
   uploadPIc(data){
-    this.setData({showDialog: false});
+    
     var that=this,
         i=data.i?data.i:0,//当前上传的哪张图片
         success=data.success?data.success:0,//上传成功的个数
@@ -152,7 +160,7 @@ Page({
               console.log(i);
               i++;//这个图片执行完上传后，开始上传下一张
               if(i==data.path.length){   //当图片传完时，停止调用          
-                  console.log('成功：'+success+" 失败："+fail);
+                  // console.log('成功：'+success+" 失败："+fail);
                   wx.hideToast();
                   wx.setStorageSync('completeTask',true)
                   wx.navigateBack({delta:1})

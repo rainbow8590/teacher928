@@ -1,0 +1,10 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "续报排行",
+  "usingComponents":{
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu",
+    "swiper-change":"/components/SwiperChange/swiperChange"
+  }
+}

@@ -462,3 +462,32 @@ button::after {
   margin: 0 auto;
   margin-bottom: 40rpx;
 }
+
+
+.arrow-left{
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    transform: rotate(45deg);
+    margin-left: 28rpx;
+}
+.fadein{
+    animation:fadein .4s  ease both;
+}
+@keyframes fadein {
+    0%{opacity:0;left:0 }
+    100%{opacity:1;left:0 }
+}
+.fadeout{
+    animation:fadeout .4s  ease both;
+}
+@keyframes fadeout {
+    0%{opacity:1; left:0;}
+    99%{opacity:0 ; left:0;}
+    100%{opacity:0 ; left:-100%;}
+}
+button::after{
+    border: none;
+}

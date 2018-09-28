@@ -39,7 +39,7 @@ Page({
     resultH: 400, //表体的高度,
     classStr: '',//选择的班级信息
     zoomShow: false,
-    isAjaxOver: false
+    isAjaxOver: true
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
@@ -96,12 +96,12 @@ Page({
   },
   getClass: function (e) {
     this.setData({isFocus: false})
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.classes,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   getKejie: function (e) {
     this.setData({isFocus: false})
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗
@@ -207,6 +207,8 @@ Page({
 
   // 获取学生姓名分数
   getScore: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
@@ -241,7 +243,7 @@ Page({
             that.data.studentsList = [];
             var studentInfos = resData.AppendData;
             if(!studentInfos.length){
-              that.setData({studentsList:that.data.studentsList ,isAjaxOver: true})
+              that.setData({studentsList:that.data.studentsList})
             }else{
 
               for(var i = 0 ; i < studentInfos.length; i++){
@@ -261,7 +263,7 @@ Page({
                 })
               }
            
-              that.setData({studentsList:that.data.studentsList ,isAjaxOver: true})
+              that.setData({studentsList:that.data.studentsList })
             }
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
@@ -272,6 +274,7 @@ Page({
           }
           setTimeout(()=>{
             wx.hideLoading()
+            that.setData({isAjaxOver: true})
           },500)
         }
         

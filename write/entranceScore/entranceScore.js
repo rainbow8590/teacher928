@@ -39,7 +39,7 @@ Page({
     resultH: 400, //表体的高度,
     classStr: '',//选择的班级信息
     zoomShow: false,
-    isAjaxOver: false
+    isAjaxOver: true
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
@@ -61,14 +61,34 @@ Page({
       identity: wx.getStorageSync('identity'),
       parentTarget: option.parent
     })
-    
+
+    if(this.parent == 'enterdoor'){
+      wx.setNavigationBarTitle({
+        title: '进门考--成绩录入'
+      })
+    }else{
+      wx.setNavigationBarTitle({
+        title: '出门考--成绩录入'
+      })
+    }
+
+    // console.log(this.data.classInfo)
+
+    if(this.parent == 'outdoor'){
+      this.setData({nClassTypeCode: this.data.classInfo[this.data.tipClassIndex].nClassTypeCode})
+    }
+    console.log(this.data.tipClassIndex)
     // 设置班级
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-    this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+    this.setData({classStr:choiceClass.classCode + choiceClass.sClassName, kemu:choiceClass.kemu})
     // 获取手机宽高
     var that = this;
     publicJs.getSystem(that,function(){
-      that.setData({resultH: that.data.windowHeight -45 - 42 - 14 -40-45-15-15 -56})
+      if(that.data.parentTarget == 'enterdoor'){
+         that.setData({resultH: that.data.windowHeight -45 - 42 - 14 -40-45-15-15 -56}) 
+      }else{
+        that.setData({resultH: that.data.windowHeight -45 - 42 - 14 -40 - 56}) 
+      }
     });
 
 
@@ -79,23 +99,114 @@ Page({
     this.setData({classes: this.data.classes,classInn:this.data.classes[this.data.tipClassIndex].value})
     wx.setStorageSync('classes', this.data.classes)
 
-    
-    for(var j = 2; j <= classInfo[this.data.tipClassIndex].lessonNumber;j++){
-      this.data.kejieArr.push({id: j, value: '第'+ j +'讲'})
-    }
-    // 删除‘请选择’项
-    this.data.kejieArr.shift();
-    this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-2].value})
-    this.getScore();
 
+    var lesson = classInfo[this.data.tipClassIndex].lessonNumber;
+    // if(this.parent == 'enterdoor'){
+    //   this.setData({kejieArr:[{id: 2, value: '第2讲'}]})
+    //   for(var i = 2 ; i <= lesson; i++){
+    //     this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+    //   }
+    //   this.setData({kejieArr: this.data.kejieArr});
+    //   // this.data.kejieArr.splice(0,1);
+    //   this.setData({kejieArr: this.data.kejieArr});
+    // }else{
+    //   this.setData({kejieArr:[{id: 1, value: '第1讲'}]})
+    //   for(var i = 1 ; i <= lesson; i++){
+    //     this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+    //   }
+    //   this.setData({kejieArr: this.data.kejieArr});
+
+    //   this.setData({kejieArr: this.data.kejieArr});
+    //   console.log(this.data.kejieArr)
+    // }
+
+      if(this.parent == 'enterdoor'){
+        this.data.kejieArr = [{id: 1, value: '请选择'}];
+        for(var i = 2 ; i <= lesson; i++){
+          this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+        }
+      }else{
+        this.data.kejieArr = [{id: 0, value: '请选择'}];
+        for(var i = 1 ; i <= lesson; i++){
+          this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+        }
+      }
+
+      this.setData({kejieArr: this.data.kejieArr});
+
+      this.data.kejieArr.shift();
+      this.setData({kejieArr: this.data.kejieArr});
+        
+      if(this.parent == 'outdoor'){
+        // 数学科目不要第7和第15讲
+        if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
+            this.editKejie(this, 6 ,13)
+            this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲'})
+          }else{
+            this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
+          }
+          
+      }else{
+        this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-2].value})
+      }
+      
+    
+
+    // if(this.parent == 'outdoor'){
+    //   // 数学科目不要第7和第15讲
+    //   if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
+    //     this.editKejie(this, 7 ,14)
+    //     console.log(this.data.kejieArr)
+    //     this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲',kejieInn:this.data.kejieArr[this.data.tipKejieIndex].value})
+    //   }else{
+    //     this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex].value})
+    //   }
+    // }else{
+    //   this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
+    // }
+
+    // console.log(this.data.kejieArr)
+    // 删除‘请选择’项
+      // this.data.kejieArr.shift();
+      // this.setData({kejieArr: this.data.kejieArr});
+      // console.log(this.data.kejieArr)
+
+    if(this.parent == 'enterdoor'){
+      this.getScore();
+    }else{
+      this.getOutStudentList()
+    }
+  },
+  editKejie:function(obj, num1, num2){
+    obj.data.kejieArr.splice(num1,1)
+    obj.data.kejieArr.splice(num2,1)
+    var newKejie = [];
+    console.log(obj.data.kejieArr)
+    for(var j = 1; j <= obj.data.kejieArr.length;j++){
+       newKejie.push({id: j,value:obj.data.kejieArr[j-1].value})
+    }
+    obj.setData({kejieArr: newKejie});
+  },
+  onShow: function(){
+    if(wx.getStorageSync('isSubmit')){
+      this.getOutStudentList()
+    }
   },
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    // console.log(e.detail.detail)
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.classes,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
   },
   getKejie: function (e) {
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    console.log(e)
+    console.log('detail='+ e.detail.detail)
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
+    
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -106,25 +217,54 @@ Page({
     var inpStr = this.data.inpStr;
     this.setData({show: false})
     if(inpStr == 'class'){  //班级
-      if(this.data.classInn == this.data.arr[e.detail.detail.dataset.id].value) return;
+      // if(this.data.classInn == this.data.arr[e.detail.detail.dataset.id].value) return;
       this.setData({
         classInn:this.data.arr[e.detail.detail.dataset.id].value, 
         tipClassIndex:e.detail.detail.dataset.id, 
       })
       // 设置班级
       var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-      this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+      this.setData({classStr:choiceClass.classCode + choiceClass.sClassName, kemu:choiceClass.kemu})
 
-      this.getScore();
-
-      // 重新渲染课节
-      this.data.kejieArr = [];
-      var lesson = this.data.classInfo[this.data.tipClassIndex].lessonNumber;
-      for(var i = 2 ; i <= lesson; i++){
-        this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+      if(this.parent == 'enterdoor'){
+        this.getScore();
+      }else{
+        this.setData({nClassTypeCode: this.data.classInfo[this.data.tipClassIndex].nClassTypeCode})
+        this.getOutStudentList()
       }
 
+        var lesson = this.data.classInfo[this.data.tipClassIndex].lessonNumber;
+      if(this.parent == 'enterdoor'){
+        this.data.kejieArr = [{id: 1, value: '请选择'}];
+        for(var i = 2 ; i <= lesson; i++){
+          this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+        }
+      }else{
+        this.data.kejieArr = [{id: 0, value: '请选择'}];
+        for(var i = 1 ; i <= lesson; i++){
+          this.data.kejieArr.push({id: i, value: '第'+i+'讲'});
+        }
+      }
+      
       this.setData({kejieArr: this.data.kejieArr});
+      this.data.kejieArr.shift();
+      this.setData({kejieArr: this.data.kejieArr});
+        
+      if(this.parent == 'outdoor'){
+        // 数学科目不要第7和第15讲
+        if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
+            this.editKejie(this, 6 ,13)
+            this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲'})
+          }else{
+            this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
+          }
+          
+      }else{
+        this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-2].value})
+      }
+      
+    
+    
 
       var flagArr = [];
       for(var i = 0; i < this.data.kejieArr.length; i++){
@@ -145,12 +285,44 @@ Page({
       // 缓存选择的班级信息的编号
       wx.setStorageSync('tipClassIndex',this.data.tipClassIndex);
     }else if(inpStr == 'kejie'){  //课节
-      if(this.data.kejieInn == this.data.arr[e.detail.detail.dataset.id-2].value) return;
+
+      
+      /*
       this.setData({
+        // kejieInn:this.data.arr[e.detail.detail.dataset.id-2].value, 
+        // tipKejieIndex:e.detail.detail.dataset.id, 
         kejieInn:this.data.arr[e.detail.detail.dataset.id-2].value, 
-        tipKejieIndex:e.detail.detail.dataset.id, 
+        tipKejieIndex:this.data.arr[e.detail.detail.dataset.id].value.replace('第','').replace('讲',''), 
       })
-      this.getScore();
+ */
+      if(this.parent == 'outdoor'){
+        if(this.data.kejieInn == this.data.arr[e.detail.detail.dataset.id-1].value) return;
+        if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
+            this.setData({
+              kejieInn:this.data.arr[e.detail.detail.dataset.id-1].value, 
+              tipKejieIndex:this.data.arr[e.detail.detail.dataset.id-1].value.replace('第','').replace('讲',''), 
+            })
+        }else{
+          this.setData({
+          kejieInn:this.data.arr[e.detail.detail.dataset.id-1].value, 
+          tipKejieIndex:this.data.arr[e.detail.detail.dataset.id-1].value.replace('第','').replace('讲',''), 
+        })
+        }
+        
+      }else{
+        if(this.data.kejieInn == this.data.arr[e.detail.detail.dataset.id-2].value) return;
+        this.setData({
+          kejieInn:this.data.arr[e.detail.detail.dataset.id-2].value, 
+          tipKejieIndex:this.data.arr[e.detail.detail.dataset.id-2].value.replace('第','').replace('讲',''), 
+        })
+      }
+
+      if(this.parent == 'enterdoor'){
+        this.getScore();
+      }else{
+        this.getOutStudentList();
+      }
+      
       // 缓存选择的课节
       wx.setStorageSync('tipKejieIndex',this.data.tipKejieIndex);
     }
@@ -182,12 +354,14 @@ Page({
   },
   // 获取学生姓名分数
   getScore: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
     var ClassCode = this.data.classInfo[this.data.tipClassIndex].classCode;
     var studentNum = this.data.classInfo[this.data.tipClassIndex].studentNumber;
-    var lessonNum = this.data.tipKejieIndex;
+    var lessonNum = this.data.tipKejieIndex ;
 
     var query = {
       appid: appId,
@@ -345,8 +519,112 @@ Page({
       }
     })
   },
+  // 获取出门考的学生列表及状态
+  getOutStudentList: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false
+    var that = this;
+    var token = this.data.teacherToken; // token值
+    var stamp = new Date().getTime();  //时间戳
+    var ClassCode = this.data.classInfo[this.data.tipClassIndex].classCode;
+    var studentNum = this.data.classInfo[this.data.tipClassIndex].studentNumber;
+    var lessonNum = this.data.tipKejieIndex;
+
+    var query = {
+      appid: appId,
+      timestamp:stamp,
+      token:token,
+      nlessonno:lessonNum,
+      pageindex:1,
+      pagesize:100,
+      sclasscode:ClassCode,
+    }
+  
+    var option = {
+      api:'api/LessonEndPaper/GetLessonEndPaperClassStudent',
+      query: query,
+      type: 'get',
+    }
+    wx.showLoading({
+      title:'努力加载中...',
+      success: function(){
+        requests.request(option, function(res){
+          getRes(res);
+        })
+        function getRes(res){
+          var resData = res.data;
+          if(resData.ResultType == 0){
+            that.data.studentsList = [];
+            var studentInfos = resData.AppendData;
+            if(!studentInfos.length){
+              that.setData({studentsList:that.data.studentsList })
+            }else{
+              var classEndTime = studentInfos[0].SectEnd.replace('T',' ');
+              classEndTime = classEndTime.replace(/\-/g,'/');
+              console.log(classEndTime)
+              classEndTime = new Date(classEndTime).getTime();
+              // var classEndTime = new Date('2018/8/14 10:00:00').getTime();
+              var taskEndtime = classEndTime+ 12*60*60*1000;
+              var nowTime = new Date().getTime();
+              that.setData({
+                nowTime:nowTime,
+                classEndTime: classEndTime,
+                taskEndtime: taskEndtime
+              })
+              
+              for(var i = 0 ; i < studentInfos.length; i++){
+                var student = studentInfos[i]
+                that.data.studentsList.push({
+                  sStudentCode: student.sStudentCode,
+                  sClassCode: student.sClassCode,
+                  sClassTypeCode: student.sClassTypeCode,
+                  sName: student.sStudentName,
+                  sCardCode: student.sCardCode,
+                  nLessonNum: student.nLessonNo,
+                  // ScoreType: student.ScoreType,
+                  dStudentTotalScore: student.dStudentTotalScore,
+                  // Score: student.Score,
+                  nClassYear:student.nClassYear,
+                  nSemester:student.nSemester,
+                  nFromLessonNo:student.nFromLessonNo,
+                  sFromClassCode:student.sFromClassCode,
+                  changeLessonState:student.changeLessonState,
+                  // changeLessonState:'调出',
+                  tipText:student.changeLessonState == '调出'?'调出不可录':'满分100分',
+                  // disable:student.changeLessonState == '调出'? true :false
+                })
+              }
+
+
+              that.setData({studentsList:that.data.studentsList })
+            }
+          }else if(res.data.ResultType == 3){
+              publicJs.resultTip(res.data.Message,function(){
+                wx.navigateBack({delta:1})
+              })
+          }else if(res.data.ResultType == 7){
+            publicJs.resultTip(res.data.Message)
+            if(res.data.Message == '身份验证失败'){
+              wx.clearStorageSync();
+              wx.reLaunch({ url: '/pages/index/index'})
+            }
+          }
+          setTimeout(()=>{
+            wx.hideLoading()
+            that.setData({isAjaxOver: true})
+          },500)
+        }
+      }
+    })
+  },
   // 跳转到录入页面
-  goOutScore: function(){
-    wx.navigateTo({url:'/write/outScore/outScore'})
+  goOutScore: function(e){
+    var index = e.target.dataset.index;
+    var studentInfo = this.data.studentsList[index]
+    studentInfo.sClassTypeCode = this.data.nClassTypeCode
+    studentInfo.kemu = this.data.kemu
+    // studentInfo.kemu = '英语'
+    studentInfo.isOverTime =  this.data.nowTime < this.data.taskEndtime ?false: true
+    wx.navigateTo({url:'/write/outScore/outScore?query='+JSON.stringify(studentInfo)})
   }
 })

@@ -347,18 +347,18 @@ function flagSemester(){
     return 3;
   }else if(nowTime >= time3 && nowTime < time4){
     return 4;
-  }else if(nowTime >= time0 && nowTime < time1){
+  }else if((nowTime >= time0 && nowTime < time1) || (nowTime >= time4)){
     return 1;
   }
 }
 // 判断当前显示的年份
 function flagYear(){
   var nowTime = new Date().getTime();
-  var criticalTime = new Date("2018/1/10 00:00:00").getTime()
+  var criticalTime = new Date(new Date().getFullYear()+"/1/10 00:00:00").getTime()
   if(nowTime < criticalTime){
-    return 2017;
+    return (new Date().getFullYear()-1);
   }else{
-    return 2018;
+    return new Date().getFullYear();
   }
 }
 

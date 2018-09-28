@@ -39,7 +39,7 @@ Page({
     resultH: 400, //表体的高度,
     classStr: '',//选择的班级信息
     zoomShow: false,
-    isAjaxOver: false,
+    isAjaxOver: true,
     sBookVersionInn:'',
     sBookNameInn: '',
     sBookChapterInn: '',
@@ -69,7 +69,7 @@ Page({
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
     // console.log(choiceClass)
     this.setData({
-      classStr:choiceClass.classCode + choiceClass.sClassTypeName,
+      classStr:choiceClass.classCode + choiceClass.sClassName,
       sClassCode: choiceClass.classCode
     })
     // console.log(this.data.sClassCode)
@@ -103,15 +103,19 @@ Page({
 
   },
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.classes,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
   },
   getKejie: function (e) {
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
   },
   getBook1: function (e) {
-    // console.log(e)
+    
     this.setData({arr: this.data.kejieArr,inpStr: e.target.dataset.id})
     this.selectPopup.showPopup()
   },
@@ -291,7 +295,7 @@ Page({
       })
       // 设置班级
       var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-      this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+      this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
 
       this.getStudentsInfo();
 
@@ -441,6 +445,8 @@ Page({
   },
   // 获取一个班级的学生
   getStudentsInfo: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
@@ -490,7 +496,7 @@ Page({
                 txt:student.sBookSection?'查询':'录入'
               })
             }
-            that.setData({studentsList:that.data.studentsList,isAjaxOver: true})
+            that.setData({studentsList:that.data.studentsList})
           }else if(res.data.ResultType == 7){
             // publicJs.resultTip('小学班级暂无公立校进度信息',function(){
             //   wx.redirectTo({ url: '/pages/index/index'})
@@ -503,7 +509,8 @@ Page({
             
           }
           setTimeout(()=>{
-            wx.hideLoading()
+            wx.hideLoading();
+            that.setData({isAjaxOver: true})
           },500)
         }
         

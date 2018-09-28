@@ -19,7 +19,8 @@ Component({
   },
   methods: {
     _getEvent(e){
-      let detail = e.target;
+      console.log(e)
+      let detail = e.currentTarget;
       this.triggerEvent('getEvent',{detail})
     }
   }

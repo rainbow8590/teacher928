@@ -2,31 +2,39 @@
 <view class="container">
   <view class="wrap">
     <teacher-menu teacherName="" classInfo="{{classStr}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
-    <view class="score">出门考  得分 50</view>
-    <form bindsubmit="saveScore">
-      <view class="title flex">
-        <text>请选择题目对错</text>
-        <view class="flex">
-          <button type="wraming" bindtap="check" data-btn="yes" class="yesBtn">全对</button>
-          <button type="wraming" bindtap="check" data-btn="error" class="errorBtn">全错</button>
+    <view class="score">出门考  得分 {{totalScore}}</view>
+    <form bindsubmit="saveScoreModal">
+      <view style="height:{{resultH}}px;overflow-y:scroll;" wx:if="{{query.kemu == '英语'}}">
+        <view class="title flex" >
+          <text>请选择题目对错</text>
+          <view class="flex">
+            <button type="wraming" bindtap="{{query.isOverTime?'':'check'}}" data-btn="yes" class="yesBtn">全对</button>
+            <button type="wraming" bindtap="{{query.isOverTime?'':'check'}}" data-btn="error" class="errorBtn">全错</button>
+          </view>
+        </view>
+        <!-- {{query.isOverTime}} -->
+        <view class="questions flex">
+          <text style="background: {{item.flag == 1?'#9e0e0e':'1fba21'}};border-color: {{item.flag == 1?'#9e0e0e':'1fba21'}}" wx:for="{{questions}}" data-index="{{index}}" bindtap="{{query.isOverTime?'':'checkOne'}}">{{index+1}}</text>   
         </view>
       </view>
-      <view class="questions flex">
-        <text style="background: {{item.flag == 1?'#9e0e0e':'1fba21'}};border-color: {{item.flag == 1?'#9e0e0e':'1fba21'}}" wx:for="{{questions}}" data-index="{{index}}" bindtap="checkOne">{{index+1}}</text>   
-      </view>
-     
-      <view class="title flex">
-        <text>请输入分数</text>
-      </view>
-      <view class="questions flex">
-        <view >
-          <div class="num"></div>
-          <div class="num"></div>
+      <view style="height:{{resultH}}px;overflow-y:scroll;" wx:if="{{query.kemu != '英语'}}">
+        <view class="title flex"  >
+          <text>请输入分数</text>
+        </view>
+        <view class="questions" >
+          <view class="question flex"  wx:for="{{questions}}">
+            <view class="num">{{index+1}}</view>
+            <input type="digit" bindinput="writeScore" bindblur="blurScore" bindfocus="focusScore" value="{{item.dStudentScore}}" data-index="{{index}}" />
+            <view class="flex" style="width:240rpx;">
+              <button type="warn" catchtap="{{query.isOverTime?'':'minScore'}}" data-index="{{index}}">0分</button>
+              <button type="primary"  catchtap="{{query.isOverTime?'':'maxScore'}}" data-index="{{index}}">{{item.dTopicScore}}分</button>
+            </view>
+          </view>
         </view>
       </view>
 
       <view class="btn">
-        <button formType="submit" class="loginBtn" hover-class="hoverLogin" disabled="{{!studentsList.length}}">提交</button>
+        <button formType="submit" class="loginBtn" hover-class="hoverLogin" disabled="{{!questions.length || query.isOverTime}}">提交</button>
       </view>
     </form>
   </view>

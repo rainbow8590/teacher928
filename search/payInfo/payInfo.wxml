@@ -1,0 +1,169 @@
+<!--index.wxml-->
+<view class="container">
+ <view class="title" wx:if="{{pageTitle != 'periodpaylist'}}">高思学校教师考勤管理制度-2018修订版</view>
+ <view class="title" wx:if="{{pageTitle == 'periodpaylist'}}">扣款规则</view>
+ <view class="h1" wx:if="{{pageTitle != 'periodpaylist'}}">一、新版考勤规则概述</view>
+ <view class="table">
+    <view class="th flex" >
+      <view class="td">项目</view>
+      <view class="td td1">说明</view>
+    </view>
+    <view class="tr flex" wx:if="{{pageTitle != 'periodpaylist'}}">
+      <view class="td flex">正常打卡</view>
+      <view class="td td1">
+        <view>老师应在课前15分钟到教学点打卡并进入教室。</view>
+      </view>
+    </view>
+    <view class="tr flex">
+      <view class="td flex">课前迟到</view>
+      <view class="td td1">
+        <view>1. 在课前 15 分钟内打卡的视为“课前迟到”。</view>
+        <view>2. 课节数量≤8的班级，第1次迟到不扣款，以后迟到扣除200元/次。</view>
+        <view>3. 课节数量>8的班级，前2次迟到不扣款，以后迟到扣除200元/次。</view>
+        <view>4. 代课班级迟到扣除100元/次。</view>
+      </view>
+    </view>
+    <view class="tr flex">
+      <view class="td flex">课后迟到</view>
+      <view class="td td1">
+        <view>1. 规定上课时间之后打卡的视为“课后迟到”。</view>
+        <view>2.课后迟到扣除 1000 元/次。</view>
+      </view>
+    </view>
+    <view class="tr flex">
+      <view class="td flex">旷课</view>
+      <view class="td td1">
+        <view>因个人原因未能到岗上课为旷课，扣除 2000 元/次。</view>
+      </view>
+    </view>
+    <view class="tr flex">
+      <view class="td flex">病假</view>
+      <view class="td td1">
+        <view>病假不做惩罚，但必须提交正规医院开具的病假条</view>
+      </view>
+    </view>
+    <view class="tr flex">
+      <view class="td flex">事假</view>
+      <view class="td td1">
+        <view>1. 请假时间距上课时间大于等于48小时，扣款200元/次。</view>
+        <view>2.请假时间距上课时间小于48小时，扣除500元/次。</view>
+      </view>
+    </view>
+    <view class="tr tr1 flex" wx:if="{{pageTitle == 'periodpaylist'}}">
+      <view class="td flex">未点名</view>
+      <view class="td td1">
+        <view>每个课程首次未点名不扣款, 以后每次扣60元/次</view>
+      </view>
+    </view>
+ </view>
+ <view wx:if="{{pageTitle != 'periodpaylist'}}">
+   <view class="h1">二、高思学校教师考勤管理制度（全文）</view>
+   <view class="content">按时出勤是学校对教师的基本要求，遵守考勤制度是每位教师高度职业化素养的体现，自入职之日起，每位老师需要遵守下列考勤管理规定。</view>
+   <view class="h2">一.考勤周期</view>
+   <view class="content">考勤周期为自然月1日至最后1日，特殊月份以实际通知为准</view>
+   <view class="h2">二.考勤管理</view>
+   <view class="content pl20">1.签到：</view>
+   <view class="content pl40">a) 签到分为考勤机指纹签到及校区纸质签到表签到2部分，签到是确认教师考勤的唯一依据，请老师们严格按规范签到。所有课程，老师上课前均需到校区讲义室指纹打卡签到。不清楚指纹机位置的，可以向校区工作人员询问，未录入指纹信息或指纹信息错误的，请联系人力资源部</view>
+   <view class="content pl40">b)签到规范</view>
+   <view class="content pl60">i.每个班级的有效打卡时间为：课前2小时-课前15分钟
+  例如：1）上课时间为17:00-20:00，该班有效打卡时间为15:00-16:45</view>
+  <view class="content pl60"> ii.必须在课程所在教学区指纹打卡，打卡地点错误，视为未打卡。</view>
+  <view class="content pl60"> 注意：高思大厦课程必须在高思大厦2层讲义室打卡；
+  其他有多个讲义室的校区，每个打卡机均可打卡。</view>
+  <view class="content pl40">c)特殊情况说明</view>
+  <view class="content pl60">i.同校区两个或者以上班级连上，若班级间隔在30分钟（含）以内则无需再次签到，若间隔大于30分钟需任课老师再次签到。</view>
+  <view class="content pl60">ii.不同校区多个课程连上，不论班级间隔多少，均需打卡，如因间隔时间太短出现课前迟到，请联系教管申请“奔走到岗”。</view>
+  <view class="content pl60">iii.若指纹机故障或打卡中出现问题，请联系教学中心-教师信息管理组</view>
+  <view class="content pl60">iv.打卡之后，请各位老师在校区签到本上签字确认领取教学用品</view>
+  <view class="content pl60">v.除考勤机故障原因以外，所有未打卡的，请凭校区视频截图补签，否则视为课后迟到
+  </view>
+  <view class="content pl20">2.考勤规范</view>
+  <view class="content pl40">a)出勤时间规范</view>
+  <view class="content pl60">i.每次课需最晚在课前15分钟到教学点打卡并进入教室，在课前15分钟内打卡的视为“课前迟到”。规定上课时间之后打卡的视为“课后迟到”。</view>
+  <view class="content pl60">ii.教师须亲自到指定地点打卡。由其他人代打卡的，视为旷课。</view>
+  <view class="content pl60">iii.打卡后请于上课前15分钟进入教室，如果打卡时间正常，但是在开始上课时间后进入教室的，依然视为课后迟到。</view>
+  <view class="content pl60">iv.不允许早退，提前2分钟及以上下课视为早退。早退视为课后迟到，早退20分钟以上的，视为旷课。</view>
+  <view class="content pl60">v.推迟下课时间为拖堂，非特殊原因不要拖堂，即使拖堂，时间请控制在5分钟以内。拖堂超过10分钟被投诉的，记一次课后迟到</view>
+  <view class="content pl60">vi.除课间外，上课过程中不可以离开教室；2小时及以内课程1次课间（特殊班型以教学部门安排为准），2小时以上课程2次课间，每次课间10分钟，最长不得超过15分钟。</view>
+
+  <view class="content pl40">b)出勤次数规范</view>
+  <view class="content pl60">i.教师应重视教学，尽最大努力上好每一堂课。</view>
+  <view class="content pl60">ii.因某些原因无法上课的，需提前向教学中心-教师管理部请假，并找其他老师代课，不允许不经教师管理部审核，进行私下代课的行为，私下的代课行为视为请假人旷课</view>
+  <view class="content pl60">iii.请假代课批准之后，教师需要自行向学生、家长、校区沟通代课情况；且需要主动与代课教师沟通班级情况，尽量消除代课对学生学习造成的影响</view>
+  <view class="content pl60">iv.请假教师对本次代课的上课质量负责</view>
+  <view class="content pl60">v.代课教师也要遵循所有上课规范</view>
+
+  <view class="content pl40">c)如果未能找到代课教师，则需要临时调整上课时间，需由请假老师与全班学生协商调课时间，调课必须在2周内完成。</view>
+
+  <view class="content pl20">3.考勤奖惩条例</view>
+  <view class="content pl40">a) 迟到罚则：迟到状态分为：正常、课前迟到、课后迟到、早退、未打卡、旷课。</view>
+  <view class="content pl60">i.课前迟到：</view>
+  <view class="content pl80">☆ 8次及以下课程，每个班级（同一班级编码，下同）第一次课前迟到不予处罚；从第二次起，课前迟到扣除200元/次</view>
+  <view class="content pl80">☆ 9次及以上课程，每个班级前两次课前迟到不予处罚，从第三次起，课前迟到扣除200元/次</view>
+  <view class="content pl80">☆ 代课班级课前迟到，扣除100元/次；若有奔走情形，请提前向教师管理部说明</view> 
+  <view class="content pl60">ii.课后迟到：不论课次长短，课后迟到扣除1000元/次 </view>
+  <view class="content pl60">iii.早退：</view>
+  <view class="content pl80">☆ 早退20分钟以内的，视为课后迟到</view>
+  <view class="content pl80">☆ 早退20分钟或以上的，视为旷课</view>
+
+  <view class="content pl60">iv.未打卡：视为旷课。</view>
+  <view class="content pl60">v.旷课：因个人原因未能到岗上课为旷课，扣除2000元/次</view>
+  <view class="content pl40">b)请假罚则：请假类型分为：病假、事假、公务安排。每个班每次课记为一次请假。自行寻找代课教师，也必须报告教师管理部审核。</view>
+  <view class="content pl60"> i.病假：病假不做惩罚，但必须提交正规医院开具的病假条，需自行寻找代课教师</view>
+  <view class="content pl60">ii.事假：事假请提前48小时以上请假，需自行寻找代课教师</view>
+  <view class="content pl80">☆ 48小时以上请假，扣除200元/次</view>
+  <view class="content pl80">☆ 48小时以内-上课前2小时之间请假，扣除500元/次</view>
+  <view class="content pl80">☆ 上课前2小时以内的事假不予受理</view>
+  <view class="content pl60"> iii.公务安排：全职教师因公务原因请假代课，需由部门总监在距上课6小时前邮件向教学中心-教师管理部请假，代课教师由教师管理部协调（也可以自行寻找）；6小时以内的公务安排，需请假教师自行寻找代课教师。</view>
+
+
+
+  <view class="content pl40">c)全勤或考勤表现良好的老师，在后续课程中优先排课，并有机会上调课时费；考勤表现不佳的老师，会影响后续排课及课时费调整、扣发绩效奖金，具体可参阅《高思教育教师行为规范》、《高思教育教师晋升管理制度》</view>
+  <view class="content pl40">d)特殊情况说明：</view>
+  <view class="content pl60">i.产假、长期病假等长期请假，请在排课阶段向教师管理部说明，不视为请假</view>
+  <view class="content pl60">ii.婚假、丧假等极特殊情况，请向教师管理部说明，按国家规定处理</view>
+  <view class="content pl60">iii.病假及事假请在教师服务小程序中完成</view>
+   
+
+  <view class="content pl20">4.申诉机制</view>
+  <view class="content pl40">a)有两种情况可进行迟到申诉：</view>
+  <view class="content pl60">i. 奔走到岗：不同校区两次课间隔时间＜40分钟或者前后两个课所在校区跑动所用时间较久（高于课程间隔时间的60%，以同时段百度地图给出时间为准），仅针对课前迟到，如果奔走会造成课后迟到，请提前向教学管理部说明，调整排课。</view>
+  <view class="content pl60">ii. 公务安排：由部门总监审核后代为申请</view>
+
+  <view class="content pl40">b)未打卡申诉：教师需凭校区监控视频截图（包含教师本人清晰影像，证明自己到达校区），到教学管理部申请补签，补签时间即为视频显示时间。校区视频监控可在校区讲义室的监控专用电脑中获取，获取时请先取得校区同事允许，并在校区同事指导和监督下使用，不得私自使用校区监控专用电脑。</view>
+  <view class="content pl40">c)每周四之前教学中心会完成上周教师考勤的审核，遇寒暑假集中上课会适当延长，但是不会晚于上课次月3日，申诉需要在考勤审核前进行，晚于审核时间的申诉不予受理。</view>
+  <view class="content pl40">d)教师需自行查看教师服务小程序的考勤相关信息，如果遇到问题，请于考勤审核之前向各学科教师管理部说明并提交证明材料，确实有问题的，由学科教师管理部统一向教师信息管理组提交，并做最终审核。教师信息管理组的审核结果为最终结果。</view>
+
+  <view class="content pl20">5.  关于甩班及私自调课的补充说明</view>
+  <view class="content pl40">a)承诺带班后，因个人原因（含因个人原因离职）无法带班则视为甩班（甩课）</view>
+  <view class="content pl40">b)甩班是非常严重的教学事故，请老师本着“老师凭良心授课”、“真心对孩子负责”的原则，不要甩班</view>
+  <view class="content pl40">c)每甩一个班，即扣除10小时课时费并取消近3期绩效奖金资格（包含已经结算但暂未发放的奖金），情节严重者，取消排课资格甚至解聘。</view>
+  <view class="content pl40">d)请严格按规定的时间、地点、内容上课。未经过教师管理部允许就调整上课的时间、地点、内容的，不论是否已经与本班家长商议甚至本身就是家长要求，均按旷课处理。</view>
+
+  <view class="content pl20">6.  考勤的其他补充规定：</view>
+  <view class="content pl40">a)某个班级若请假次数>班级总课次的20%，取消老师该班排课资格；</view>
+  <view class="content pl40">b)老师私自调整上课时间、地点安排的，视为该课程课后迟到；</view>
+  <view class="content pl40">c)同一学期教师代课调课&变动数>总排课次数量的10%，下学期排课数量减少1/3；</view>
+  <view class="content pl40">d)同一学期教师代课调课&变动数＞总排课次数量的20%，取消下学期的排课资格；</view>
+  <view class="content pl40">e)同一学期课前迟到次数（奔走到岗除外）≥10次，或者≥总课次的20%，或者课后迟到次数≥3下学期排课数量减少1/3；</view>
+  <view class="content pl40">f)同一学期课前迟到次数≥总课次的33%，或课后迟到次数≥6，取消下学期排课资格。</view>
+   
+
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>

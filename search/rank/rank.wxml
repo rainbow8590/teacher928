@@ -1,0 +1,123 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+    <swiper-change title-one="学科" title-two="校区" wx:if="{{area=='新校区'}}" bind:swiperChange="swiperChange">
+      <view slot="leftSwiper" class="tabBodyItem" style="height:{{heigh-43-55}}px;">
+        <view class="tabBtn flex">
+          <text class="{{isTipButton1?'active':''}}" data-isyiban="true" bindtap="changeTipButton">0元班升班率</text>
+          <text class="{{isTipButton2?'active':''}}" data-isyiban="false" bindtap="changeTipButton">非0元班升班率</text>
+        </view>
+        <view wx:if="{{!rank}}" class="noSheng">暂无此类升班~</view>
+        <view wx:if="{{rank&&rank.length}}">
+          <view class="newsItem newsItem1 flex" bindtap="goDetail">
+            <view class="rank">排名</view>
+            <view class="title">姓名</view>
+            <view class="date">续报率</view>
+          </view>
+          <block wx:for="{{rank}}" wx:key="index">
+            <view class="newsItem flex {{index == 0? 'first':((item.nSblRank == selfRank&&item.sTeacherName == teacherName)?'self':'normal')}}" bindtap="{{(item.nSblRank == selfRank)&&(item.sTeacherName == teacherName)?'goDetail':''}}" >
+              <view class="rank">{{ item.nSblRank }}</view>
+              <view class="title">{{ item.sTeacherName }}</view>
+              <view class="date flex" ><text style="flex:1;">{{ item.dSbl }}% </text><button class="detailBtn" wx:if="{{item.nSblRank == selfRank}}">续报详情</button></view>
+            </view>
+            <view class="newsItem newsItem1 flex" wx:if="{{index == 0 && selfRank >5}}">
+                <view class="rank"></view>
+                <view class="title">. . . </view>
+                <view class="date" ></view>
+            </view>
+          </block>
+          <view class="newsItem flex" >
+            <view class="rank"></view>
+            <view class="title">. . . </view>
+            <view class="date" ></view>
+          </view>
+          <view class="newsItem flex" wx:if="{{isyiban==false}}">
+            <view class="title">本区共{{totalCount}}人, 超越上一名, 还需升班{{chaNum}}人</view>
+          </view>
+        </view>
+      </view>
+      <view slot="rightSwiper" class="tabBodyItem" style="height:{{heigh-43-55}}px;">
+        <view class="tabBtn flex">
+          <text class="{{isTipButton1?'active':''}}" data-isyiban="true" bindtap="changeTipButton">0元班升班率</text>
+          <text class="{{isTipButton2?'active':''}}" data-isyiban="false" bindtap="changeTipButton">非0元班升班率</text>
+        </view>
+        <view wx:if="{{!rank}}" class="noSheng">暂无此类升班~</view>
+        <view wx:if="{{rank&&rank.length}}">
+          <view class="newsItem newsItem1 flex" bindtap="goDetail">
+            <view class="rank">排名</view>
+            <view class="title">姓名</view>
+            <view class="date">续报率</view>
+          </view>
+          <block wx:for="{{rank}}" wx:key="index">
+            <view class="newsItem flex {{index == 0? 'first':(item.nSblRank == selfRank?'self':'normal')}}" bindtap="goDetail" >
+              <view class="rank">{{ item.nSblRank }}</view>
+              <view class="title">{{ item.sTeacherName }}</view>
+              <view class="date flex" ><text style="flex:1;">{{ item.dSbl }}% </text><button class="detailBtn" wx:if="{{item.nSblRank == selfRank}}">续报详情</button></view>
+            </view>
+            <view class="newsItem newsItem1 flex" wx:if="{{index == 0 && selfRank >5}}">
+                <view class="rank"></view>
+                <view class="title">. . . </view>
+                <view class="date" ></view>
+            </view>
+          </block>
+          <view class="newsItem flex" >
+            <view class="rank"></view>
+            <view class="title">. . . </view>
+            <view class="date" ></view>
+          </view>
+          <view class="newsItem flex" wx:if="{{isyiban==false}}">
+            <view class="title">本区共{{totalCount}}人, 超越上一名, 还需升班{{chaNum}}人</view>
+          </view>
+        </view>
+      </view>
+     
+    </swiper-change>
+    <view class="tabBodyItem tabBodyItem1" style="height:{{heigh-43-55}}px;"  wx:if="{{area=='老校区'}}">
+        <view class="tabBtn flex">
+          <text class="{{isTipButton1?'active':''}}" data-isyiban="true" bindtap="changeTipButton">0元班升班率</text>
+          <text class="{{isTipButton2?'active':''}}" data-isyiban="false" bindtap="changeTipButton">非0元班升班率</text>
+        </view>
+        <view wx:if="{{!rank}}" class="noSheng">暂无此类升班~</view>
+        <view wx:if="{{rank&&rank.length}}">
+          <view class="newsItem newsItem1 flex" bindtap="goDetail">
+            <view class="rank">排名</view>
+            <view class="title">姓名</view>
+            <view class="date">续报率</view>
+          </view>
+          <block wx:for="{{rank}}" wx:key="index">
+            <view class="newsItem flex {{index == 0? 'first':(item.nSblRank == selfRank?'self':'normal')}}" bindtap="goDetail" >
+              <view class="rank">{{ item.nSblRank }}</view>
+              <view class="title">{{ item.sTeacherName }}</view>
+              <view class="date flex" ><text style="flex:1;">{{ item.dSbl }}% </text><button class="detailBtn" wx:if="{{item.nSblRank == selfRank}}">续报详情</button></view>
+            </view>
+            <view class="newsItem newsItem1 flex" wx:if="{{index == 0 && selfRank >5}}">
+                <view class="rank"></view>
+                <view class="title">. . . </view>
+                <view class="date" ></view>
+            </view>
+          </block>
+          <view class="newsItem flex" >
+            <view class="rank"></view>
+            <view class="title">. . . </view>
+            <view class="date" ></view>
+          </view>
+          
+        </view>
+    </view>
+  </view>
+
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+  <!-- 导航tab -->
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+  
+</view>

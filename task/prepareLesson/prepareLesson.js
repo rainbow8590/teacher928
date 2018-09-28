@@ -165,11 +165,13 @@ Page({
         function getRes(res){
           console.log(res)
           if(res.data.ResultType == 0){
-            publicJs.resultTip(res.data.Message);
-            // 预约了
-            wx.setStorageSync('PerpareLesson', true)
-            //预约成功, 返回上一页
-            wx.navigateBack({detail:1})
+            publicJs.resultTip(res.data.Message,function(){
+              // 预约了
+              wx.setStorageSync('PerpareLesson', true)
+              //预约成功, 返回上一页
+              wx.navigateBack({detail:1})
+            });
+            
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
             if(res.data.Message == '身份验证失败'){

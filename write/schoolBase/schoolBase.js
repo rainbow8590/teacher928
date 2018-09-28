@@ -47,7 +47,7 @@ Page({
     classStr: '',//选择的班级信息
     showScore:false,//控制显示期中期末选项
     zoomShow: false,
-    isAjaxOver: false,
+    isAjaxOver: true,
     isAjaxOver1: false
   },
   onReady: function(){
@@ -73,7 +73,7 @@ Page({
 
    // 设置班级
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-    this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+    this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
 
     //组装班级id和名称
     var classInfo = this.data.classInfo
@@ -98,10 +98,10 @@ Page({
   //   publicJs.getClass(e,this)
   // },
   getClass: function (e) {
-    console.log(e)
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup();
-    console.log(this.data.inpStr)
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.classes,inpStr: e.detail.detail})
+      this.selectPopup.showPopup();
+    }
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -127,7 +127,7 @@ Page({
         tipClassIndex:e.detail.detail.dataset.id, 
       })
       var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-      this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+      this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
       // 重新获取学生信息
       this.getAllStudent();
       // 缓存选择的班级信息的编号
@@ -258,6 +258,8 @@ Page({
   },
   // 获取学生信息
   getAllStudent: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
@@ -319,6 +321,7 @@ Page({
           }
           setTimeout(()=>{
             wx.hideLoading()
+            that.setData({isAjaxOver: true})
           },500)
         }
       }

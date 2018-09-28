@@ -43,7 +43,8 @@ page {
   box-sizing: border-box;
   justify-content: space-between;
   color: #1fba21;
-  margin-bottom: 30rpx;
+  padding-bottom:15px;
+  padding-top:15px;
 }
 .title text{
   font-weight: bold;
@@ -53,20 +54,27 @@ page {
   color: #fff;
 }
 .questions text{
-  width: 80rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   text-align: center;
   border-radius: 50%;
   border: 1px solid #1fba21;
-  margin: 40rpx 20rpx;
+  margin: 40rpx 22rpx;
   background: #1fba21;
   color: #fff;
+  font-size: 30rpx;
 }
 .yesBtn{
+   height: 52rpx;
+   line-height: 52rpx;
+   padding: 0 20rpx;
    background: #1fba21; 
 }
 .errorBtn{
+   height: 52rpx;
+   line-height: 52rpx;
+   padding: 0 20rpx;
    background: #9e0e0e; 
 }
 
@@ -90,3 +98,41 @@ page {
   background: #009502 !important;
 }
 
+.questions{
+  flex-wrap: wrap;
+  justify-content:space-around;
+
+}
+.question{
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dcdcdc;
+  margin-bottom: 20rpx;
+  align-items: center;
+  padding-bottom: 10rpx;
+  justify-content: space-between;
+}
+.question input{
+  flex:1;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 30rpx;
+}
+
+.question button{
+  margin-left: 30rpx;
+  padding: 0 20rpx;
+  line-height: 54rpx;
+}
+.question .num{
+  margin-right: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 50%;
+  background: #dcdcdc;
+  color: #333;
+  text-align: center;
+}

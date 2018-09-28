@@ -55,6 +55,7 @@ Component({
       this.setData({
         activeIndex:current,
       });
+      this.triggerEvent('swiperChange',{current})
     },
     //计算高度
     computedHeight(){

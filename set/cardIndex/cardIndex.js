@@ -72,12 +72,12 @@ Page({
   // 显示弹窗 学年
   getYear: function (e) {
 
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id,show:true})
+    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail,show:true})
     // this.selectPopup.showPopup()
   },
   // 显示弹窗 学期
   getSemester: function (e) {
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗

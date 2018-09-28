@@ -30,7 +30,11 @@ Component({
     },
     // 开启弹窗
     showPopup(e){
+      // console.log(this.data.isAjaxOver)
+     
       this.setData({show: true})
+     
+      
     },
     //取消回调
     _cancelEvent(e){
@@ -40,6 +44,7 @@ Component({
     //触发回调
     _confirmEvent(e){
       var detail = e.target;
+      console.log(detail)
       this.triggerEvent('confirmEvent',{detail})
     }
   }

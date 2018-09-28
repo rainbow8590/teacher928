@@ -111,12 +111,12 @@ Page({
   },
   // 显示弹窗 学年
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.classes,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 显示弹窗 学期
   getKejie: function (e) {
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗

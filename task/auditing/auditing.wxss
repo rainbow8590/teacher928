@@ -156,15 +156,26 @@ top:auto;
   color: #32343d;
 }
 .yes .yes-wrap .tip{
-  width: 100%;
-  line-height: 236rpx;
+  width: 570rpx;
+  height: 238rpx;
+  line-height: 40rpx;
   text-align: center;
   font-size: 28rpx;
   border-bottom: 1px solid #bbb;
+  box-sizing: border-box;
+  display: table-cell;
+  vertical-align: middle;
+}
+.yes .yes-wrap .tipwrap{
+  width: 100%;
+  padding: 0 40rpx;
+  display: inline-block;
+  box-sizing: border-box;
 }
 .yes .yes-wrap .btn {
   width: 100%;
   font-size: 26rpx;
+  height: 80rpx;
 }
 
 .yes .yes-wrap .btn button{

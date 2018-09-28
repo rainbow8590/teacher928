@@ -1,5 +1,4 @@
-<view class="choiseItem" bindtap="_getEvent" data-id="{{type}}">
+<view class="choiseItem" bindtap="_getEvent"  id="{{type}}" data-id="{{type}}">
   {{typeInn}}
   <text class="iconfont icon-arrowdownbold"></text>
-  <!-- <image src="/pages/images/arrow.gif"></image> -->
 </view>

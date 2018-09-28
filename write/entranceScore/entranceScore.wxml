@@ -25,16 +25,21 @@
             <input type="digit" bindblur="checkScore" value="{{item.Score}}" name="datas[{{index}}][Score]" placeholder="{{item.tipText}}" disabled="{{item.disable}}" focus="{{isFocus}}" />
           </view>
           <view class="sSchool" wx:if="{{parentTarget == 'outdoor'}}">
-            <button bindtap="goOutScore">录入</button>
-            <!-- <text>不可录入</text>
-            <text>80</text>
-            <button>80</button>
-            <text>未录入</text> -->
+            <!-- 调出不可录入 -->
+            <text wx:if="{{item.changeLessonState=='调出'}}">不可录入</text>
+            <!-- 不超过20小时且还未录入 -->
+            <button wx:if="{{nowTime < taskEndtime  && item.dStudentTotalScore==null&&item.changeLessonState!='调出'}}" bindtap="goOutScore" data-index="{{index}}">录入</button>
+            <!-- 不超过20小时且已录入 可修改-->
+            <button wx:if="{{nowTime < taskEndtime && item.dStudentTotalScore>=0&&item.dStudentTotalScore!=null&&item.changeLessonState!='调出'}}" bindtap="goOutScore" data-index="{{index}}">{{item.dStudentTotalScore}}</button>
+            <!-- 超过时间, 已经录入 -->
+            <text  wx:if="{{nowTime > taskEndtime && item.dStudentTotalScore>=0&&item.dStudentTotalScore!=null&&item.changeLessonState!='调出'}}" data-index="{{index}}">{{item.dStudentTotalScore}}</text>
+            <!-- 未超过时间未录入 -->
+            <text wx:if="{{nowTime > taskEndtime && item.dStudentTotalScore==null&&item.changeLessonState!='调出'}}" style="color:red;">未录入</text>
           </view>
         </view>
       </view>
 
-      <view class="btn">
+      <view class="btn" wx:if="{{parentTarget == 'enterdoor'}}">
         <button formType="submit" class="loginBtn" hover-class="hoverLogin" disabled="{{!studentsList.length}}">保存</button>
       </view>
     </form>
@@ -46,7 +51,7 @@
   is-ajax-over="{{isAjaxOver}}" 
   arr="{{arr}}"
   bind:cancelEvent="closePopup"  
-  bind:confirmEvent="getIndex">
+  catch:confirmEvent="getIndex">
   </select-popup>
 
   <menu id="menu" 

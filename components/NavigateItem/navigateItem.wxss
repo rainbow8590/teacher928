@@ -38,6 +38,10 @@ form.blueform{
   line-height: 42rpx;
   text-align: center;
 }
+.item .dot1{
+  width: 30rpx;
+  height: 30rpx;
+}
 .item button{
   position: absolute;
   left: 0;

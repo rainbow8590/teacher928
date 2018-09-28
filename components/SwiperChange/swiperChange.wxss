@@ -3,6 +3,7 @@
 }
 .tab .tabTitle .titleItem{
   width: 50%;
+  height: 76rpx;
   font-size: 26rpx;
   text-align: center;
   padding: 10px 0;
@@ -11,6 +12,7 @@
   display: inline-block;
   color: #979797;
   overflow-y: scroll;
+  box-sizing: border-box;
 }
 .tab .tabTitle .titleActive{
   color: #32343d;
@@ -37,4 +39,7 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+scroll-view{
+  height: 76rpx;
 }

@@ -36,7 +36,7 @@ Page({
     classInn: '',  //显示的班级字符串
     kejieInn: null, //课节字符串
     zoomShow: false,
-    isAjaxOver: false
+    isAjaxOver: true
   },
   onReady: function(){
     this.selectPopup = this.selectComponent("#selectPopup");
@@ -211,6 +211,8 @@ Page({
   },
   // 获取班级列表
   getClassList: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     // 时间戳
     var stamp = new Date().getTime();
@@ -244,7 +246,7 @@ Page({
           console.log(res.data)
           if(res.data.ResultType == 0){
             var resData = res.data.AppendData;
-            that.setData({isAjaxOver: true});
+            
      
               if(resData.length){
                 var classes = [];
@@ -296,6 +298,7 @@ Page({
           }
           setTimeout(()=>{
             wx.hideLoading()
+            that.setData({isAjaxOver: true});
           },500)
         }
       }

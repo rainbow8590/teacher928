@@ -24,7 +24,7 @@ function classList(classes, resData, obj){
         var times = cur.sTimeQuanTumName+' '+cur.sTime.slice(dotIndex+1,lineIndex)
       }
       var kemu = cur.sDeptName.substr(2,3);  //学科
-      var sClassTypeName = cur.sClassTypeName;  //班级名称
+      var sClassName = cur.sClassName;  //班级名称
       var studentNumber = cur.studentNum; //学生数量
       var lessonNumber = cur.nLesson; //课节数量
       var SectBegin = cur.SectBegin; //排序时间
@@ -65,7 +65,7 @@ function classList(classes, resData, obj){
         classCode: cur.sClassCode,
         times: times,
         kemu: kemu,
-        sClassTypeName: sClassTypeName,
+        sClassName: sClassName,
         studentNumber: studentNumber,
         lessonNumber: lessonNumber,
         nGrade: cur.nGrade, //年级 阿拉伯数字

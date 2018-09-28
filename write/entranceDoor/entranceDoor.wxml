@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="wrap" wx:if="{{hasClass}}">
+  <!-- <view id="animation"> 12233</view> -->
+  <view class="wrap" wx:if="{{hasClass||(parent=='enterdoor')}}">
     <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
   
     <view class="allWrap" >
@@ -13,11 +14,12 @@
       </view>
     </view>
   </view>
-  <view class="wrap wrap1" wx:if="{{!hasClass}}">
+  <view class="wrap wrap1" wx:if="{{!hasClass && parent=='outdoor'}}">
     您所带的班级均没有出门考~
   </view>
 
   <select-popup id="selectPopup" 
+
   show="{{show}}" 
   is-ajax-over="{{isAjaxOver}}" 
   arr="{{arr}}"

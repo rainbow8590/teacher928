@@ -161,7 +161,7 @@ Page({
     // console.log(classInfo)
     // 设置班级
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-    this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+    this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
 
     for(var i = 0 ; i < classInfo.length; i++){
       this.data.classes.push({id:i,value:classInfo[i].grade})
@@ -243,13 +243,13 @@ Page({
 
   // 显示弹窗 学年
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.classes,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 显示弹窗 学期
   getKejie: function (e) {
     // console.log(e)
-    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.kejieArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   
@@ -280,7 +280,7 @@ Page({
 
       // 设置班级
       var choiceClass = this.data.classInfo[this.data.tipClassIndex]
-      this.setData({classStr:choiceClass.classCode + choiceClass.sClassTypeName})
+      this.setData({classStr:choiceClass.classCode + choiceClass.sClassName})
 
       // 重新渲染课节
       this.data.kejieArr = [{id:0,value:'布置任务模板'}];

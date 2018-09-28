@@ -67,11 +67,11 @@ Page({
     publicJs.closeNav(e,this)
   },
   getYear: function(e){
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   getSemester: function(e){
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗

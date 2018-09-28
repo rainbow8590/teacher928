@@ -36,7 +36,7 @@ Page({
     classInn: '',  //显示的班级字符串
     kejieInn: '请选择', //课节字符串
     zoomShow: false,
-    isAjaxOver: false
+    isAjaxOver: true
   },
   onReady: function(){
     this.selectPopup = this.selectComponent("#selectPopup");
@@ -160,7 +160,7 @@ Page({
       this.getClassList();
       wx.setStorageSync('semesterIndex',e.detail.detail.dataset.id);
     }else if(inpStr == 'class'){
-      if(this.data.classInn==this.data.arr[e.detail.detail.dataset.id].value) return;
+      // if(this.data.classInn==this.data.arr[e.detail.detail.dataset.id].value) return;
       this.setData({
         classInn:this.data.arr[e.detail.detail.dataset.id].value, 
         tipClassIndex:e.detail.detail.dataset.id, 
@@ -203,6 +203,8 @@ Page({
     }
   },
   getClassList: function(){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     // 时间戳
     var stamp = new Date().getTime();
@@ -274,7 +276,7 @@ Page({
                 }
                 
                 that.setData({kejieArr: that.data.kejieArr});
-                that.setData({isAjaxOver: true});
+               
             }
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
@@ -287,6 +289,7 @@ Page({
           }
           setTimeout(()=>{
             wx.hideLoading();
+            that.setData({isAjaxOver: true});
           },500)
         }
       }

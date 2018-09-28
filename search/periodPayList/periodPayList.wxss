@@ -1,0 +1,110 @@
+@import "../../utils/public.wxss";
+
+.iconfont{
+  padding-left: 10rpx;
+  padding-top:4rpx;
+}
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  display: block;
+  overflow-y:scroll;
+  font-size: 26rpx;
+}
+.flex{
+  display: flex;
+}
+.rule {
+  width: 100%;
+  padding-right: 40rpx;
+  box-sizing: border-box;
+  text-align: right;
+  height: 35px;
+  line-height: 35px;
+}
+.pay-total {
+  width: 100%;
+  padding: 0 40rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  color: red;
+  text-align: center;
+  box-sizing: border-box;
+  justify-content:space-around;
+}
+.pay-total text {
+  width: 33.33%;
+}
+.lists {
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+.lists .list-item {
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #eee;
+  color: #999;
+  line-height: 38rpx;
+  font-size: 24rpx;
+}
+.lists .list-item .item-title {
+  font-size: 26rpx;
+  color: #313131;
+}
+.lists .list-item .type {
+  width: 100rpx;
+  color: #313131;
+  text-align: center;
+}
+.lists .list-item .deduct {
+  flex-direction: column;
+  align-items: center;
+  padding-left: 40rpx;
+  color: red;
+  width:120rpx;
+}
+.lists .list-item .class-info {
+  flex: 1;
+}
+.zoom {
+  position: fixed;
+  left: 100%;
+  top: 0;
+  background: rgba(0,0,0,.4);
+  width: 100%;
+  height: 100%;
+}
+.type-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+}
+.type-wrap .type-title {
+  width: 100%;
+  height: 60rpx;
+  background: #eee;
+  line-height: 60rpx;
+}
+.type-wrap .type-title .close {
+  padding: 0 30rpx;
+  font-size: 44rpx;
+}
+.type-wrap .type-title .title {
+  flex: 1;
+  text-align: center;
+}
+.type-wrap .type-content {
+  line-height: 60rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.type-wrap .type-content .type-item {
+  border-bottom: 1px solid #eee;
+}

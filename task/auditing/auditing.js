@@ -11,7 +11,6 @@ Page({
     zoomShow: false,
     showModalStatus: false,//控制导航显示
     isopen: 'open',//控制菜单按钮显示
-    status: 0,
     pullArr:[
       {id: 0,ind: 0,value:'未审批'},
       {id: 1,ind: 1,value:'已审批'},
@@ -68,7 +67,7 @@ Page({
     this.setData({scrollTop: e.detail.scrollTop})
   },
   getAuditing: function (e) {
-    this.setData({arr: this.data.pullArr,inpStr: e.detail.detail.dataset.id})
+    this.setData({arr: this.data.pullArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
   // 关闭弹窗
@@ -180,6 +179,7 @@ Page({
                   id: resData[i].Id,
                   memo: resData[i].Memo,
                   show1: false,
+                  show2: false,
                   grade: resData[i].ClassQiShu + resData[i].Time.substr(0,5)+' ',
                   status: resData[i].Status,
                   sGrade: resData[i].sGrade,
@@ -210,6 +210,7 @@ Page({
 
   // 保存
   saveData: function(e){
+   
     var formId = e.detail.formId;
     // console.log(formId)
     var that = this;
@@ -217,13 +218,16 @@ Page({
     var status = e.detail.target.dataset.status;
     var ids = e.detail.target.dataset.ids;
     var id = this.data.studentsList[ids].id;
-
+    console.log(ids)
     if(status == 3){
       //取消弹层
       this.data.studentsList[ids].show1 = false;
-      this.setData({studentsList: this.data.studentsList})
+    }else if(status == 6) {
+      this.data.studentsList[ids].show2 = false;
     }
-    
+    this.setData({studentsList: this.data.studentsList})
+    console.log(this.data.studentsList);
+   
     var token = this.data.teacherToken; // token值
     var stamp = new Date().getTime();  //时间戳
     var data = {"id": id, "status":status};
@@ -239,6 +243,8 @@ Page({
       type: 'post',
       data: data,
     }
+    // console.log(data)
+    // return;
     wx.showLoading({
       title:'保存中...',
       success: function(){
@@ -250,6 +256,7 @@ Page({
           var resData = res.data;
           if(resData.ResultType == 0){
             publicJs.resultTip('保存成功')
+            that.setData({status:0})
             that.getOutClassApplyList()
           }else if(resData.ResultType == 7){
             publicJs.resultTip(res.data.Message)
@@ -257,13 +264,11 @@ Page({
               wx.clearStorageSync();
               wx.reLaunch({ url: '/pages/index/index'})
             }
-            
           }
           setTimeout(()=>{
             wx.hideLoading()
           },500)
         }
-        
       }
     })
    },
@@ -276,10 +281,21 @@ Page({
       status: e.target.dataset.status
     })
   },
+  // 挽回弹窗
+  already: function(e){
+    var id = e.target.dataset.ids
+    console.log(id)
+    this.data.studentsList[id].show2 = true;
+    this.setData({
+      studentsList:this.data.studentsList,
+      status: e.target.dataset.status
+    })
+  },
   // 弹窗消失
   off: function(e){
     var id = e.target.dataset.ids
     this.data.studentsList[id].show1 = false;
+    this.data.studentsList[id].show2 = false;
     this.setData({
       studentsList:this.data.studentsList
     })

@@ -53,7 +53,7 @@ Page({
     showScore:true,//控制显示期中期末选项
     GradeType:1,
     zoomShow: false,
-    isAjaxOver: false
+    isAjaxOver: true
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
@@ -78,7 +78,7 @@ Page({
    // 设置班级
     var choiceClass = this.data.classInfo[this.data.tipClassIndex]
     this.setData({
-      classStr:choiceClass.classCode + choiceClass.sClassTypeName,
+      classStr:choiceClass.classCode + choiceClass.sClassName,
       gradeTermArr:[
         {id: 0,value: choiceClass.sGrade + '上学期期中'},
         {id: 1,value: choiceClass.sGrade + '上学期期末'},
@@ -108,13 +108,16 @@ Page({
   },
 
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.classes,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
   },
   getGradeTerm: function (e) {
-    console.log(this.data.isAjaxOver)
-    this.setData({arr: this.data.gradeTermArr,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.gradeTermArr,inpStr: e.detail.detail})
+      this.selectPopup.showPopup()
+    }
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -133,7 +136,7 @@ Page({
       })
       var choiceClass = this.data.classInfo[this.data.tipClassIndex]
       this.setData({
-        classStr:choiceClass.classCode + choiceClass.sClassTypeName,
+        classStr:choiceClass.classCode + choiceClass.sClassName,
         gradeTermArr:[
           {id: 0,value: choiceClass.sGrade + '上学期期中'},
           {id: 1,value: choiceClass.sGrade + '上学期期末'},

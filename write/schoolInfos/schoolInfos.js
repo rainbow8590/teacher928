@@ -32,7 +32,7 @@ Page({
     classInn: '',  //显示的班级字符串
     getkind: 1, // 查询类型 基本/期中期末
     zoomShow: false,
-    isAjaxOver: false, //判断数据请求是否完成
+    isAjaxOver: true, //判断数据请求是否完成
     date: new Date().getFullYear()+'/'+(new Date().getMonth()+1)+'/'+new Date().getDate()
   },
   onReady: function(){
@@ -76,19 +76,24 @@ Page({
   },
   // 显示弹窗 学年
   getYear: function (e) {
-    console.log(e)
-    this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.yearArr,inpStr: e.detail.detail.dataset.id})
+      this.selectPopup.showPopup()
+    }
   },
   // 显示弹窗 学期
   getSemester: function (e) {
-    this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail.dataset.id})
+      this.selectPopup.showPopup()
+    }
   },
   // 显示弹窗 班级
   getClass: function (e) {
-    this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
-    this.selectPopup.showPopup()
+    if(this.data.isAjaxOver){
+      this.setData({arr: this.data.classes,inpStr: e.detail.detail.dataset.id})
+      this.selectPopup.showPopup()
+    }
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -197,6 +202,8 @@ Page({
   },
   // 获取班级列表
   getClassList: function(e){
+    if(this.data.isAjaxOver==false) return;
+    this.data.isAjaxOver = false;
     var that = this;
     // 时间戳
     var stamp = new Date().getTime();
@@ -231,7 +238,7 @@ Page({
           if(res.data.ResultType == 0){
             var resData = res.data.AppendData;
             classList.classList(that.data.classes,resData,that);
-            that.setData({classInn: that.data.classes[0].value, isAjaxOver: true})
+            that.setData({classInn: that.data.classes[0].value})
             wx.setStorageSync('tipClassIndex',0); 
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
@@ -242,7 +249,8 @@ Page({
             
           }
           setTimeout(()=>{
-            wx.hideLoading()
+            wx.hideLoading();
+            that.setData({isAjaxOver: true})
           },500)
         }
       }
