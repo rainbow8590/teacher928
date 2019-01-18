@@ -8,7 +8,11 @@
       <view class="items" style="height:{{resultH}}px">
         <view class="itemsWrap" style="height:{{resultH}}px;">
           <view class="wrap" wx:if="{{showArr[0]}}">
+              
               <view class="itemWrap flex" style="padding-top:{{smallTop}}">
+                <!-- view class="discount" bindtap="goDiscount">
+                  <image src="../images/youhui.png" />
+                </view> -->
                 <navigate-item 
                 wx:if="{{isShowTrainModule}}"
                 txt="实习任务" 
@@ -125,6 +129,11 @@
               classname="{{daikeSrc}}"
               bind:goPage="goCommont">
               </navigate-item>
+              <navigate-item 
+              txt="听课日程" 
+              classname="{{daikeSrc}}"
+              bind:goPage="goLessonDate">
+              </navigate-item>
             </view>
           </view>
           <view class="wrap" wx:if="{{showArr[2]}}">
@@ -142,7 +151,6 @@
               wx:if="{{identity!= 102 && identity!=105 && identity >= 100}}"
               bind:goPage="goDaikeShenhe" >
               </navigate-item>
-              
             </view>
           </view>
           <view class="wrap" wx:if="{{showArr[3]}}">
@@ -174,6 +182,11 @@
               txt="京东卡" 
               classname="{{ticketSrc}}"
               bind:goPage="ticket">
+              </navigate-item>
+              <navigate-item 
+              txt="期中成绩报告" 
+              classname="{{scorePicSrc}}"
+              bind:goPage="reportCard">
               </navigate-item>
             </view>
           </view>

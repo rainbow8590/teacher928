@@ -22,7 +22,7 @@
   <view wx:if="{{player.status == 2}}">
     <view class="status flex">
       <text class="status1 status2">已下课</text>
-      <text class="live" >观看直播{{player.online}}/{{player.total}}</text>
+      <text class="live" >观看直播{{player.attendanceNum}}/{{player.total}}</text>
       <text class="back" >观看回放{{player.playback}}/{{player.total}}</text>
     </view>
 
@@ -33,7 +33,7 @@
     </view>
     <view class=" title1 title2 flex" wx:for="{{allUsers}}">
       <text class="name">{{item.userName}}</text>
-      <text class="live">{{item.onlineStatus == 0?'离线':(item.onlineStatus == 1?'在线':'未出勤')}}</text>
+      <text class="live">{{item.onlineStatus == 2?'未出勤':'已出勤'}}</text>
       <text class="back">{{item.playbackStatus == 0?'未观看':'已观看'}}</text>
     </view>
   </view>

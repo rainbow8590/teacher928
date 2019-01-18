@@ -20,7 +20,12 @@ Page({
       {id:3,txt:'工具',classname:'icon-setting',changeTextColor:'#888',isChange: false},
      
     ],
-    yearArr:app.globalData.yearArr,
+    yearArr:[
+      {id: new Date().getFullYear() - 1 , value: new Date().getFullYear() - 1 },
+      {id: new Date().getFullYear(), value: new Date().getFullYear()},
+      {id: new Date().getFullYear()+1, value: new Date().getFullYear()+1}
+    ],
+    // yearArr:app.globalData.yearArr,
     semesterArr: app.globalData.semesterArr,
     teacherName:'',
     schoolYear: new Date().getFullYear(),

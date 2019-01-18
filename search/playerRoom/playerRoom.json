@@ -1,6 +1,6 @@
 {
   "disableScroll":true,
-  "navigationBarTitleText": "学员观看",
+  "navigationBarTitleText": "",
   "usingComponents":{
     "tab":"/components/Tab/tab",
     "menu":"/components/Menu/menu",

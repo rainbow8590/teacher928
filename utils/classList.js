@@ -76,6 +76,7 @@ function classList(classes, resData, obj){
         dtBeginDate:cur.dtBeginDate, //开始时间
       })
     }
+    console.log(classArr)
     // 给班级排序
     if(classArr[0].times.indexOf('期') != -1){
       // 按‘期’排序

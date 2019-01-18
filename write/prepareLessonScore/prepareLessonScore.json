@@ -1,5 +1,5 @@
 {
-  "disableScroll":true,
+
   "usingComponents":{
     "tab":"/components/Tab/tab",
     "menu":"/components/Menu/menu"

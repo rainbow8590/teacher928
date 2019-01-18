@@ -1,5 +1,6 @@
 
 <view class="container">
+   <!-- <button open-type="feedback" >1212</button>  -->
   <view class="loading" wx:if="{{isOver}}">
     <image src="../images/loading.gif"></image>
   </view>

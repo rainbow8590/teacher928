@@ -9,7 +9,9 @@
   line-height: 100rpx;
   text-align: center;
   border-radius: 0;
-  background-color: #2da867;
+  background: #1AAD19;
+  margin: 0 auto;
+  color: #fff;
 }
 
 /* 选择课程 */
@@ -106,6 +108,9 @@
   height: 100%;
   background: rgba(0,0,0,.3);
 }
+.dialog-mask{
+  z-index: 9999;
+}
 .dialog{
   width: 540rpx;
   height: 280rpx;
@@ -125,7 +130,7 @@
   width: 540rpx;
   height: 190rpx;
   padding-top: 78rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   text-align: center;
   box-sizing: border-box;
 }
@@ -134,7 +139,7 @@
   border-top: 1px solid #dfe1e2;
 }
 .dialog-btns button{
-  font-size: 34rpx;
+  font-size: 32rpx;
   width: 50%;
   line-height: 90rpx;
   border-right: 1px solid #dfe1e2;

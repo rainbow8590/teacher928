@@ -14,15 +14,16 @@
       </view>
       <view class="tbody" style="height:{{resultH}}px">
         <view class="tbody-row flex" wx:for="{{studentsList}}" wx:key="id">
-          <input type="hidden" class="hidInp" name="datas[{{index}}][sClassCode]" value="{{item.sClassCode}}" />
-          <input type="hidden" class="hidInp" name="datas[{{index}}][nLessonNo]" value="{{item.nLessonNum}}" />
-          <input type="hidden" class="hidInp" name="datas[{{index}}][sCardCode]" value="{{item.sCardCode}}" />
-          <input type="hidden" class="hidInp" name="datas[{{index}}][sStudentCode]" value="{{item.sStudentCode}}"/>
-          <input type="hidden" class="hidInp" name="datas[{{index}}][ScoreType]" value="{{item.ScoreType}}" />
+          <!-- <input  class="hidInp" name="datas[{{index}}][sClassCode]" value="{{item.sClassCode}}" />
+          <input  class="hidInp" name="datas[{{index}}][nLessonNo]" value="{{item.nLessonNum}}" />
+          <input  class="hidInp" name="datas[{{index}}][sCardCode]" value="{{item.sCardCode}}" />
+          <input  class="hidInp" name="datas[{{index}}][sStudentCode]" value="{{item.sStudentCode}}"/>
+          <input  class="hidInp" name="datas[{{index}}][ScoreType]" value="{{item.ScoreType}}" /> -->
           <view class="sNumber">{{index+1}}</view>
           <view class="sName">{{item.sName}}</view>
           <view class="sSchool" wx:if="{{parentTarget == 'enterdoor'}}">
-            <input type="digit" bindblur="checkScore" value="{{item.Score}}" name="datas[{{index}}][Score]" placeholder="{{item.tipText}}" disabled="{{item.disable}}" focus="{{isFocus}}" />
+            <input type="digit" bindinput="changeValue" bindblur="checkScore" value="{{item.Score}}"  placeholder="{{item.tipText}}" disabled="{{item.disable}}" focus="{{isFocus}}" data-index="{{index}}" />
+            <!-- <input type="digit" bindblur="checkScore" value="{{item.Score}}" name="datas[{{index}}][Score]" placeholder="{{item.tipText}}" disabled="{{item.disable}}" focus="{{isFocus}}" /> -->
           </view>
           <view class="sSchool" wx:if="{{parentTarget == 'outdoor'}}">
             <!-- 调出不可录入 -->

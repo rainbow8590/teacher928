@@ -1,0 +1,10 @@
+{
+  "disableScroll":true,
+  "navigationBarTitleText": "听课日程",
+  "usingComponents":{
+    "tab":"/components/Tab/tab",
+    "menu":"/components/Menu/menu",
+    "teacher-menu":"/components/TeacherMenu/teacherMenu",
+    "swiper-change":"/components/SwiperChange/swiperChange"
+  }
+}

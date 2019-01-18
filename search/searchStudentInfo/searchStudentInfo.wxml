@@ -7,7 +7,7 @@
       <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
       <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
     </view> 
-    <view class='noTable' wx:if="{{!studentsArr.length}}" style="height:{{resultH}}px;line-height:{{resultH-60}}px ">本季度没有班级</view>
+    <view class='noTable' wx:if="{{!studentsArr.length}}" style="height:{{resultH}}px;line-height:{{resultH-60}}px ">本季度没有学员</view>
    <!-- 结果显示 -->
   <!-- 按人名 -->
   <view class="searchResult1" style="height:{{resultH}}px" wx:if="{{studentsArr.length}}" >

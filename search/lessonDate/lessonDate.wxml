@@ -1,0 +1,84 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="wrap">
+    <teacher-menu teacherName="{{teacherName}}" classInfo="" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu>
+
+        <view  class="tabBodyItem" style="height:{{heigh-34-55}}px;">
+                <view class="checkDate">
+                  <view class="checkDateWrap">
+                    <view class="date" bindtap="showFloat">{{change_year}}年{{change_month}}月</view>
+                    <view class="leftArrowWrap" data-handle="prev" bindtap="handleCalendar">
+                      <view class="leftArrow"></view>
+                    </view>
+                    <view class="rightArrowWrap" data-handle="next" bindtap="handleCalendar">
+                      <view class="rightArrow"></view>
+                    </view>
+                    <view class="bottomArrow"></view>
+                  </view>
+                  <view class="today" bindtap="tapToday" data-now="today">今天</view>
+                </view>
+                <view class="month">
+                  <view class="monthTitle flex">
+                    <block wx:for="{{weekArr}}" wx:key="index">
+                      <view style="width:{{100/7}}%;text-align:center; color:{{index==5 || index==6 ? '#888':'#888'}}">{{item}}</view>
+                    </block>
+                  </view>
+                  <view class="monthBody flex">
+
+                    <view wx:if="{{hasEmptyGrid}}" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}" style="width:{{100/7}}%;"></view>
+                    <block wx:for="{{days}}" wx:key="index">
+                      <view class="item"  style="width:{{100/7}}%;" bindtap="tapDayItem" data-idx="{{index}}">
+                        <view class="num  {{index == cur_day-1?'nowDayColor':''}} {{item.choosed==true?'tipColor':''}}" >{{item.day}}</view>
+                      </view>
+                    </block>
+                  </view>
+                </view>
+                <view class="selectDetail" wx:if="{{teacherLists.length > 0}}">
+                  <view class="title">听课人员</view>
+                  <view class="teachers flex" wx:for="{{teacherLists}}">
+                    <text class="times">{{item.Stime}}</text>
+                    <text bindtap="showTeacher" wx:for="{{item.LectureApplyDtoList}}" wx:for-item="list" data-img="{{list.Picture}}">{{list.ApplyPeople}}</text>
+                  </view>
+                 
+                </view>
+        </view>
+       
+  
+  </view>
+
+<!-- 年月浮窗 -->
+  <view class="float" wx:if="{{show}}"  data-id="float" bindtap="closeFloat">
+    <view class="floatWrap flex">
+      <div class="year">
+        <view style="padding-top:0 ;"><image src="/../pages/images/nianyue.png"></image></view>
+        <block wx:for="{{yearArr}}" wx:key="index">
+          <view style="color:{{cur_year == item?'#1FBB1C':'#888'}}" bindtap="changeBgColor1" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </div>
+      <div class="month flex">
+        <block wx:for="{{monthArr}}" wx:key="index">
+          <view style="margin-top:0 ; background:{{cur_month-1 == index?'#1FBB1C':'#fff'}};color:{{cur_month-1 == index?'#fff':'#888'}}" bindtap="changeBgColor" data-cur="{{item}}">{{item}}</view>
+        </block>
+      </div>
+    </view>
+  </view>
+
+  <view class="float" wx:if="{{isShowTeacher}}"  data-id="float" bindtap="closeFloat">
+<!--     <image class="teacherImg" id="img" style="margin-top:{{(heigh-teacherImgHeight)/2}}px" src="/pages/images/page1-bg.jpg" mode="aspectFit" />
+ -->    <image class="teacherImg" id="img" style="margin-top:{{(heigh-teacherImgHeight)/2}}px" src="{{imgSrc}}" mode="aspectFit" />
+  </view>
+
+
+  
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+  
+  <tab id="tab" tabbar-arr="{{tabBarArr}}" no-auditing="{{noAuditing}}"></tab>
+</view>

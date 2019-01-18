@@ -25,6 +25,7 @@ Component({
     closePopup(e){
       this.setData({
         show: false,
+ 
         arr:[],
       })
     },

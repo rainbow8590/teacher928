@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-<image src="../../pages/images/democode.jpg" />
+<!-- <image src="../../pages/images/democode.jpg" /> -->
   <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
       <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
       <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>

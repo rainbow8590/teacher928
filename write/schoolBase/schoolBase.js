@@ -168,15 +168,19 @@ Page({
     })
   },
   getIndex1:function(e){
+    console.log(e.target.dataset.id )
+    console.log(this.data.schoolnum)
     var studentslist = this.data.studentslist;
     studentslist[this.data.schoolnum].sSchoolName = '['+ e.target.dataset.district + ']'+ e.target.dataset.schoolname;
     studentslist[this.data.schoolnum].schoolDistrict =  e.target.dataset.district 
+    studentslist[this.data.schoolnum].schoolId =  e.target.dataset.id 
     this.setData({
       studentslist:this.data.studentslist,
       show1: false,
       setSchoolList:this.data.AllSchool,
       inpValue:''
     })
+    console.log(this.data.studentslist)
   },
   writeVlaue:function(e){
     this.setData({
@@ -300,6 +304,7 @@ Page({
                 addArr();
               }
               that.setData({studentslist:that.data.studentslist,nXueBu: studentInfos[0].nXueBu,isAjaxOver: true})
+              console.log(that.data.studentslist)
               that.getAllSchool();
             }
             
@@ -400,6 +405,8 @@ Page({
         "sSchoolName": arr[i+5].substr(arr[i+5].indexOf('=')+1),
       })
     }
+    console.log(arr1)
+    // return;
     // 删除海淀区
     for(var i = 0 ; i < arr1.length; i++){
       var schoolStr = arr1[i].sSchoolName;
@@ -410,7 +417,7 @@ Page({
     }
     var arr2 = [];
     for(var i = 0; i <arr1.length; i++){
-      if(arr1[i].sSchoolName || arr1[i].sExperimentalType){
+      if(arr1[i].sSchoolName!='' || arr1[i].sExperimentalType!=null){
         arr2.push(arr1[i])
       }
     }
@@ -468,7 +475,8 @@ Page({
     var len = allSchool.length;
     var values = e.detail.value;
     this.setData({
-      inpValue: e.detail.value
+      inpValue: e.detail.value,
+      selectSchoolList:[]
     })
     this.data.selectSchoolList = [];
     if(this.data.inpValue.length != 0){

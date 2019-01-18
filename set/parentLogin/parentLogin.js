@@ -12,17 +12,27 @@ Page({
     hasStudent: true,//是否有这个学生
     show: true,
     text:'获取验证码',
+    from:''
   },
   onLoad: function(res){
+    console.log(res)
+    this.from = res.from;
+    this.setData({
+      from: res.from
+    })
+    if(res.from == 'task'){ //从做任务页分享进入
+      var queryArr = res.id.split(',')
+      wx.setStorageSync('queryArr',queryArr)
+    }else{ // 从期中报告页面分享进入
+
+    }
     
-    var queryArr = res.id.split(',')
-    wx.setStorageSync('queryArr',queryArr)
     
     //已登录就不再次登陆
-    if(wx.getStorageSync('studentMessage')){
-      wx.redirectTo({ url: '/set/taskCardProgress/taskCardProgress'})
-      return;
-    }
+    // if(wx.getStorageSync('studentMessage')){
+    //   wx.redirectTo({ url: '/set/taskCardProgress/taskCardProgress'})
+    //   return;
+    // }
   },
   // 获取输入账号  
   phoneChange: function (e) {
@@ -43,14 +53,33 @@ Page({
   },
   getCode: function(){
 
-    var total = 10;
+    var total = 60;
     var that = this;
+    
     var tx = this.data.text;
-
     //正在发送中 不能重复发送
     if(tx.indexOf("秒") != -1){
       return;
     }
+    that.setData({
+      text:total+'秒'
+    })
+    var timer = setInterval(function(){
+              total--;
+              if(total <=0){
+                that.setData({
+                  text:'重新获取'
+                })
+                total = 60;
+                clearInterval(timer)
+              }else{
+                that.setData({
+                  text:total+'秒'
+                })
+              }
+              
+            },1000)
+    
 
     // 获取验证码
     var linkTel = this.data.studentPhone;
@@ -64,8 +93,8 @@ Page({
       return;
     }
 
-    var _Url = 'https://teacherapi.gaosiedu.com/api/StudentPhoneLogin?phone=' + linkTel+'&appid=web' ;//这个由后台或者你们公司的短信平台提供，一般是http://ip:prot/短信验证项目和具体地址
-
+    var _Url = 'https://teacherapi.gaosiedu.com/api/StudentPhoneLogin?phone=' + linkTel+'&appid=web';
+    // var _Url = 'http://47.94.40.214:8023/api/StudentPhoneLogin?phone=' + linkTel+'&appid=web' ;
     wx.request({
       url: _Url,
       method: 'GET',
@@ -80,28 +109,12 @@ Page({
             content: '发送验证码成功！',
             showCancel: false
           })
-        
-            var timer = setInterval(function(){
-              total--;
-              if(total <=0){
-                that.setData({
-                  text:'重新获取'
-                })
-                total = 10;
-                clearInterval(timer)
-              }else{
-                that.setData({
-                  text:total+'秒'
-                })
-              }
-              
-            },1000)
-         
           
         }else if (res.data.ResultType == 7) {
           wx.showModal({
             title: '提示',
-            content: '您输入的手机号码不存在,请用给学生注册的手机号登陆',
+            content: res.data.Message,
+            // content: '您输入的手机号码不存在,请用给学生注册的手机号登陆',
             showCancel: false
           })
         }
@@ -133,14 +146,13 @@ Page({
       })
       return;
     }else{
-
       // 校验表单成功
       wx.login({
         success: function(response){
           if(response.code){
             wx.request({
               url: 'https://teacherapi.gaosiedu.com/api/StudentLogin', 
-              // url: 'http://47.94.40.214:8083/api/StudentLogin', 
+              // url: 'http://47.94.40.214:8023/api/StudentLogin', 
               method:'post',
               data: {
                 "loginPhone": that.data.studentPhone,
@@ -166,7 +178,7 @@ Page({
                 }else{
                   wx.showModal({
                     title: '提示',
-                    content: '您输入的账号或密码不正确，请重新输入',
+                    content: res.data.Message,
                     showCancel: false
                   })
                   return;
@@ -174,7 +186,12 @@ Page({
                 //更新hasStudent的值
                 wx.setStorageSync('hasStudent',that.data.hasStudent);
                 wx.setStorageSync('studentTask',resData.AppendData);
-                wx.redirectTo({ url: '/set/taskCardProgress/taskCardProgress'});
+                if(that.from == 'task'){
+                  wx.navigateTo({ url: '/set/taskCardProgress/taskCardProgress'});
+                }else{
+                  wx.navigateTo({ url: '/set/reportList/reportList?studentToken='+res.data.Message});
+                }
+                
               },
               fail: function(err){
                 // console.log(err)
@@ -208,6 +225,7 @@ Page({
           if(response.code){
             wx.request({
               url: 'https://teacherapi.gaosiedu.com/api/StudentPhoneLogin', 
+              // url: 'http://47.94.40.214:8023/api/StudentLogin', 
               method:'post',
               data: {
                 "phone": that.data.studentPhone,
@@ -229,11 +247,23 @@ Page({
                   
                 }else if(resData.ResultType == 3){
                   that.setData({hasStudent: false})
+                }else if(resData.ResultType == 7){
+                  wx.showModal({
+                    title: '提示',
+                    content: res.data.Message,
+                    showCancel: false
+                  })
+                  return;
                 }
                 //更新hasStudent的值
                 wx.setStorageSync('hasStudent',that.data.hasStudent);
                 wx.setStorageSync('studentTask',resData.AppendData);
-                wx.redirectTo({ url: '/set/taskCardProgress/taskCardProgress'});
+                // wx.redirectTo({ url: '/set/taskCardProgress/taskCardProgress'});
+                if(that.from == 'task'){
+                  wx.navigateTo({ url: '/set/taskCardProgress/taskCardProgress'});
+                }else if(that.from == 'report'){
+                  wx.navigateTo({ url: '/set/reportList/reportList?studentToken='+res.data.Message});
+                }
               },
               fail: function(err){
                 console.log(err)

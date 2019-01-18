@@ -1,7 +1,8 @@
 <!--index.wxml-->
 <view class="container">
+  <view wx:if="{{from=='report'}}" class="report">登录查看成绩报告</view>
   <!-- 密码登陆 -->
-  <view class="wrap" wx:if="{{show}}">
+  <view class="wrap" wx:if="{{show}}" style="padding-top: {{from=='report'?160:350}}rpx;">
     <form bindsubmit="login">
       <view class="item">
         <label class="userIcon"><text class="iconfont icon-user"></text></label>
@@ -20,7 +21,7 @@
     </view> 
   </view>
   <!-- 短信验证码登陆 -->
-  <view class="wrap" wx:if="{{!show}}">
+  <view class="wrap" wx:if="{{!show}}" style="padding-top: {{from=='report'?160:350}}rpx;">
     <form bindsubmit="login1">
       <view class="item">
         <input type="text" name="username" value="{{studentPhone}}" placeholder="注册手机号" bindinput="phoneChange" />
@@ -31,7 +32,7 @@
       </view>
       <view class="logins"><text hover-class="navigator-hover" bindtap="goPass">密码登录</text></view>
       <view class="btn">
-        <button formType="submit" class="loginBtn">登陆</button>
+        <button formType="submit" class="loginBtn">登录</button>
       </view>
     </form>
 

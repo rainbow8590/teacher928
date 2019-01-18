@@ -106,4 +106,12 @@ animation:fadeInDown 1s .2s ease both;
 }
 
 
-
+.discount{
+  width: 100%;
+  padding-top: 24rpx;
+  padding-bottom: 10rpx;
+}
+.discount image{
+  width: 705rpx;
+  height: 138rpx;
+}

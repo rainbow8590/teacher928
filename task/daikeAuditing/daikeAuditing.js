@@ -263,7 +263,7 @@ Page({
     var query = {
       appid: appId,
       // formid:formId,
-      teacherPage:pageurl,
+      teacherpage:pageurl,
       status:status,
       timestamp:stamp,
       token:token

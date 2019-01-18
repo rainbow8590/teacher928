@@ -2,6 +2,7 @@
 page{
   height: 100%;
   background: #fafafa;
+  overflow-y: scroll!important;
 }
 .container{
   padding: 0;

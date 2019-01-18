@@ -2,6 +2,7 @@
 var publicJs = require('../../utils/public.js');
 var md51 = require('../../utils/md51.js');
 var requests = require('../../utils/requests.js');
+var deleteUpload = require('../../utils/deleteUpload.js');
 //获取应用实例
 const app = getApp();
 var appKey = app.globalData.appKey;
@@ -20,11 +21,14 @@ Page({
     showDialog: false,
     pics:[],
     msg:'',
-    isShowGiveUpBtn: true
+    isShowGiveUpBtn: false,  
+    progressNum:0
 
   },
   onReady: function(){
     this.selectPopup = this.selectComponent("#selectPopup");
+    console.log(deleteUpload)
+    
   },
   onLoad:function(option){
     wx.setStorageSync('PerpareLesson', false)
@@ -38,10 +42,10 @@ Page({
       pics: JSON.parse(option.classinfo).ListenPic == null? []:JSON.parse(option.classinfo).ListenPic
     })
     console.log(this.data.classInfo)
-    var ent = this.data.classInfo.dtDate +' '+ this.data.classInfo.sTime.substr(0,this.data.classInfo.sTime.indexOf('-'))+':00';
-    ent = ent.replace(/\-/g,'/')
+    var end = this.data.classInfo.dtDate +' '+ this.data.classInfo.sTime.substr(0,this.data.classInfo.sTime.indexOf('-'))+':00';
+    end = end.replace(/\-/g,'/')
     var nowTime = new Date().getTime();
-    var endTime = new Date(ent).getTime();
+    var endTime = new Date(end).getTime();
     if(nowTime > endTime){ // 当前时间大于上课时间 ,不显示取消按钮
       this.setData({isShowGiveUpBtn: false})
     }
@@ -51,6 +55,9 @@ Page({
     publicJs.getSystem(that,function(){
       that.setData({contentH: that.data.windowHeight})
     });
+
+
+    
   },
   onUnload: function(){
     console.log(this.data.classInfo.TaskAudit)
@@ -155,20 +162,24 @@ Page({
       urls: this.data.pics 
     })
   },
+
   showModal(){
     var that = this;
+    console.log(this.data.classInfo)
+    var endDate = this.data.classInfo.dtDate +' '+ this.data.classInfo.sTime.substr(0,this.data.classInfo.sTime.indexOf('-'))+':00'
+    var endTime = new Date(endDate).getTime();
+    var nowTime = new Date().getTime();
+    if(!that.data.pics.length){
+      this.setData({showDialog:true,msg:'请选择听课笔记图片',btnTxt:'确定'})
+      return;
+    }
+    if(nowTime < endTime){
+      this.setData({showDialog:true,msg:'上完课才能上传听课笔记',btnTxt:'确定'})
+      return;
+    }
+    
     this.setData({showDialog:true,msg:'确认上传图片？\t上传后将不可修改！',btnTxt:'上传'})
-    /*wx.showModal({
-      title: '提示',
-      content: '确认上传图片？上传后将不可修改！',
-      success: function(res) {
-        if (res.confirm) {
-          that.uploadPIc()
-        } else if (res.cancel) {
-         
-        }
-      }
-    })*/
+
   },
   giveup(){
     this.setData({showDialog:false})
@@ -198,16 +209,16 @@ Page({
     })
   },
   uploadPIcs(){
-    wx.showToast({
+
+    /*wx.showToast({
       icon: "loading",
       title: "正在上传",
       mask: true,
       duration: 10000
-    })
+    })*/
+    var query = `appid=${appId}&TrainCode=${this.data.classInfo.TrainCode}&PicCount=${this.data.pics.length}&LessonNo=${this.data.classInfo.LessonNo}&ClassCode=${this.data.classInfo.ClassCode}&timestamp=${new Date().getTime()}&token=${this.data.teacherToken}`;
     console.log(this.data.pics)
-    var query = 'appid='+appId+'&TrainCode='+ this.data.classInfo.TrainCode+'&LessonNo='+ this.data.classInfo.LessonNo+'&ClassCode='+ this.data.classInfo.ClassCode+'&timestamp='+ new Date().getTime() +'&token='+this.data.teacherToken;
     this.uploadPIc({
-      //url:'https://teacherapi.gaosiedu.com/api/TeacherTrain/TestSavePic?'+query,
       url:requests.htp + 'api/TeacherTrain/SaveTeacherLessonPic?'+query,
       path:this.data.pics
     })
@@ -222,31 +233,114 @@ Page({
 
       wx.uploadFile({
             url: data.url, 
-            filePath: data.path[i],
+            filePath: data.path[success],
             name: 'file',
             formData:null,
             success: (resp) => {
-              console.log(resp)
               if(resp.statusCode == 200){
-                success++;//图片上传成功，图片上传成功的变量+1
-                that.setData({isDisabled:true})
+                //图片上传成功，图片上传成功的变量+1
+                success++;
+                var pNum = Math.ceil(this.data.progressNum+1/this.data.pics.length*100)> 100? 100: Math.ceil(this.data.progressNum+1/this.data.pics.length*100)
+                that.setData({isDisabled:true,progressNum: pNum})
+                console.log(this.data.progressNum)
+
+                if(success==data.path.length){   //当图片传完时，停止调用          
+                  //console.log('成功：'+success+" 失败："+fail);
+                  // wx.hideToast();
+                  var str = '成功：'+success+', 失败：'+fail;
+                  that.data.classInfo.TaskAudit = false;
+                  that.setData({classInfo: that.data.classInfo,isDisabled:false,})
+                  // publicJs.resultTip(str, function(){
+                  // })
+                  setTimeout(()=>{
+                    wx.navigateBack({delta:1})
+                  },800)
+                     // wx.navigateBack({delta:1})
+                   
+                }else{//若图片还没有传完，则继续调用函数
+                  // success++;
+                  // data.i=i;
+                  data.success=success;
+                  data.fail=fail;
+                  that.uploadPIc(data);
+                }
+              }else{
+                /*var query = {
+                  appid: appId,
+                  TrainCode: this.data.classInfo.TrainCode,
+                  LessonNo: this.data.classInfo.LessonNo,
+                  ClassCode: this.data.classInfo.ClassCode,
+                  timestamp: new Date().getTime(),
+                  token: this.data.teacherToken,
+                  TaskType: 2 // 2听课 1 作业
+                }
+                deleteUpload.deleteUpload(query)*/
               }
             },
             fail: (res) => {
-                fail++;//图片上传失败，图片上传失败的变量+1
-                console.log('fail:'+i+"fail:"+fail);
+              console.log(res)
+              // wx.hideToast();
+              wx.showModal({
+                title:'提示',
+                content:'没网了？请检查一下',
+                showCancel: true,
+                cancelText: '取消上传',
+                confirmText: '继续上传',
+                success: function(res){
+                  if (res.confirm) {
+                    // 点击重试, 先删除已经上传的, 再重新上传
+                    var query = {
+                      appid: appId,
+                      TrainCode: that.data.classInfo.TrainCode,
+                      LessonNo: that.data.classInfo.LessonNo,
+                      ClassCode: that.data.classInfo.ClassCode,
+                      timestamp: new Date().getTime(),
+                      token: that.data.teacherToken,
+                      TaskType: 2 // 2听课 1 作业
+                    }
+                    deleteUpload.deleteUpload(query,false)
+                    success = 0;
+                    data.success = 0;
+                    that.setData({progressNum: 0})
+                    that.uploadPIcs()
+                  } else if (res.cancel) {
+                    console.log('124334')
+                    // 点击取消, 隐藏弹框 进度条 删除已上传的图片
+                    that.setData({isDisabled: false, showDialog: false, pics: []})
+                  }
+                },
+
+              })
+              //publicJs.resultTip('上传失败,请确保网络畅通', function(){
+                /*var query = {
+                  appid: appId,
+                  TrainCode: that.data.classInfo.TrainCode,
+                  LessonNo: that.data.classInfo.LessonNo,
+                  ClassCode: that.data.classInfo.ClassCode,
+                  timestamp: new Date().getTime(),
+                  token: that.data.teacherToken,
+                  TaskType: 2 // 2听课 1 作业
+                }
+                deleteUpload.deleteUpload(query)*/
+              //})
+              
+                // fail++;//图片上传失败，图片上传失败的变量+1
+                // console.log('fail:'+i+"fail:"+fail);
+                
             },
-            complete: () => {
+            /*complete: () => {
               console.log(i);
               i++;//这个图片执行完上传后，开始上传下一张
               if(i==data.path.length){   //当图片传完时，停止调用          
                   //console.log('成功：'+success+" 失败："+fail);
                   wx.hideToast();
                   var str = '成功：'+success+', 失败：'+fail;
-                  // publicJs.resultTip(str)
                   that.data.classInfo.TaskAudit = false;
                   that.setData({classInfo: that.data.classInfo})
-                  wx.navigateBack({delta:1})
+                  publicJs.resultTip(str, function(){
+                     wx.navigateBack({delta:1})
+                  })
+                 
               }else{//若图片还没有传完，则继续调用函数
                 data.i=i;
                 data.success=success;
@@ -254,10 +348,8 @@ Page({
                 that.uploadPIc(data);
               }
                 
-            }
+            }*/
         });
   },
 
-  
- 
 })

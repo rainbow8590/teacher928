@@ -1,9 +1,10 @@
 <view class="container" style="height:{{contentH}}px">
   <!-- <teacher-menu teacherName="{{teacherName}}" isopen="{{isopen}}" bind:powerDrawer="powerDrawer"></teacher-menu> -->
   <view class="title">任务说明</view>
-  <view class="tip">请在{{baseInfo.ListenTimeShort}}日前，到校区至少听{{baseInfo.ListenLesson}}次课，听课完成后上传听课笔记。</view>
-  <view class="title title1">预约听课</view>
-  <view class="tip tip1">应听课 {{baseInfo.ListenLesson}}  已预约 {{baseInfo.ReserveListen}}</view>
+  <!-- <view class="tip">请在{{baseInfo.ListenTimeShort}}日前，到校区至少听{{baseInfo.ListenLesson}}次课，听课完成后上传听课笔记。</view> -->
+  <view class="tip">请预约要听的课, 并在听课后提交听课笔记</view>
+  <!-- <view class="title title1">预约听课</view> -->
+  <!-- <view class="tip tip1">应听课 {{baseInfo.ListenLesson}}  已预约 {{baseInfo.ReserveListen}}</view> -->
   <view class="tip tip1" wx:if="{{!bListenFinish}}">请点击预约听课预约课程</view>
   <view class="content">
     <view class="lessons" wx:for="{{baseInfo.ClassList}}" bindtap="uploadNotes" data-id="{{index}}" wx:key="index">
@@ -13,8 +14,12 @@
       </view>
       <view class="lessonInfo">
         <view class="address flex">
-          <view >{{item.SemesterName}}</view>
+          <!-- <view>{{item.SemesterName}}</view> -->
+          <view>{{item.PrintTeachers}}</view>
           <view>{{item.AreaName}}</view>
+        </view>
+        <view class="address flex">
+          <view>{{item.RoomName}}</view>
         </view>
         <view class="lessonTime flex">
           <text class="iconfont icon-rili-strock"></text>
@@ -35,5 +40,7 @@
       </view>
     </view>
   </view>
-  <button class="upload" type="primary"  bindtap="preLessons" disabled="{{!(baseInfo.ListenLesson>baseInfo.ReserveListen)}}">预约听课</button>
+  <button class="upload" 
+  style="width:{{baseInfo.ClassList.length>0 ? '100%':'90%'}};margin: 0 auto; position: {{baseInfo.ClassList.length>0 ? 'absolute':'static'}}" 
+  type="primary"  bindtap="preLessons" disabled="{{!(baseInfo.ListenLesson>baseInfo.ReserveListen)}}">预约听课</button>
 </view>

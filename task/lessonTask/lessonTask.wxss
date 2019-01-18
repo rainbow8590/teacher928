@@ -24,6 +24,7 @@ page{
 }
 .tip1{
   padding-bottom: 42rpx;
+
 }
 
 .title{

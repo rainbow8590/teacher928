@@ -247,7 +247,7 @@ Page({
       if(this.parent == 'outdoor'){
         // 小学数学科目不要第7和第15讲
         if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
-            this.editKejie(this, 7, 14)  
+            this.editKejie(this, 7, 15)  
         }
       }
       
@@ -300,8 +300,8 @@ Page({
     }
   },
   editKejie:function(obj, num1, num2){
-    obj.data.kejieArr.splice(num1,1)
-    obj.setData({kejieArr: obj.data.kejieArr});
+    // obj.data.kejieArr.splice(num1,1)
+    // obj.setData({kejieArr: obj.data.kejieArr});
     obj.data.kejieArr.splice(num2,1)
     obj.setData({kejieArr: obj.data.kejieArr});
     var newKejie = [];
@@ -433,7 +433,7 @@ Page({
                 // console.log(that.data.kejieArr)
                 // 数学科目不要第7和第10讲
                 if(that.data.classInfo[that.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
-                  that.editKejie(that, 7, 14)   
+                  that.editKejie(that, 7, 15)   
                   // console.log(that.data.kejieArr)
                 }
 

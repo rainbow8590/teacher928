@@ -31,13 +31,15 @@ Page({
     showPicker: false,
     dateInfos:[],
     today: '',
-    isFirst: 0
+    isFirst: 0,
+    classContent:null
   },
   onReady: function(){
     this.menu = this.selectComponent("#menu");
     this.tab = this.selectComponent("#tab");
   },
   onLoad: function(){
+    this.timer = null;
     var that = this;
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
@@ -64,7 +66,13 @@ Page({
     });
 
     this.calculateEmptyGrids(cur_year, cur_month);
+    clearInterval(this.timer)
     this.calculateDays(cur_year, cur_month);
+    // this.timer = setInterval(()=>{
+    //   this.calculateDays(cur_year, cur_month);
+    // },5000)
+    
+ 
     this.setData({
       cur_year,
       cur_month,
@@ -77,6 +85,10 @@ Page({
     });
     this.getPic();
   },
+  onHide: function(){
+    clearInterval(this.timer)
+  },
+  
   // 退出登录
   unlogin: function(){
     publicJs.unlogin()
@@ -155,8 +167,7 @@ Page({
     var stamp = new Date().getTime();
     // 学年
     var year = this.data.schoolYear;
-    // 学期
-    var nSemester = this.data.nSemester;
+
     // 教师token
     var token = this.data.teacherToken;
     // 获取信息的类型
@@ -254,6 +265,7 @@ Page({
 
   // 点击今天回到当日
   tapToday:function(e){
+    this.setData({classContent:null})
     this.setData({today:e.target.dataset.now})
     var date = new Date(); //当前日期
     var cur_day = date.getDate(); //当前日
@@ -312,10 +324,12 @@ Page({
   },
   // 获取指定月的天数的数组
   calculateDays:function(year, month) {
+    clearInterval(this.timer)
     var that = this;
     var days = [];
     var cur_day = new Date().getDate();
     var thisMonthDays = this.getThisMonthDays(year, month); 
+    
 
     this.getDateInfos(function(){
       for (var i = 0; i < that.data.dateInfos.length; i++) {
@@ -333,18 +347,60 @@ Page({
 
         if(that.data.isFirst == 0 || that.data.today == 'today'){
            //有课就请求直播信息
-          if( that.data.dateInfos[cur_day-1].CalendarList.length ){
+          if( that.data.dateInfos[cur_day-1].CalendarList.length>0 ){
               var idx = cur_day-1;
-              that.setPlayer(that.data.dateInfos, idx, that.data.dateInfos[idx].CalendarList,'CalendarList')
+              new Promise(function(resolve){
+                that.setPlayer(that.data.dateInfos, idx, that.data.dateInfos[idx].CalendarList,'CalendarList',function(){
+                  resolve(that.resultArr)
+                })
+              }).then(function(datas){
+                // 如果当日有直播信息, 就轮询
+                for(var i = 0; i < datas.length; i++){
+                  if(datas[i] != '没有对应的直播课'){
+                    that.timer = setInterval(()=>{
+                      that.setPlayer(that.data.dateInfos, idx, that.data.dateInfos[idx].CalendarList,'CalendarList',function(){})
+                    },5000)
+                    break;
+                  }
+                }
+             
+              })
+          }else{
+
+           that.setData({classContent:[] })
+          // that.setData({classContent:that.data.dateInfos[cur_day-1].CalendarList })
           }
-            
-         // that.setData({classContent:that.data.dateInfos[cur_day-1].CalendarList })
         }else{
           //有课就请求直播信息
-          if( that.data.dateInfos[0].CalendarList.length ){
-              that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[idx].CalendarList,'CalendarList')
-          }
+          console.log(that.data.dateInfos[0])
+          if( that.data.dateInfos[0].CalendarList.length>0 ){
+            /*that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[0].CalendarList,'CalendarList')
+            that.timer = setInterval(()=>{
+              that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[0].CalendarList,'CalendarList')
+            },5000)*/
+            new Promise(function(resolve){
+                that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[0].CalendarList,'CalendarList',function(){
+                  resolve(that.resultArr)
+                })
+              }).then(function(datas){
+                // 如果当日有直播信息, 就轮询
+                for(var i = 0; i < datas.length; i++){
+                  if(datas[i] != '没有对应的直播课'){
+                    console.log(1111111)
+                    that.timer = setInterval(()=>{
+                      that.setPlayer(that.data.dateInfos, 0, that.data.dateInfos[0].CalendarList,'CalendarList',function(){})
+                    },5000)
+                    break;
+                  }
+                }
+                  
+              })
+              
+          }else{
+
+           that.setData({classContent:[] })
           // that.setData({classContent:that.data.dateInfos[0].CalendarList })
+           }
         }
       
       that.setData({
@@ -354,6 +410,8 @@ Page({
   },
   //点击两侧箭头的事件
   handleCalendar:function(e) {  
+    clearInterval(this.timer)
+    this.setData({classContent:null})
     this.setData({today:""})
     for(var i = 0 ; i < this.data.days.length; i++){
       this.data.days[i].classInfo = []
@@ -420,6 +478,7 @@ Page({
       })
 
       this.calculateEmptyGrids(change_year, change_month);
+
       this.calculateDays(change_year, change_month);
       // 切换月份时, 如果1号有课,显示深绿颜色
       if(this.data.dateInfos[0].CalendarList.length>0){
@@ -430,6 +489,8 @@ Page({
   },
   // 选择每天的日期改变状态
   tapDayItem:function(e) {
+    clearInterval(this.timer)
+    this.setData({classContent:null})
     var that = this;
     var idx = e.currentTarget.dataset.idx;
     var days = this.data.days;
@@ -445,16 +506,39 @@ Page({
     // that.setData({classContent:this.data.days[idx]['classInfo']})
 
     //有课就请求直播信息
+
     if( this.data.days[idx].classInfo.length ){
-      this.setPlayer(this.data.days, idx, this.data.days[idx].classInfo,'classInfo')
+      /*this.setPlayer(this.data.days, idx, this.data.days[idx].classInfo,'classInfo')
+      this.timer = setInterval(()=>{
+        this.setPlayer(this.data.days, idx, this.data.days[idx].classInfo,'classInfo')
+      },5000)*/
+      new Promise(function(resolve){
+        that.setPlayer(that.data.days, idx, that.data.days[idx].classInfo,'classInfo',function(){
+          resolve(that.resultArr)
+        })
+        
+      }).then(function(datas){
+        clearInterval(that.timer)
+        // 如果当日有直播信息, 就轮询
+        for(var i = 0; i < datas.length; i++){
+          if(datas[i] != '没有对应的直播课'){
+            that.timer = setInterval(()=>{
+               that.setPlayer(that.data.days, idx, that.data.days[idx].classInfo,'classInfo',function(){})
+            },5000)
+            break;
+          }
+        }
+      })
+      
       // that.setData({classContent:this.data.days[idx]['classInfo']})
     }else{
+    
       that.setData({classContent:this.data.days[idx]['classInfo']})
     }
    
   },
   //请求直播课并赋值
-  setPlayer(fatherArr, index, classInfos, classInfo){
+  setPlayer(fatherArr, index, classInfos, classInfo,callback){
     var that = this;
     var newPlayerArr = [];
     for(var j = 0 ; j < classInfos.length; j++) {
@@ -504,6 +588,7 @@ Page({
     }
     Promise.all(newPlayerArr).then(res=>{
       console.log(res)
+      that.resultArr = res;
       for(var k = 0 ; k < classInfos.length; k++){
         (function(k){
           newPlayerArr[k].then(data=>{
@@ -540,6 +625,8 @@ Page({
           })
         })(k)
       }
+
+      callback();
     })
     
   },
@@ -596,15 +683,20 @@ Page({
     wx.navigateTo({url:'/search/playerStudents/playerStudents?content='+JSON.stringify(data)})
   },
   goRoom(e){
-    
     var inds = e.target.dataset
     var roomId =this.data.classContent[inds.fatherindex].player[inds.childindex].roomId;
+    var status =this.data.classContent[inds.fatherindex].player[inds.childindex].status;
     var sclasscode =this.data.classContent[inds.fatherindex].sCode;
     var nlessonno =this.data.classContent[inds.fatherindex].nLessonNo;
+    // console.log(this.data.classContent[inds.fatherindex].player)
+    // var nlessonno =this.data.classContent[inds.fatherindex].status;
     console.log(this.data.classContent[inds.fatherindex])
     // return;
-    wx.navigateTo({url:'/search/playerRoom/playerRoom?roomid='+roomId+'&sclasscode='+sclasscode+'&nlessonno='+nlessonno})
-  }
+    wx.navigateTo({url:'/search/playerRoom/playerRoom?roomid='+roomId+'&sclasscode='+sclasscode+'&nlessonno='+nlessonno+'&status='+status})
+  },
+  onUnload: function(){
+    clearInterval(this.timer)
+  },
   
 })
 

@@ -202,6 +202,8 @@ Page({
           getRes(res);
         })
         function getRes(res){
+          console.log(112122)
+          console.log(res)
           that.setData({noLessonArr: [],isAjaxOver: true})
           if(res.data.ResultType == 0){
             var newInfos = [];
@@ -221,6 +223,7 @@ Page({
                 var now = resData[j];
                 //如果j 循环到最后了, 代表循环完成了, 就停止
                 if(j == resData.length){
+                  console.log(newInfos)
                   that.setData({noLessonArr: newInfos})
                   setTimeout(()=>{
                     wx.hideLoading()
@@ -243,6 +246,7 @@ Page({
                     sTime: cur.sTime.substr(0,5),
                     sClassName: cur.sClassName,
                     sClassCode: cur.sClassCode,
+                    nLessonNo: cur.nLessonNo,
                     lessonArr:kejieArr,
                   }
                 }else{

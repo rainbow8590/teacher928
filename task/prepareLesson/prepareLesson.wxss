@@ -86,6 +86,34 @@ picker{
   text-align: center;
 }
 
+
+.lesson-date{
+  width: 100%;
+  padding: 20rpx 30rpx 120rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+.lesson-date .tip-title{
+  line-height: 60rpx;
+}
+.lesson-date button{
+  padding: 0 20rpx;
+  margin: 20rpx 20rpx 20rpx 0;
+  line-height: 90rpx;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+.lesson-date .activeClass{
+  background: #1AAD19;
+  color: #fff
+}
+
+
 /* .content{
   width: 100%;
 }

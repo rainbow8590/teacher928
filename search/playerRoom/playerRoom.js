@@ -16,6 +16,7 @@ Page({
   },
 
   onLoad: function(option){
+    console.log(option)
     var that = this;
     this.roomId = option.roomid
     this.sClassCode = option.sclasscode
@@ -31,15 +32,20 @@ Page({
       that.setData({heigh: that.data.windowHeight - 55})
     });
 
-    if(this.status == 1){
+    // console.log(this.status)
+    // 1 学员观看 上课中  
+    // 2 观看回放  已下课
+    /*if(this.status == 1){
+      console.log(this.status)
       wx.setNavigationBarTitle({
         title:'学员观看'
       })
     }else{
+      console.log(this.status)
       wx.setNavigationBarTitle({
         title:'观看回放'
       })
-    }
+    }*/
    this.getUrl();
   },
  
@@ -74,9 +80,13 @@ Page({
         function getRes(res){
           if(res.data.ResultType == 0){
             var result = res.data.AppendData;
-            console.log(result)
+            // console.log(result)
+            var reg = /http/;
+            var result1= result.replace(reg,'https')
+            // console.log(result1)
+
           
-            that.setData({url:result})
+            that.setData({url:result1})
 
 
           }else if(res.data.ResultType == 7){

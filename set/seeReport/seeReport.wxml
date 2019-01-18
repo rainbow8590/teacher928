@@ -1,0 +1,5 @@
+
+<view class="container">
+  <!-- <web-view src="http://caihong.ucong.net/dist/#/detail?classCode={{classCode}}&studentCode={{studentCode}}&token={{token}}"></web-view> -->
+  <web-view src="{{url}}"></web-view>
+</view>

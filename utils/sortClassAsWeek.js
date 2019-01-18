@@ -2,6 +2,7 @@ function sortClassAsWeek(week){
   for(var i = 0 ; i < week.length; i++){
     var timeStr = week[i].times;
     var timeNum = Number(timeStr.split(':').join('').substr(-4));
+    console.log(timeNum)
     if(timeStr.indexOf('周一上午') != -1){
       week[i].saveTimes = timeStr;
       week[i].times = 1110000 + timeNum;

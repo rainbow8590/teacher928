@@ -145,7 +145,9 @@ Page({
     });
     wx.setStorageSync('month',cur_month)
     this.getBasePayInfo();
+    console.log(456)
     this.getBonueInfo();
+    console.log(789)
   },
   onShow:function(){
     // 存储绩效页面下拉框的值
@@ -897,6 +899,7 @@ Page({
   },
   // 获取绩效基本信息
   getBonueInfo:function(){
+    console.log(123)
     var that = this;
     var stamp = new Date().getTime();
     var nYear = this.data.schoolYear;

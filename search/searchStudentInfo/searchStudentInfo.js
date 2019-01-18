@@ -19,7 +19,12 @@ Page({
       {id:2,txt:'任务',classname:'icon-tasking',changeTextColor:'#888',isChange: false},
       {id:3,txt:'工具',classname:'icon-setting',changeTextColor:'#888',isChange: false},
     ],
-    yearArr:app.globalData.yearArr,
+    // yearArr:app.globalData.yearArr,
+    yearArr:[
+      {id: new Date().getFullYear() - 1 , value: new Date().getFullYear() - 1 },
+      {id: new Date().getFullYear(), value: new Date().getFullYear()},
+      {id: new Date().getFullYear()+1, value: new Date().getFullYear()+1}
+    ],
     semesterArr: app.globalData.semesterArr,
     chioseArr:[
       {classe:'active',value:'按班级'},

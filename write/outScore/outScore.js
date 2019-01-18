@@ -43,7 +43,7 @@ Page({
   },
   onLoad: function(option){
     console.log(option)
-    wx.setStorageSync('isSubmit',false)
+    // wx.setStorageSync('isSubmit',false)
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
       teacherToken: wx.getStorageSync('teacherToken'),
@@ -132,6 +132,8 @@ Page({
           getRes(res);
         })
         function getRes(res){
+          console.log('jiazai zhong ')
+          console.log(res)
           var resData = res.data;
           if(resData.ResultType == 0){
             if(resData.AppendData.length){
@@ -178,7 +180,7 @@ Page({
             that.setData({isAjaxOver: true})
           }else if(res.data.ResultType == 3){
               publicJs.resultTip(res.data.Message,function(){
-                wx.navigateBack({delta:1})
+                wx.navigateBack({delta:2})
               })
 
           }else if(res.data.ResultType == 7){

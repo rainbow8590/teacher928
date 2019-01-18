@@ -1,0 +1,71 @@
+<!--index.wxml-->
+<view class="container">
+  <input-menu isopen="{{isopen}}" bind:powerDrawer="powerDrawer" style="width:100%;">
+      <select type="year" typeInn="{{schoolYear}}年" bind:getEvent="getYear"></select>
+      <select type="semester" typeInn="{{semester}}" bind:getEvent="getSemester"></select>
+      <select class="select1" type="class" typeInn="{{classInn}}" bind:getEvent="getClass"></select>
+  </input-menu>
+ 
+  <view class="wrap">
+    <!-- 没有小学班级 -->
+    <view class="noClass noReport" wx:if="{{isAjaxOver && !classLists.length}}">
+       <view >您没有可以生成的报告</view>
+      <view class="tip1">只有2018年秋季小学课程可以生成期中成绩报告</view>
+    </view>
+    <!-- 报告未生成 -->
+    <view class="noReport" wx:if="{{isAjaxOver && studentList.length && studentList[0].nState != 1}}">
+      <view >报告尚未生成</view>
+      <view class="tip1">助教录入期中考试分数后才能生成报告</view>
+    </view>
+    <!-- 报告已生成 -->
+    <view class="report" wx:if="{{isAjaxOver && studentList.length && studentList[0].nState == 1}}">
+      <view class="tips">
+        <view class="tip">分享报告到班级群</view>
+        <view class="btn flex">
+          <button wx:if="{{studentList[0].nState == 1}}"  open-type="share"><text class="iconfont icon-share"></text>分享报告</button>
+          <button bindtap="showTip"><text class="iconfont icon-doubt"></text>使用说明</button>
+        </view>
+        <view class="tip">{{seeNum}}/{{studentList.length}}人已查看报告</view>
+      </view>
+      <!-- 学生状态 -->
+      <view wx:if="{{isAjaxOver && studentList.length && studentList[0].nState == 1}}">
+        <view class="sList flex" wx:for="{{studentList}}">
+          <view class="sName">{{item.sStudentName}}</view>
+          <view class=" {{item.sStudentState=='已查看'?'sStatus':'sStatus1'}}">{{item.sStudentState}}</view>
+          <view class="sReport" wx:if="{{item.sStudentState!= '未参加考试'}}" bindtap="goSee" data-id="{{index}}">预览报告<text class="iconfont icon-arrowback"></text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="zoom" wx:if="{{isShowTip}}" catchtap="closeZoom">
+    <view class="zoomWrap">
+    <view class="title">使用说明</view>
+    <view>1. 点击【分享报告】，将报告分享到班级群或微信聊天。</view>
+    <view>2. 学员或家长在微信聊天或班级群点击报告，使用微信学员系统账号密码登录即可查看报告。</view>
+    <view>3. 学员查看报告后，报告查看状态会显示为“已查看”。</view>
+    <view>4. 未参加考试学员将不会生成报告。</view>
+
+    </view>
+  </view>
+
+   <select-popup id="selectPopup" 
+  show="{{show}}" 
+  is-ajax-over="{{isAjaxOver}}" 
+  arr="{{arr}}"
+  bind:cancelEvent="closePopup"  
+  bind:confirmEvent="getIndex">
+  </select-popup>
+ 
+  <menu id="menu" 
+  isopen="{{isopen}}"
+  identity="{{identity}}" 
+  show-modal-status="{{showModalStatus}}"
+  zoom-show="{{zoomShow}}" 
+  teacher-name="{{teacherName}}"
+  animation-data="{{animationData}}"
+  bind:closeMenuEvent="closeNav">
+  </menu>
+
+
+</view>

@@ -24,6 +24,7 @@
                     </block>
                   </view>
                   <view class="monthBody flex">
+
                     <view wx:if="{{hasEmptyGrid}}" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}" style="width:{{100/7}}%;"></view>
                     <block wx:for="{{days}}" wx:key="index">
                       <view class="item"  style="width:{{100/7}}%;" bindtap="tapDayItem" data-idx="{{index}}">
@@ -54,7 +55,7 @@
                        <view>
                          <text class="iconfont icon-headportrait"></text>
                          <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" style="color: #989898" wx:if="{{player.status == 0}}">{{player.online}}人在线</text>
-                         <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:elif="{{player.status == 1}}">{{player.online}} / {{player.total}}</text>
+                         <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:elif="{{player.status == 1}}">在线 {{player.online}} / {{player.total}}</text>
                          <text bindtap="goPlayStudengPage" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:elif="{{player.status == 2}}">学员名单</text>
                        </view>
                        <text class="status" bindtap="goRoom" data-fatherindex="{{fatherIndex}}" data-childindex="{{childIndex}}" wx:if="{{player.status == 0 || player.status == 1 }}" style="color:{{player.status == 0?'#989898':'#333'}}"><text class="play-icon"></text>观看直播</text>
@@ -63,7 +64,7 @@
                    </view>
                   </view>
                   <!-- 无课程 -->
-                  <view class="detailItem detailItem1 flex" wx:if="{{!classContent.length}}">
+                  <view class="detailItem detailItem1 flex" wx:if="{{classContent!= null && !classContent.length}}">
                     <view class="dot dot1">●</view>
                     <view class="content">
                        <view>今日无课程</view>

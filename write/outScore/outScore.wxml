@@ -24,7 +24,7 @@
         <view class="questions" >
           <view class="question flex"  wx:for="{{questions}}">
             <view class="num">{{index+1}}</view>
-            <input type="digit" bindinput="writeScore" bindblur="blurScore" bindfocus="focusScore" value="{{item.dStudentScore}}" data-index="{{index}}" />
+            <input type="digit" bindinput="writeScore" bindblur="blurScore" bindfocus="focusScore" value="{{item.dStudentScore}}" data-index="{{index}}" /> 
             <view class="flex" style="width:240rpx;">
               <button type="warn" catchtap="{{query.isOverTime?'':'minScore'}}" data-index="{{index}}">0分</button>
               <button type="primary"  catchtap="{{query.isOverTime?'':'maxScore'}}" data-index="{{index}}">{{item.dTopicScore}}分</button>

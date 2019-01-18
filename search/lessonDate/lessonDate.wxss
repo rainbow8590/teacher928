@@ -1,0 +1,359 @@
+@import "../../utils/public.wxss";
+@import "../../utils/font.wxss";
+page{
+  height: 100%;
+}
+.container{
+  padding: 0;
+  height: 100%;
+  overflow:hidden;
+}
+.flex{
+  display: flex;
+}
+
+/*主体内容*/
+.wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+/* .wrap .tab{
+  width: 100%;
+}
+.wrap .tab .tabTitle .titleItem{
+  width: 50%;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1FB923;
+  position: relative;
+  display: inline-block;
+  color: #979797;
+  overflow-y: scroll;
+}
+.wrap .tab .tabTitle .titleActive{
+  color: #32343d;
+  background: #f1f1f1;
+}
+.wrap .tab .tabTitle .titleItem .arrow{
+  border: 4px solid #1FB923;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -4px;
+} */
+/*.wrap .tabBody{
+  width: 200%;
+  position: relative;
+}*/
+/*.wrap .tabBodyWrap{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}*/
+.wrap .tabBodyItem{
+  width: 100%;
+  flex-direction: row;
+  overflow-y:scroll;
+}
+.wrap .tabBodyItem .checkDate{
+  position: relative;
+  width: 100%;
+  height: 44px;
+  padding-top: 19px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.wrap .tabBodyItem .checkDateWrap{
+  position: relative;
+  width: 22%;
+  text-align: center;
+  margin-left: 39%;
+  box-sizing: border-box;
+}
+.wrap .tabBodyItem .checkDate .date{
+  width: 100%;
+  height: 100%;
+  font-size: 24rpx;
+  color: #888;
+}
+.wrap .tabBodyItem .checkDate .leftArrowWrap{
+  width:20px;
+  height:16px;
+  position:absolute;
+  left:-30px;
+  top:50%;
+  margin-top:-10px;
+  padding-top:4px;
+}
+.wrap .tabBodyItem .checkDate .leftArrow{
+  border: 12rpx solid #838383;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+}
+
+.wrap .tabBodyItem .checkDate .rightArrowWrap{
+  width:20px;
+  height:16px;
+  position:absolute;
+  right: -36px;
+  top:50%;
+  margin-top:-10px;
+  padding-top:4px;
+}
+.wrap .tabBodyItem .checkDate .rightArrow{
+  border: 12rpx solid #838383;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+}
+.wrap .tabBodyItem .checkDate .bottomArrow{
+  border: 10rpx solid #838383;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  top:18px;
+  margin-left: -6px;
+}
+
+.wrap .tabBodyItem .checkDate .today{
+  font-size: 22rpx;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  margin-top: -13px;
+  padding: 10px;
+  color: #46b52e;
+}
+.wrap .tabBodyItem .month{
+  width: 100%;
+  padding: 0 30rpx;
+  padding-bottom: 20px;
+  box-shadow: 0 1px 1px #eee;
+  box-sizing: border-box;
+  background: #fff;
+}
+.wrap .tabBodyItem .month .monthTitle{
+  padding: 14rpx 0;
+  font-size: 24rpx;
+  border-bottom: 1px solid #e5e5e5;
+}
+.wrap .tabBodyItem .month .monthBody{
+  flex-wrap: wrap;
+  padding-top: 36rpx;
+  font-size: 24rpx;
+}
+.wrap .tabBodyItem .month .monthBody .item{
+  position: relative;
+  height: 36rpx;
+  margin-bottom: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  padding:0 5rpx;
+}
+.wrap .tabBodyItem .month .monthBody .nowDayColor{
+  color: #fff!important;
+  background: #46b52e!important;
+}
+.wrap .tabBodyItem .month .monthBody .nowDayColor1{
+  color: #333;
+  background: transparent;
+}
+.wrap .tabBodyItem .month .monthBody .tipColor{
+  color: #fff!important;
+  background: #1FBB1C!important;
+}
+.wrap .tabBodyItem .month .monthBody .tipColor1{
+   color: #333!important;
+  background: transparent!important; 
+}
+.wrap .tabBodyItem .month .monthBody .haveClass{
+  color: #333;
+  background: #b5e1ab;
+}
+.wrap .tabBodyItem .month .monthBody .activeClass{
+  color: #fff;
+  background: green;
+}
+.wrap .tabBodyItem .month .monthBody .num{
+  width: 100%;
+  height: 100%;
+}
+
+.wrap .tabBodyItem .month .monthBody .today{
+  position: relative;
+  left: 0;
+  top: -10rpx;
+  font-size: 14rpx;
+}
+.wrap .tabBodyItem .selectDetail{
+  width: 100%;
+  margin-top:10rpx;
+  padding: 6rpx 20rpx;
+  font-size: 24rpx;
+  color: #32343d;
+  box-sizing: border-box;
+  background: #fff;
+}
+.wrap .tabBodyItem .selectDetail .title{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  margin: 30rpx 0;
+  padding-left: 20rpx;
+  border-left: 4rpx solid #46b52e;
+}
+.wrap .tabBodyItem .selectDetail .teachers{
+  font-size: 26rpx;
+  line-height: 36rpx;
+}
+.wrap .tabBodyItem .selectDetail .teachers text{
+  padding: 0 20rpx;
+  margin: 20rpx 0;
+  color: #46b52e;
+}
+.wrap .tabBodyItem .selectDetail .teachers text.times{
+  color: #32343d;
+}
+.teacherImg{
+
+  display: block;
+  width: 80%;
+  height: 70%;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+.float {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 10000;
+ }
+ 
+ .float .floatWrap {
+  padding: 0 12rpx;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -280rpx;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+  width: 572rpx;
+  height: 338rpx;
+  padding: 26rpx 30rpx 0 20rpx;
+  box-sizing: border-box;
+  margin-left: -280rpx;
+ }
+.float .floatWrap .year view{
+  padding: 20rpx 60rpx;
+  font-size: 28rpx;
+  color: #888;
+}
+.float .floatWrap .year image{
+  width: 59rpx;
+  height: 45rpx;
+}
+
+.float .floatWrap .month{
+  width: 342rpx;
+  flex-wrap: wrap;
+  color: #888;
+}
+.float .floatWrap .month view{
+  width: 55rpx;
+  height: 55rpx;
+  border-radius: 26rpx;
+  margin: 20rpx 28rpx;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 55rpx;
+}
+
+
+
+
+.activeStyle{
+  background: #1FBB1C;
+  color: #fff !important;
+}
+.zhibo{
+  color:#f3914c;
+}
+
+
+/*直播相关*/
+.player{
+  font-size: 24rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+  margin-left: 50rpx;
+  padding: 20rpx 0;
+  border-top: 1px dashed #e5e5e5;
+}
+.player-title{
+  justify-content: space-between;
+ 
+}
+.player-title1{
+  margin-bottom: 10rpx;
+}
+.player-title .status{
+  padding-left: 20rpx;
+  padding-right: 40rpx;
+  width:140rpx;
+  text-align:right;
+}
+.iconfont{
+  padding-right: 10rpx;
+}
+.play-icon{
+  display: inline-block;
+  width: 26rpx;
+  height: 26rpx;
+  border: 2rpx solid #999;
+  border-radius: 4rpx;
+  position: relative;
+  vertical-align: middle;
+  box-sizing: border-box;
+  margin-right: 10rpx;
+}
+.play-icon::after{
+  content:'';
+  border: 8rpx solid transparent;
+  border-left-color: #999;
+  position: absolute;
+  left: 8rpx;
+  top: 4rpx;
+}

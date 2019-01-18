@@ -57,7 +57,8 @@
         "searchClassInfo_Quit/searchClassInfo_Quit",
         "searchClassInfo_Detail/searchClassInfo_Detail",
         "rank/rank",
-        "commont/commont"
+        "commont/commont",
+        "lessonDate/lessonDate"
       ]
     },
     {
@@ -88,9 +89,13 @@
         "taskCardProgress/taskCardProgress",
         "JDticket/JDticket",
         "questionnaireChuZhong/questionnaireChuZhong",
-        "questionnaireXiaoXue/questionnaireXiaoXue"
+        "questionnaireXiaoXue/questionnaireXiaoXue",
+        "report/report",
+        "seeReport/seeReport",
+        "reportList/reportList"
       ]
     }
-  ]
+  ],
+  "navigateToMiniProgramAppIdList":["wxa9c0e8a43e373d42"]
 }
 

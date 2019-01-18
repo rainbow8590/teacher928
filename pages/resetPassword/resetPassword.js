@@ -6,6 +6,7 @@ Page({
   },
   //手机输入框遗失光标则获取value然后把数据放入this.data.linkTel中去
   blurTel: function (e) {
+    console.log(e)
     var linkTel = e.detail.value.replace(/\s/g, "");
     this.setData({
       linkTel: linkTel

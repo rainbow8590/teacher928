@@ -54,6 +54,7 @@ Page({
       showArr:this.data.showArr,
       activeIndex: Number(option.activeIndex),
       teacherToken:wx.getStorageSync('teacherToken'),
+      teacherCode:wx.getStorageSync('teacherCode'),
       noAuditing: wx.getStorageSync('noAuditing'),
       identity: wx.getStorageSync('identity'),
       openId:wx.getStorageSync('openId'),
@@ -85,7 +86,7 @@ Page({
       // GetUnhandleOutClassApplyCount.GetUnhandleOutClassApplyCount(this);
       // this.getDateList();
     }
-    // this.demo();
+    // this.demo123();
   },
   onShow(option){
     // if(this.data.identity!= 100 && this.data.identity!=101 && this.data.identity!=102){
@@ -175,6 +176,26 @@ Page({
     this.setData({
       activeIndex:current,
     });
+  },
+  // 跳转 到高思乐享
+  goDiscount(){
+    // mta.Event.stat("discount",{});
+    //wx.navigateTo({ url: '/write/discount/discount' });
+    var teacherCode = this.data.teacherCode;
+    var teacherToken = this.data.teacherToken;
+    wx.navigateToMiniProgram({
+      appId: 'wxa9c0e8a43e373d42',
+      path: '/pages/discount?teacherCode='+teacherCode+'&teacherToken='+teacherToken,
+      extraData: {},
+      // envVersion: 'trial', // 体验版
+      // envVersion: 'develop', // 开发版
+      envVersion: 'release', // 线上版
+      success(res) {
+        console.log(res)
+       // 打卡成功
+      }
+    })
+
   },
   // 跳转 公立校信息
   goSchool(e){
@@ -271,6 +292,11 @@ Page({
     // publicJs.goPage(e,this,'/search/pay/pay')
     publicJs.goPage(e,this,'/search/periodPay/periodPay')
   },
+  // 听课日历
+  goLessonDate(e){
+    mta.Event.stat("pay",{})
+    publicJs.goPage(e,this,'/search/lessonDate/lessonDate')
+  },
   // 代课记录
   goReplaceRecord(e){
     mta.Event.stat("replace_record",{})
@@ -326,6 +352,11 @@ Page({
     if(!this.isAjaxOver) return;
     mta.Event.stat("jd_ticket",{})
     publicJs.goPage(e,this,'/set/JDticket/JDticket?dates=' + JSON.stringify(this.data.dates))
+  },
+  // 京东券
+  reportCard(e){
+    mta.Event.stat("report",{})
+    publicJs.goPage(e,this,'/set/report/report')
   },
   // 判断今日是否有课
   isCourse(){
@@ -534,6 +565,7 @@ Page({
       title:'努力加载中...',
       success: function(){
         requests.request(option, function(res){
+          that.isAjaxOver = true;
           getRes(res)
         })
         function getRes(res){
@@ -645,7 +677,52 @@ Page({
         }
       }
     })
+  },
+
+
+   demo123: function(){
+    var that = this;
+    var stamp = new Date().getTime();
+    var token = this.data.teacherToken;
+    var query = {
+      appid: appId,
+      // timestamp:stamp,
+      // token:token,
+    }
+    var data = {"Phone":"17611582929",
+      "TeacherCode":"BJ13859",
+      "AreaCode":"BCADA888",
+      "Channel":0}
+
+    var option = {
+      api:'api/Activity/SubVoucher',
+      query: query,
+      type: 'post',
+      data:data
+    }
+    wx.showLoading({
+      title:'努力加载中...',
+      success: function(){
+        requests.request(option, function(res){
+          getRes(res)
+        })
+        function getRes(res){
+          console.log(res)
+          // if(res.data.ResultType == 0){
+            
+          // }else if(res.data.ResultType == 7){
+          //   publicJs.resultTip(res.data.Message)
+          //   if(res.data.Message == '身份验证失败'){
+          //     wx.clearStorageSync();
+          //     wx.reLaunch({ url: '/pages/index/index'})
+          //   }
+            
+          // }
+          setTimeout(()=>{
+            wx.hideLoading()
+          },500)
+        }
+      }
+    })
   }
-
-
 })

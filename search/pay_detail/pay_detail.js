@@ -69,7 +69,8 @@ Page({
         that.setData({heigh: that.data.windowHeight - 55-50})
       });
     }else{
-      if(this.data.yearTypeIndex == 0){
+      console.log(this.data.yearTypeIndex , 11111111)
+      if(this.data.yearTypeIndex == 0){ //春季
         this.setData({
           stageTypeArr: [
             {id: 4,ind:null, value: '正式合计'},
@@ -116,6 +117,7 @@ Page({
   },
   // 关闭弹窗
   closePopup: function(e){
+    // this.setData({show1:false})
     this.selectPopup.closePopup()
   },
   // 获取点击的弹窗的id和value值
@@ -129,7 +131,7 @@ Page({
       this.setData({
         yearTypeInn:this.data.arr[e.detail.detail.dataset.id].value, 
       })
-      if(e.detail.detail.dataset.id == 1){
+      if(e.detail.detail.dataset.id == 1){ // 暑假
         this.setData({
           // stageTypeArr: [{id: 0, ind: null, value: '正式合计'}],
           stageTypeArr:[{id: 0,ind: 0, value: '0期'},
@@ -141,13 +143,13 @@ Page({
           nSemester1: 4
         })
         this.setData({ 
-          stage: this.data.stageTypeArr[0].ind,
-          stageInn:this.data.stageTypeArr[0].value,
-          qishu: this.data.stageTypeArr[0].ind
+          stage: this.data.stageTypeArr[4].ind,
+          stageInn:this.data.stageTypeArr[4].value,
+          qishu: this.data.stageTypeArr[4].ind
         })
         // 存储绩效页面下拉框的值
         wx.setStorageSync('yearTypeIndex',1)
-        wx.setStorageSync('stageIndex',0)
+        wx.setStorageSync('stageIndex',4)
       }else{
         this.setData({
           stageTypeArr: [{id: 4,ind:null, value: '正式合计'}],

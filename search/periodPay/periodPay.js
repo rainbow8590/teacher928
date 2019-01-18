@@ -29,7 +29,7 @@ Page({
 
 
     //绩效相关值
-    yearTypeInn: '2018年春季',
+    yearTypeInn: '2018年暑假',
     stageInn: '0期',
     stage: 1,
     nSemester:2,
@@ -81,14 +81,14 @@ Page({
     publicJs.getSystem(that,function(){
       that.setData({heigh: that.data.windowHeight - 55})
     });
-    wx.setStorageSync('yearTypeIndex',0)
+    wx.setStorageSync('yearTypeIndex',1) // 默认暑假
     wx.setStorageSync('stageIndex',0)
     this.setData({
       semester: this.data.semesterArr[0].value, // 默认显示暑假
       nSemester:this.data.semesterArr[0].id,  //默认请求暑假的数据
       schoolYear: 2018, // 选择的年份
       schoolYear1: 2018, // 对应学期的年份
-      nSemester1: 3,
+      nSemester1: this.data.semesterArr[0].id,
       stageInn: this.data.stageTypeArr[4].value,
       stage: null
     })
@@ -101,7 +101,7 @@ Page({
       this.setData({showPage:true})
       this.newKechou()
     }
-     // this.getBonueInfo();
+     this.getBonueInfo();
     
   },
   onShow:function(e){
@@ -117,7 +117,7 @@ Page({
         stageInn: wx.getStorageSync('stageInn'),
       })
 
-      console.log(this.data.stageInn)
+      console.log(this.data.stageInn, this.data.stageIndex)
       if(this.data.yearTypeIndex == 0){ // 0 是春季
         this.setData({
           stageTypeArr: [{id: 0, ind: null, value: '正式合计'}],
@@ -162,15 +162,17 @@ Page({
   prevMonth(){
     if(this.data.newKeChouOver==false) return;
     this.setData({isDisMonth: false})
-    if(this.data.selectMonth == 1){
+    this.data.selectMonth--;
+    if(this.data.selectMonth == 0){
       this.data.selectYear--
       this.setData({selectMonth: 12,selectYear:this.data.selectYear})
-      return;
+      // return;
     }
-    this.data.selectMonth--;
+    
     // 2018.9以前跳显示老页面
       this.setData({selectMonth: this.data.selectMonth})
-    if(this.data.selectMonth < 8 && this.data.selectYear <=2018){
+      // console.log()
+    if(this.data.selectMonth < 9 && this.data.selectYear <=2018){
       this.setData({showPage: false})
       this.getBasePayInfo()
     }else{
@@ -180,33 +182,85 @@ Page({
     this.setData({activeIndex: false})
   },
   nextMonth(){
+    if(this.data.selectMonth == this.data.nowMonth && this.data.selectYear == this.data.nowYear) return;
     // 只能查询本年本月之前的
     if(this.data.newKeChouOver==false) return;
-    
-    if(this.data.selectYear < this.data.nowYear){
-      this.setData({isDisMonth: false})
-      if(this.data.selectMonth == 12){
+    this.data.selectMonth++;
+
+    this.setData({selectMonth:this.data.selectMonth})
+
+    if(this.data.selectMonth == 13){
+      this.data.selectYear++;
+      this.setData({selectMonth: 1,selectYear:this.data.selectYear})
+      // 2018.9获取老的
+      if(this.data.selectYear<=2018 ){
         this.setData({showPage: false})
-        this.data.selectYear++
-        this.setData({selectMonth: 1,selectYear:this.data.selectYear})
-        if(this.data.selectYear<2018){
-          this.getBasePayInfo()
-
-        }else{
-          // 获取新接口
-          this.newKechou()
-          this.setData({activeIndex:0})
-        }
-
+        this.getBasePayInfo()
       }else{
-        this.data.selectMonth++;
-        this.setData({selectMonth: this.data.selectMonth})
-        // 2018.9以后显示新页面
-        if(this.data.selectYear >=2018&&this.data.selectMonth>=8 ){
+        this.newKechou()
+        if((this.data.selectYear ==2018&&this.data.selectMonth>=8) || (this.data.selectYear >2018&&this.data.selectMonth>0) ){
           this.setData({showPage: true})
           // 获取新接口
           this.newKechou()
           this.setData({activeIndex:0})
+          console.log(this.data.selectMonth == this.data.nowMonth, this.data.selectYear == this.data.nowYear)
+          if(this.data.selectMonth == this.data.nowMonth && this.data.selectYear == this.data.nowYear){
+            this.setData({isDisMonth: true})
+          }
+        }else{
+          this.getBasePayInfo()
+          this.setData({isDisMonth: false})
+        }
+
+        this.setData({activeIndex:0,showPage: true})
+      }
+
+    }else{
+      if((this.data.selectYear ==2018&&this.data.selectMonth>=8) || (this.data.selectYear >2018&&this.data.selectMonth>0) ){
+        this.setData({showPage: true})
+        // 获取新接口
+        this.newKechou()
+        this.setData({activeIndex:0})
+        console.log(this.data.selectMonth == this.data.nowMonth, this.data.selectYear == this.data.nowYear)
+        if(this.data.selectMonth == this.data.nowMonth && this.data.selectYear == this.data.nowYear){
+          this.setData({isDisMonth: true})
+        }
+      }else{
+        this.getBasePayInfo()
+        this.setData({isDisMonth: false})
+      }
+    }
+
+   /* if(this.data.selectYear < this.data.nowYear){
+      this.setData({isDisMonth: false})
+      if(this.data.selectMonth == 12){
+        this.setData({showPage: false})
+        this.data.selectYear++;
+        this.setData({selectMonth: 1,selectYear:this.data.selectYear})
+        if(this.data.selectYear<2018){
+          this.getBasePayInfo()
+        }else{
+          // 获取新接口
+          this.newKechou()
+          this.setData({activeIndex:0,showPage: true})
+        }
+        
+      }else{
+
+        this.data.selectMonth++;
+        this.setData({selectMonth: this.data.selectMonth})
+        // 2018.9以后显示新页面
+        if((this.data.selectYear ==2018&&this.data.selectMonth>=8) || (this.data.selectYear >2018&&this.data.selectMonth>0) ){
+
+          console.log('aaaaa',this.data.selectYear,this.data.selectMonth)
+          this.setData({showPage: true})
+          // 获取新接口
+          this.newKechou()
+          this.setData({activeIndex:0})
+          console.log(this.data.selectMonth == this.data.nowMonth, this.data.selectYear == this.data.nowYear)
+          if(this.data.selectMonth == this.data.nowMonth && this.data.selectYear == this.data.nowYear){
+            this.setData({isDisMonth: true})
+          }
         }else{
           this.getBasePayInfo()
         }
@@ -231,7 +285,7 @@ Page({
       }else{
         this.setData({isDisMonth: true})
       }
-    }
+    }*/
     // this.getBasePayInfo()
   },
   // 点击
@@ -298,7 +352,9 @@ Page({
     var year = publicJs.flagYear();
     wx.navigateTo({url:'/search/periodPayList/periodPayList?father='+father+'&nclassyear='+ year +'&nsemester='+this.data.selectSemester+'&nyear='+this.data.selectYear+'&nmonth='+this.data.selectMonth})
   },
-
+  closePopup: function(e){
+    this.selectPopup.closePopup()
+  },
   // 详情页
   goDetail: function(){
     wx.navigateTo({url:'/search/pay_detail/pay_detail'})
@@ -314,7 +370,7 @@ Page({
     this.setData({arr: this.data.semesterArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()
   },
-      getYearType: function (e) {
+  getYearType: function (e) {
     console.log(e)
     this.setData({arr: this.data.yearTypeArr,inpStr: e.detail.detail})
     this.selectPopup.showPopup()

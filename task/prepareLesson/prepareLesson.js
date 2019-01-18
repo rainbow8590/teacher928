@@ -26,7 +26,12 @@ Page({
     area:[],
     schools:[{AreaCode:'0000',AreaName:''}],
     areaClass:[],
-    isEndPage: false
+    isEndPage: false,
+    showTip: false ,// 控制显示提示可约课节数
+    showDate: false, //控制显示课节弹窗
+    dates:[],
+    selectLessonNo:'',
+
 
   },
   onReady: function(){
@@ -49,12 +54,16 @@ Page({
     publicJs.getSystem(that,function(){
       that.setData({contentH: that.data.windowHeight})
     });
-    this.getWeeKNum();
-    this.getArea();
+      this.getArea();
+
+    
+    
   },
 
   scrolltolower: function(e){
-    if(this.isEndPage) return;
+    console.log(this.data.isEndPage)
+    console.log(this.isAjaxOver)
+    if(this.data.isEndPage) return;
     if(this.isAjaxOver == true){
       this.pageNum ++;
       this.getAreaClass(this.pageNum);
@@ -110,11 +119,43 @@ Page({
   checkChange: function(e){
     console.log(e)
     this.selectRdaio = e.detail.value;
-    this.setData({checkLessons:this.data.areaClass[e.detail.value]})
+    var selectClass = this.data.areaClass[e.detail.value];
+    console.log(selectClass.ClassLesson)
+
+    for(var j = 0; j < selectClass.ClassLesson.length; j++){
+        selectClass.ClassLesson[j].LessonDate = selectClass.ClassLesson[j].LessonDate.substr(0, 10)
+        selectClass.ClassLesson[j].active = false
+        console.log(selectClass.ClassLesson[j].LessonDate)
+    }
+    // console.log(selectClass.ClassLesson)
+    this.setData({checkLessons:selectClass,dates: selectClass.ClassLesson})
+  },
+  checkDate: function(e){
+    console.log(e)
+    // 获取选取的那一讲次
+    // this.selectDate = e.detail.value;
+    
+  },
+  addClass(e){
+    console.log(e)
+    this.data.dates.map((item,index) => {
+      item.active = false
+    })
+    this.data.dates[e.target.dataset.index].active = true;
+    this.setData({
+      dates: this.data.dates,
+      selectLessonNo:this.data.dates[e.target.dataset.index].LessonNo,
+      selectLessonDate:this.data.dates[e.target.dataset.index].LessonDate, 
+      // showDate: false,
+      // showDialog: true
+    })
+  },
+  closeLessonMask(){
+    this.setData({showDate: false,selectLessonNo:'',selectLessonDate:''})
   },
   // 预约确认弹窗
   showModal: function(){
-    this.setData({showDialog: true})
+    this.setData({showDate: true})
     /*var that = this;
     wx.showModal({
       title: '提示',
@@ -127,12 +168,19 @@ Page({
       }
     })*/
   },
+  showModal1(){
+    if(this.data.selectLessonNo+'' == '' || this.data.selectLessonDate+'' ==''){
+      publicJs.resultTip('请选择日期')
+      return;
+    }
+    this.setData({showDialog: true})
+  },
   giveup: function(){
     this.setData({showDialog: false})
   },
   // 预约
   preLessons: function(){
-    this.setData({showDialog: false})
+    this.setData({showDialog: false,showDate: false})
     var that = this;
     var token = this.data.teacherToken;
     var stamp = new Date().getTime();
@@ -141,15 +189,18 @@ Page({
       timestamp:stamp,
       token:token,
     }
+    
     // console.log(this.data.checkLessons)
     // return;
     var data = {
       "ClassCode": this.data.checkLessons.ClassCode,
-      "LessonNo": this.data.checkLessons.LessonNo,
+      // "LessonNo": this.data.checkLessons.LessonNo,
+      "LessonNo": this.data.selectLessonNo,
       "XueBu": this.data.checkLessons.XueBu,
       "XueKe": this.data.checkLessons.XueKe,
-      "LessonDate": this.data.checkLessons.LessonDate
+      "LessonDate": this.data.selectLessonDate
     }
+    
     var option = {
       api:'api/TeacherTrain/SubReserveClass',
       query: query,
@@ -166,6 +217,7 @@ Page({
           console.log(res)
           if(res.data.ResultType == 0){
             publicJs.resultTip(res.data.Message,function(){
+              that.setData({selectLessonNo:'',selectLessonDate:''})
               // 预约了
               wx.setStorageSync('PerpareLesson', true)
               //预约成功, 返回上一页
@@ -173,7 +225,13 @@ Page({
             });
             
           }else if(res.data.ResultType == 7){
-            publicJs.resultTip(res.data.Message)
+            // publicJs.resultTip('预约失败',)
+            wx.showModal({
+              title: '预约失败',
+              content: res.data.Message,
+              showCancel: false,
+              success: function(){}
+            })
             if(res.data.Message == '身份验证失败'){
               wx.clearStorageSync();
               wx.reLaunch({ url: '/pages/index/index'})
@@ -211,10 +269,13 @@ Page({
         function getRes(res){
           console.log(res)
           if(res.data.ResultType == 0){
+
             var resData = res.data.AppendData;
             var area = [];
             var schools = [];
             if(resData&& resData.length){
+              // 请求可预约的节数
+              that.getWeeKNum();
               for(var i = 0 ; i < resData.length; i++){
                 area.push(resData[i].Regionalism);
                 schools.push(resData[i].AreaInfo)
@@ -244,7 +305,9 @@ Page({
   },
   //获取校区的班级
   getAreaClass: function(pageNum){
+
     if(!this.isAjaxOver) return;
+    // this.setData({showEnd: false})
     this.isAjaxOver = false;
     var that = this;
     var token = this.data.teacherToken;
@@ -272,17 +335,23 @@ Page({
           console.log(res)
           if(res.data.ResultType == 0){
             var resData = res.data.AppendData;
-            if(resData&&resData.length){
+            if(resData&&resData.length>0){
               for(var i = 0; i < resData.length; i++){
                 var item = resData[i];
                 item.SemesterName = item.Semester == 1?'秋季班':(item.Semester == 2?'寒假班':(item.Semester == 3?'春季班':'暑假班'))
-                item.dtDate = item.dtDate.substr(0,item.dtDate.indexOf('T'))
+                item.dtDate = item.dtDate.substr(5,5)
+                item.BeginDate = item.BeginDate.substr(5,5)
+                item.EndDate = item.EndDate.substr(5,5)
+                
               }
+
+              console.log(resData)
               that.setData({areaClass: that.data.areaClass.concat(resData)})
             }else{
               that.setData({showEnd: true,isEndPage:true})
             }
             that.isAjaxOver = true;
+
             console.log(that.data.areaClass)
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)
@@ -325,7 +394,7 @@ Page({
         function getRes(res){
           console.log(res)
           if(res.data.ResultType == 0){
-            that.setData({weekNum:res.data.Message}) ;
+            that.setData({weekNum:res.data.Message ,showTip: true}) ;
             /*if(resData.length){
               for(var i = 0; i < resData.length; i++){
                 var item = resData[i];
@@ -336,7 +405,7 @@ Page({
             }else{
               that.setData({showEnd: true})
             }*/
-       
+            
             console.log(that.data.areaClass)
           }else if(res.data.ResultType == 7){
             publicJs.resultTip(res.data.Message)

@@ -1,7 +1,7 @@
 @import "../../utils/font.wxss";
 .searchW {
   width: 100%;
-  height: 108rpx;
+  min-height: 108rpx;
   padding: 30rpx 30rpx 30rpx 28rpx;
   border-bottom: 1px solid #1FB923;
   box-sizing: border-box;
@@ -11,6 +11,7 @@
 }
 .searchW .searchIf{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .searchW .active {
@@ -19,7 +20,9 @@
 }
 
 .searchW .menu {
-  padding: 0rpx 0 37rpx 0;
+  /* padding: 0rpx 0 37rpx 0; */
+  padding:0;
+
 }
 
 .searchW .menu image {

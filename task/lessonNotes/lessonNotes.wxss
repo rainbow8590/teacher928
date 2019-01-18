@@ -27,6 +27,34 @@ page{
 }
 
 
+.progress{
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.3);
+  height: 100%;
+  width: 100%;
+}
+.progress-wrap{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -100rpx;
+  width: 80%;
+  height: 200rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  text-align: center;
+  font-size: 34rpx;
+  line-height: 120rpx;
+}
+.progress-wrap progress{
+  width: 80%;
+  margin: 0 auto;
+}
+
+
 
 /* 
 
@@ -148,6 +176,7 @@ page{
   color: #939393;
   font-size: 30rpx;
   padding: 50rpx 0 50rpx 30rpx;
+  box-sizing: border-box;
 }
 .content{
   padding-bottom: 20px;
@@ -163,5 +192,9 @@ page{
   vertical-align: middle;
 }
 */
+
+.modal-mask{
+  font-size: 32rpx;
+}
 
 

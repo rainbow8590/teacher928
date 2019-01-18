@@ -4,7 +4,7 @@
     <view class="className">{{classInfo.ClassName}}</view>
     <view class="classDes flex"><text>{{classInfo.SemesterName}}</text> <text>{{classInfo.AreaName}}</text></view>
     <view class="classTime"><text class="iconfont icon-clock-strock1"></text> <text>{{classInfo.dtDate}} {{classInfo.sTime}}</text> </view>
-    <button class="giveup" size="mini" bindtap="showPrepareModal" wx:if="{{isShowGiveUpBtn || classInfo.TaskAudit==null }}">取消预约</button>
+    <button class="giveup" size="mini" bindtap="showPrepareModal" wx:if="{{isShowGiveUpBtn || classInfo.TaskAudit==null}}">取消预约</button>
   </view>
 
   <view class="tip1" wx:if="{{classInfo.TaskAudit == null}}">听课完成后请上传听课笔记，最多可上传10张图</view>
@@ -22,11 +22,16 @@
     <view class="dialog">
       <view class="dialog-title"></view>
       <view class="dialog-text">{{msg}}</view>
-      <view class="dialog-btns">
-        <button bindtap="giveup">取消</button>
-        <button bindtap="{{msg == '确认取消约课？'?'giveupPrepare':'uploadPIcs'}}">{{btnTxt}}</button>
+      <view class="dialog-btns" >
+        <button bindtap="giveup" wx:if="{{msg != '请选择听课笔记图片' && msg != '上完课才能上传听课笔记'}}">取消</button>
+        <button style="width:{{(msg == '请选择听课笔记图片'||msg == '上完课才能上传听课笔记')? '100%': '50%'}}" bindtap="{{msg == '确认取消约课？'?'giveupPrepare':((msg == '上完课才能上传听课笔记'||msg == '请选择听课笔记图片')?'giveup':'uploadPIcs')}}">{{btnTxt}}</button>
       </view>
     </view>
   </view>
-
+  <view class="progress" wx:if="{{isDisabled}}">
+    <view class="progress-wrap">
+      <view>正在上传({{progressNum}}%)</view>
+      <progress percent="{{progressNum}}" stroke-width="16" active active-mode="forwards" />
+    </view>
+  </view>
 </view>

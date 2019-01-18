@@ -21,9 +21,16 @@ Page({
     isFocus: false,
     isShoweye:true
   },
-  onLoad: function(){
-
-
+  onLoad: function(option){
+    console.log('onLoad')
+    console.log(option)
+  
+    if(option.isClose == 'false'){
+      console.log(123)
+      wx.navigateBack({
+        delta:1
+      })
+    }
     this.eyeNum = 0;
     var that = this;
     var teacherName = wx.getStorageSync('teacherName')

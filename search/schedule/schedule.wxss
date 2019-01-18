@@ -328,7 +328,10 @@ page{
   margin-bottom: 10rpx;
 }
 .player-title .status{
+  padding-left: 20rpx;
   padding-right: 40rpx;
+  width:140rpx;
+  text-align:right;
 }
 .iconfont{
   padding-right: 10rpx;

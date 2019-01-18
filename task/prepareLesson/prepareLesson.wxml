@@ -10,7 +10,7 @@
 
     </picker>
   </view>
-  <view class="tip">每周最多可预约4节课，已预约 {{weekNum}} 节课</view>
+  <view class="tip"><view wx:if="{{showTip}}">每周最多可预约4节课，还可预约 {{4-weekNum}} 节</view></view>
   <view class="content" style="height:{{contentH-80-50}}px">
     <scroll-view class="tabBodyItem" style="height:{{contentH-80-50}}px;" scroll-y  scroll-top="{{scrollTop}}" bindscroll="getScrollTop" lower-threshold="50" bindscrolltolower="scrolltolower">
       <radio-group bindchange="checkChange">
@@ -23,12 +23,17 @@
             </view>
             <view class="lessonInfo">
               <view class="address flex">
-                <view>{{item.SemesterName}}</view>
+                <!-- <view>{{item.SemesterName}}</view> -->
+                <view>{{item.PrintTeachers}}</view>
                 <view>{{item.AreaName}}</view>
+              </view>
+              <view class="address flex">
+                <view>{{item.RoomName}}</view>
               </view>
               <view class="lessonTime flex">
                 <text class="iconfont icon-rili-strock"></text>
-                <text>{{item.dtDate}}</text> 
+                <text wx:if="{{item.Semester == 2 || item.Semester == 4}}">{{item.BeginDate}} ~ {{item.EndDate}}</text> 
+                <text wx:if="{{item.Semester == 1 || item.Semester == 3}}">{{item.dtDate}}</text> 
                 <text class="iconfont icon-clock-strock"></text>
                 <text>{{item.sTime}}</text>
               </view>
@@ -39,7 +44,18 @@
       <view wx:if="{{showEnd}}" class="endpage">已经最后一页了</view>
     </scroll-view>
   </view>
-   <view class="dialog-mask" wx:if="{{showDialog}}">
+  
+  <view class="dialog-mask" wx:if="{{showDate}}" bindtap="closeLessonMask">
+    <view class="lesson-date">
+    <view class="tip-title">请选择要听的课节</view>
+    <view class="flex">
+      <button wx:for="{{dates}}" class="{{item.active? 'activeClass':''}}" catchtap="addClass" data-index="{{index}}">{{item.LessonDate}}</button>
+    </view>
+    <view class="upload" type="primary" disabled="{{!checkLessons}}" catchtap="showModal1" >预约</view>
+    </view>
+  </view>
+
+  <view class="dialog-mask dialog-mask1" wx:if="{{showDialog}}">
     <view class="dialog">
       <view class="dialog-title"></view>
       <view class="dialog-text">确认预约该课程</view>
@@ -49,6 +65,6 @@
       </view>
     </view>
   </view>
-  <button class="upload" type="primary" disabled="{{!checkLessons}}" bindtap="showModal">预约</button>
+  <button class="upload" type="primary" disabled="{{!checkLessons || weekNum>=4}}" bindtap="showModal" >预约</button>
   
 </view>

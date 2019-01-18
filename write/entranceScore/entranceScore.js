@@ -47,6 +47,7 @@ Page({
     this.tab = this.selectComponent("#tab");
   },
   onLoad: function(option){
+
     this.parent = option.parent;
     this.setData({
       teacherName: wx.getStorageSync('teacherName'),
@@ -140,7 +141,7 @@ Page({
       if(this.parent == 'outdoor'){
         // 数学科目不要第7和第15讲
         if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
-            this.editKejie(this, 6 ,13)
+            this.editKejie(this, 6 ,14)
             this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲'})
           }else{
             this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
@@ -152,24 +153,6 @@ Page({
       
     
 
-    // if(this.parent == 'outdoor'){
-    //   // 数学科目不要第7和第15讲
-    //   if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
-    //     this.editKejie(this, 7 ,14)
-    //     console.log(this.data.kejieArr)
-    //     this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲',kejieInn:this.data.kejieArr[this.data.tipKejieIndex].value})
-    //   }else{
-    //     this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex].value})
-    //   }
-    // }else{
-    //   this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
-    // }
-
-    // console.log(this.data.kejieArr)
-    // 删除‘请选择’项
-      // this.data.kejieArr.shift();
-      // this.setData({kejieArr: this.data.kejieArr});
-      // console.log(this.data.kejieArr)
 
     if(this.parent == 'enterdoor'){
       this.getScore();
@@ -178,7 +161,7 @@ Page({
     }
   },
   editKejie:function(obj, num1, num2){
-    obj.data.kejieArr.splice(num1,1)
+    // obj.data.kejieArr.splice(num1,1)
     obj.data.kejieArr.splice(num2,1)
     var newKejie = [];
     console.log(obj.data.kejieArr)
@@ -207,6 +190,10 @@ Page({
       this.selectPopup.showPopup()
     }
     
+  },
+  changeValue(e){
+    this.data.studentsList[e.target.dataset.index].Score = Number(e.detail.value);
+    this.setData({studentsList: this.data.studentsList})
   },
   // 关闭弹窗
   closePopup: function(e){
@@ -253,7 +240,7 @@ Page({
       if(this.parent == 'outdoor'){
         // 数学科目不要第7和第15讲
         if(this.data.classInfo[this.data.tipClassIndex].sDeptName.indexOf('小学数学') != -1){
-            this.editKejie(this, 6 ,13)
+            this.editKejie(this, 6 ,14)
             this.setData({kejieInn:'第'+this.data.tipKejieIndex+'讲'})
           }else{
             this.setData({kejieArr: this.data.kejieArr,kejieInn:this.data.kejieArr[this.data.tipKejieIndex-1].value})
@@ -400,7 +387,7 @@ Page({
                   sClassCode: student.sClassCode,
                   sName: student.sStudentName,
                   sCardCode: student.sCardCode,
-                  nLessonNum: student.nLessonNo,
+                  nLessonNo: student.nLessonNo,
                   ScoreType: student.ScoreType,
                   Score: student.Score,
                   changeLessonState:student.changeLessonState,
@@ -444,8 +431,10 @@ Page({
     var studentSize = this.data.classInfo[this.data.tipClassIndex].studentNumber;
     var ClassCode = this.data.classInfo[this.data.tipClassIndex].classCode;
     var datas = e.detail.value;
+
+    console.log(this.data.studentsList)
    
-    var arr = [];
+    /*var arr = [];
     var arr1 = [];
     for(var k in datas){
      var str = k + '=' + datas[ k ]
@@ -469,11 +458,20 @@ Page({
         arr2.push(arr1[i])
       }
     }
-    console.log(arr2)
+ */
+    var arr2 = [];
+    for(var i = 0; i < this.data.studentsList.length; i++){
+      if(this.data.studentsList[i].Score !=0 && this.data.studentsList[i].Score != null){
+        // console.log(arr1[i].Score)
+        arr2.push(this.data.studentsList[i])
+      }
+    }
     if(!arr2.length){
       publicJs.resultTip('没有要保存的数据')
       return;
     }
+
+
     var query = {
       appid: appId,
       timestamp: stamp,

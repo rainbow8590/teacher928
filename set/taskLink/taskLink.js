@@ -29,7 +29,7 @@ Page({
     this.setData({showBtn1: false})
     return {
       title: '完成作业来打卡喽',
-      path: '/set/parentLogin/parentLogin?id='+infos,
+      path: '/set/parentLogin/parentLogin?id='+infos+'&from=task',
       success: function(res){
         // wx.navigateTo({url:'/set/parentLogin/parentLogin?id='+infos})
       }

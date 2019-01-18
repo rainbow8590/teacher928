@@ -1,7 +1,7 @@
 <view class="container">
   <view class="teacherName">{{teacherName}}老师</view>
-  <view class="tip">请在规定时间内完成以下实习任务，逾期未完成将无法通过教师培训。</view>
-  <view class="task flex" bindtap="goPractiveJob">
+  <view class="tip">请按教培老师要求完成实习任务</view>
+  <!-- <view class="task flex" bindtap="goPractiveJob">
     <view class="endtime">请于{{baseInfo.TaskEndTime}}前完成</view>
     <view class="title flex">
       <image src="../../pages/images/task.png"></image>
@@ -15,10 +15,10 @@
       <text class="status" wx:if="{{!baseInfo.bTaskFinish}}"><text class="iconfont icon-warm-strock"></text>未完成</text>
       <text class="status1" wx:if="{{baseInfo.bTaskFinish}}">已完成</text>
     </view>
-  </view>
+  </view> -->
 
    <view class="task flex" bindtap="goLessonTask">
-    <view class="endtime">请于{{baseInfo.ListenTime}}前完成</view>
+    <!-- <view class="endtime">请于{{baseInfo.ListenTime}}前完成</view> -->
     <view class="title flex">
       <image src="../../pages/images/task.png"></image>
       <view class="content">

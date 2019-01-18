@@ -1,7 +1,8 @@
 var md51 = require('./md51.js');
 
-var htp = 'http://47.94.40.214:8083/';
-// var htp = 'http://47.94.40.214:8023/'; // 课酬用8023
+// var htp = 'https://tapitest.gaosiedu.com';   // 升班优惠券   測試環境
+var htp = 'http://47.94.40.214:8083/';   // 直播用8083   測試環境  15201614911
+// var htp = 'http://47.94.40.214:8023/'; // 课酬用8023  预发布环境  
 // var htp = 'https://teacherapi.gaosiedu.com/';
 
 function requestGet( url,callback){
@@ -27,6 +28,8 @@ function requestGet( url,callback){
     })
 }
 function requestPost(url,data,callback){
+     // console.log(md51.md5('appid=web&{"encryptedData":"CZvXLijH7yVekc25kfCAgKxtTfDegntoBfB1J93OA5Q","iv":"P6LMSKqCItiYMAp72C15Tg","code":"021zc12n0lz8ss1lcN1n0HRf2n0zc12H"}test'))
+
   wx.request({  
       url: htp + url,  //query：api+参数
       method:'post',
@@ -55,18 +58,20 @@ function request(option,success,fail){
     if(option.type=="get"){
       sign = md51.md5(option.query + 'test');
     }else if(option.type=="post"){
+      // console.log(option.query+'&'+ JSON.stringify(option.data) +'test')
       sign = md51.md5(option.query+'&'+ JSON.stringify(option.data) +'test');
+      // 
     }
     option.query = option.query +'&sign='+sign;
     wx.request({  
-      url: htp + option.api + '?' + option.query,  //url+api+参数
+      url: htp + option.api + '?' + option.query, //url+api+参数
       method: option.type,
-      data:option.data,
+      data: option.data,
       success:function(res){
         success(res)
       },
       fail: function(err){
-        console.log(err)
+        // console.log(err)
         wx.showModal({
           title: '提示',
           content:'网络或服务器出错,请稍后重试',

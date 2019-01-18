@@ -2,6 +2,7 @@
 var publicJs = require('../../utils/public.js');
 var md51 = require('../../utils/md51.js');
 var requests = require('../../utils/requests.js');
+var deleteUpload = require('../../utils/deleteUpload.js');
 //获取应用实例
 const app = getApp();
 var appKey = app.globalData.appKey;
@@ -37,12 +38,12 @@ Page({
     publicJs.getSystem(that,function(){
       that.setData({contentH: that.data.windowHeight - 50})
     });
-    this.getReserveClass()
+    // this.getReserveClass()
   },
   onShow:function(){
     var lessonTaskAudit = wx.getStorageSync('lessonTaskAudit');
     var PerpareLesson = wx.getStorageSync('PerpareLesson');
-    if(this.data.baseInfo && this.nowTipIndex!=null){
+    /*if(this.data.baseInfo && this.nowTipIndex!=null){
       if(this.data.baseInfo.ClassList[this.nowTipIndex].TaskAudit !=  lessonTaskAudit){
         this.getReserveClass()
       }
@@ -50,7 +51,8 @@ Page({
     console.log(PerpareLesson)
     if(PerpareLesson){
       this.getReserveClass()
-    }
+    }*/
+    this.getReserveClass()
   },
   onUnload: function(){
     var flag;
@@ -129,11 +131,30 @@ Page({
           if(res.data.ResultType == 0){
             var resData = res.data.AppendData;
             if(resData.ClassList!=null && resData.ClassList.length){
-              for(var i = 0; i < resData.ClassList.length; i++){
-                var item = resData.ClassList[i];
-                item.SemesterName = item.Semester == 1?'秋季班':(item.Semester == 2?'寒假班':(item.Semester == 3?'春季班':'暑假班'))
-                item.dtDate = item.dtDate.substr(0,item.dtDate.indexOf('T'))
-              }
+              
+                for(var i = 0; i < resData.ClassList.length; i++){
+                  (function(i){
+                    var item = resData.ClassList[i];
+                    item.SemesterName = item.Semester == 1?'秋季班':(item.Semester == 2?'寒假班':(item.Semester == 3?'春季班':'暑假班'))
+                    item.dtDate = item.dtDate.substr(0,item.dtDate.indexOf('T'))
+                    // item.totalNum = 10;
+                    // item.nowNum = 4;
+                    // if(item.totalNum!= item.nowNum){
+                    //   var query = {
+                    //     appid: appId,
+                    //     TrainCode: resData.TrainCode,
+                    //     LessonNo: item.LessonNo,
+                    //     ClassCode: item.ClassCode,
+                    //     timestamp: new Date().getTime(),
+                    //     token: that.data.teacherToken,
+                    //     TaskType: 2 // 2听课 1 作业
+                    //   }
+                    //   deleteUpload.deleteUpload(query)
+                    // }
+                    
+                  })(i)
+                }
+
             }
             resData.ListenTimeShort = resData.ListenTime.substr(0,resData.ListenTime.indexOf('T'))
             that.setData({baseInfo: resData})

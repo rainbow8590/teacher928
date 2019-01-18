@@ -13,7 +13,8 @@
                 <text class="dot" >●</text>
                 <view class="time">{{item.sClassQiShu}}{{item.sTime}} </view>
                 <view class="className">{{item.sClassName}}</view>
-                <view class="next">下一讲 第{{item.lessonArr[0].nLessonNo}}讲</view>
+                <!-- <view class="next">下一讲 第{{item.lessonArr[0].nLessonNo}}讲</view> -->
+                <view class="next">下一讲 第{{item.nLessonNo}}讲</view>
               </view>
             </block>
         </view>

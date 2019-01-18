@@ -48,7 +48,7 @@
       <view class="arrows arrowT"><text class="iconfont icon-arrowup"></text></view>
       <view class="floatC-item floatC-item1"><input type="text" value="{{inpValue}}" placeholder="请输入学校关键字进行搜索" bindinput="selectName" /></view>
       <view class="floatC">
-        <view class="floatC-item" data-id="0" bindtap="getIndex2">其他</view>
+        <!-- <view class="floatC-item" data-id="0" bindtap="getIndex2">其他</view> -->
         <view class="floatC-item" wx:for="{{setSchoolList}}" data-district="{{item.schoolDistrict}}" data-schoolname="{{item.schoolName}}" data-id="{{item.schoolId}}" bindtap="getIndex1">{{item.schoolName}}</view>
       </view>
       <view class="arrows arrowB"><text class="iconfont icon-arrowup"></text></view>
